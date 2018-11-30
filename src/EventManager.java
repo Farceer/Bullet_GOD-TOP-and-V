@@ -3,6 +3,9 @@
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Shape;
 
 public class EventManager {
 		
@@ -10,6 +13,8 @@ public class EventManager {
 	private Test test;
 	private Test toot;
 	private int step;
+	private final static int STEP_UP=-100;
+	private final static int STEP_DOWN=100;
 	private SleepThread sleep=new SleepThread();
 	private SleepThread sleep2=new SleepThread();
 	
@@ -33,12 +38,12 @@ public class EventManager {
 		
 		
         if(event.getCode()==KeyCode.W) {
-        	step=-100;
+        	step=STEP_UP;
         }
         else if(event.getCode()==KeyCode.S)
         {
         
-        	step=100;
+        	step=STEP_DOWN;
         }
         
         double a=test.getCenterY();
@@ -48,6 +53,8 @@ public class EventManager {
             test=new Test(120,a+step);
             this.root.getChildren().add(test);
         }
+      
+        	
         
         step=0;
         //sleep2.run();
@@ -84,5 +91,12 @@ public class EventManager {
        
        
     
+	}
+	void fire(KeyEvent event)
+	{	if(event.getCode()==KeyCode.LEFT)
+	{
+		Test bullet = new Circle(2.3, Color.GREENYELLOW);
+		root.getChildren().add(bullet);
+	}
 	}
 }
