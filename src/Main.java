@@ -13,7 +13,7 @@ public class Main extends Application
 	
   
     public void start(Stage theStage) 
-    {
+    {	Timer timer=new Timer();
         theStage.setTitle("BulletGod");
         Pane root = new Pane();
         
@@ -35,11 +35,14 @@ public class Main extends Application
         tt.setAutoReverse(true);
     
         tt.play();
-    	
+    		
+    
         	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.MoveUnitOne(event));
         	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.MoveUnitTwo(event));
-        	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.fire(event));
+        	//theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.fire(event));
+        timer.start(); 	
         theStage.show();
+       
     }
     
     public static void main(String[] args) 

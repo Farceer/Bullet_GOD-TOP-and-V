@@ -39,11 +39,13 @@ public class EventManager {
 		
         if(event.getCode()==KeyCode.W) {
         	step=STEP_UP;
+        	//sleep.run();
         }
         else if(event.getCode()==KeyCode.S)
         {
         
         	step=STEP_DOWN;
+        	//sleep.run();
         }
         
         double a=test.getCenterY();
@@ -92,11 +94,12 @@ public class EventManager {
        
     
 	}
-	void fire(KeyEvent event)
+	/*void fire(KeyEvent event)
 	{	if(event.getCode()==KeyCode.LEFT)
 	{
 		Test bullet = new Circle(2.3, Color.GREENYELLOW);
 		root.getChildren().add(bullet);
 	}
 	}
+	*/
 }
