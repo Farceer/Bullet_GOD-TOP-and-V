@@ -5,9 +5,9 @@ class Timer extends Thread{
 		while(true)
 		{
 		try{
-			Thread.sleep(1000);
-			time+=1;
-			System.out.println(time);
+			Thread.sleep(200);
+			time+=20;
+			//System.out.println(time);
 			}	
 		catch(InterruptedException e){}
 }

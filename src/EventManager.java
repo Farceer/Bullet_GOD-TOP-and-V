@@ -1,5 +1,7 @@
 
 
+import java.util.ArrayList;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -15,8 +17,9 @@ public class EventManager {
 	private int step;
 	private final static int STEP_UP=-100;
 	private final static int STEP_DOWN=100;
-	private SleepThread sleep=new SleepThread();
-	private SleepThread sleep2=new SleepThread();
+	public ArrayList<Bullet> bulletList;
+	//private SleepThread sleep=new SleepThread();
+	//private SleepThread sleep2=new SleepThread();
 	
 	
 	
@@ -25,6 +28,7 @@ public class EventManager {
 		this.root=root;
 		this.test=new Test(120,300);
 		this.toot=new Test(680,300);
+		bulletList=new ArrayList<Bullet>();
 	}
 	
 	void drawBoard()
@@ -36,16 +40,18 @@ public class EventManager {
 	void MoveUnitOne(KeyEvent event)
 	{
 		
-		
         if(event.getCode()==KeyCode.W) {
         	step=STEP_UP;
-        	//sleep.run();
+
+        	
         }
         else if(event.getCode()==KeyCode.S)
         {
         
         	step=STEP_DOWN;
-        	//sleep.run();
+  
+
+ 
         }
         
         double a=test.getCenterY();
@@ -94,12 +100,47 @@ public class EventManager {
        
     
 	}
-	/*void fire(KeyEvent event)
-	{	if(event.getCode()==KeyCode.LEFT)
+	void fireOne(KeyEvent event)
+	{	if(event.getCode()==KeyCode.D)
 	{
-		Test bullet = new Circle(2.3, Color.GREENYELLOW);
-		root.getChildren().add(bullet);
+		Bullet v=new Bullet(test.getCenterX(),test.getCenterY(),1);
+		bulletList.add(v);
+		root.getChildren().add(v.bullet);
 	}
+	
+	Thread a = new Thread(() -> {
+		while (true)
+		{
+			try
+			{	
+				//for(int i=0;i!=bulletList.size();i++)
+				//{
+					//root.getChildren().add(bulletList.get(i).bullet);
+			//	}
+				
+				
+				Thread.sleep(100);
+				for(int i=0;i!=bulletList.size();i++)
+				{
+					bulletList.get(i).update();
+				}
+				
+				
+				
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	});
+	
+	a.start();
 	}
-	*/
+	
+	
+	ArrayList<Bullet> getArray()
+	{
+		return bulletList;
+	}
 }

@@ -7,7 +7,7 @@ public class Character {
 	private int remainingMove;
 	private boolean isDead;
 	private int position_x;
-	private int position_y;
+	private int position_y; 
 	
 	
 	public int getHp() {

@@ -16,7 +16,6 @@ public class Main extends Application
     {	Timer timer=new Timer();
         theStage.setTitle("BulletGod");
         Pane root = new Pane();
-        
         Scene theScene = new Scene( root,800,600);
         theStage.setScene( theScene );
         
@@ -24,8 +23,8 @@ public class Main extends Application
         EventManager a = new EventManager(root);
         a.drawBoard();
         
-        Test rect = new Test(120,100);
-        root.getChildren().add(rect);
+        /*Test rect = new Test(120,100);
+        /root.getChildren().add(rect);
       
         rect.setFill(Color.VIOLET);
     
@@ -35,12 +34,15 @@ public class Main extends Application
         tt.setAutoReverse(true);
     
         tt.play();
-    		
+    		*/
+        root.getChildren().add(new Bullet(100,100,1).bullet);
+        
     
         	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.MoveUnitOne(event));
         	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.MoveUnitTwo(event));
-        	//theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.fire(event));
-        timer.start(); 	
+        	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.fireOne(event));
+        	//theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.fireTwo(event));
+        timer.start();
         theStage.show();
        
     }
@@ -50,4 +52,5 @@ public class Main extends Application
         launch(args);
     }
  
+    
 }
