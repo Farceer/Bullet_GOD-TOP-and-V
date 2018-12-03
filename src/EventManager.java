@@ -2,6 +2,7 @@
 
 import java.util.ArrayList;
 
+import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -110,7 +111,8 @@ public class EventManager {
 	
 	Thread a = new Thread(() -> {
 		while (true)
-		{
+		{	
+			
 			try
 			{	
 				//for(int i=0;i!=bulletList.size();i++)
@@ -119,11 +121,37 @@ public class EventManager {
 			//	}
 				
 				
-				Thread.sleep(100);
-				for(int i=0;i!=bulletList.size();i++)
+				Thread.sleep(500);
+				Platform.runLater(new Runnable(){
+					
+					public void run() {
+						for(Bullet x:bulletList)
+							
+							
+						{	
+							
+							if(x.bullet.getX()<=799)
+						{
+								x.bullet.setX(x.bullet.getX()+1);
+						}
+							
+						}
+						
+					}
+					});
+				
+				ArrayList<Bullet> A=(ArrayList<Bullet>) bulletList.clone();
+				for(int i=bulletList.size()-1;i!=-1;i--)
 				{
-					bulletList.get(i).update();
+					if(bulletList.get(i).bullet.getX()>799)
+					{
+						A.remove(i);
+					}
 				}
+				bulletList=(ArrayList<Bullet>) A.clone();
+				
+				
+				Thread.sleep(500);
 				
 				
 				

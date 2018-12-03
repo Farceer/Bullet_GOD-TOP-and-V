@@ -21,7 +21,7 @@ public class Bullet {
 	}
 	public void update()
 	{
-		bullet.setX(bullet.getX()+10);
+		bullet.setX(bullet.getX()+1);
 	}
 	
 	
