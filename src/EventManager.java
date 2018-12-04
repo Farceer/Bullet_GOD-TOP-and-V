@@ -19,6 +19,7 @@ public class EventManager {
 	private final static int STEP_UP=-100;
 	private final static int STEP_DOWN=100;
 	public ArrayList<Bullet> bulletList;
+	private boolean gg=true;
 	//private SleepThread sleep=new SleepThread();
 	//private SleepThread sleep2=new SleepThread();
 	
@@ -108,62 +109,66 @@ public class EventManager {
 		bulletList.add(v);
 		root.getChildren().add(v.bullet);
 	}
-	
-	Thread a = new Thread(() -> {
-		while (true)
-		{	
-			
-			try
+	if(gg)
+	{	gg=false;
+		Thread a = new Thread(() -> {
+			while (true)
 			{	
-				//for(int i=0;i!=bulletList.size();i++)
-				//{
-					//root.getChildren().add(bulletList.get(i).bullet);
-			//	}
 				
-				
-				Thread.sleep(500);
-				Platform.runLater(new Runnable(){
+				try
+				{	
+					//for(int i=0;i!=bulletList.size();i++)
+					//{
+						//root.getChildren().add(bulletList.get(i).bullet);
+				//	}
 					
-					public void run() {
-						for(Bullet x:bulletList)
-							
-							
-						{	
-							
-							if(x.bullet.getX()<=799)
-						{
-								x.bullet.setX(x.bullet.getX()+1);
-						}
-							
-						}
+					
+					Thread.sleep(10);
+					Platform.runLater(new Runnable(){
 						
-					}
-					});
-				
-				ArrayList<Bullet> A=(ArrayList<Bullet>) bulletList.clone();
-				for(int i=bulletList.size()-1;i!=-1;i--)
-				{
-					if(bulletList.get(i).bullet.getX()>799)
+						public void run() {
+							for(Bullet x:bulletList)
+								
+								
+							{	
+								
+								if(x.bullet.getX()<=799)
+							{
+									x.bullet.setX(x.bullet.getX()+5);
+							}
+								
+							}
+							
+						}
+						});
+					
+					ArrayList<Bullet> A=(ArrayList<Bullet>) bulletList.clone();
+					for(int i=bulletList.size()-1;i!=-1;i--)
 					{
-						A.remove(i);
+						if(bulletList.get(i).bullet.getX()>799)
+						{
+							A.remove(i);
+						}
 					}
+					bulletList=(ArrayList<Bullet>) A.clone();
+					
+					
+					Thread.sleep(10);
+					
+					
+					
 				}
-				bulletList=(ArrayList<Bullet>) A.clone();
-				
-				
-				Thread.sleep(500);
-				
-				
-				
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
 			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		}
-	});
+		});
+		
+		a.start();
+		
+	}
 	
-	a.start();
 	}
 	
 	
