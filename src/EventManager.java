@@ -4,13 +4,18 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.util.Duration;
 
 public class EventManager {
 		
@@ -26,6 +31,8 @@ public class EventManager {
 	//private SleepThread sleep2=new SleepThread();
 	private FileInputStream ShipLeftinputstream = new FileInputStream("res/BlueShip/Blue Ship.png");
 	private FileInputStream ShipRightinputstream = new FileInputStream("res/RedShip/Red Ship.jpg");
+	private FileInputStream RedBomb=new FileInputStream("res/RedShip/Red Ship exposive.png");
+	private FileInputStream BlueBomb=new FileInputStream("res/BlueShip/Blue Ship exposive.png");
 	
 	//getShipLeftinputstream();
 	//getShipRigtinputstream();
@@ -161,6 +168,17 @@ public class EventManager {
 										x.getImageView().setVisible(false);
 										y.getImageView().setVisible(false);
 										
+										Circle rect = new Circle(x.getX_axis()+25,x.getY_axis()+25,45);
+								        root.getChildren().add(rect);
+								      
+								        rect.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+								    
+								        FadeTransition ft = new FadeTransition(Duration.millis(200), rect);
+								        ft.setFromValue(1);
+								        ft.setToValue(0);
+								        ft.setCycleCount(1);
+								        ft.play();
+										
 									}
 									
 								}
@@ -171,16 +189,13 @@ public class EventManager {
 								}
 								
 								
-								
+								if(x.getImageView().getX()>=850 || x.getImageView().getX()<=-20)
+								{
+									bulletList.remove(x);
+								}
 							}
 							
-							for(int i=bulletList.size()-1;i!=-1;i--)
-							{	if(bulletList.get(i).getImageView().getX()>=850 || bulletList.get(i).getImageView().getX()<=-20)
-							{
-								bulletList.remove(i);
-							}
-								
-							}
+							
 		
 						}
 						});
@@ -207,17 +222,19 @@ public class EventManager {
 	
 	}
 	
-	
-	ArrayList<Bullet> getArray()
+	void Bomb(double X_axis ,double Y_axis,FileInputStream inputstream)
 	{
-		return bulletList;
+		
+		
 	}
 
 	public FileInputStream getShipLeftinputstream() {
+
 		return ShipLeftinputstream;
 	}
 
 	public FileInputStream getShipRightinputstream() {
 		return ShipRightinputstream;
 	}
+
 }

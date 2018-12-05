@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -24,18 +25,22 @@ public class Main extends Application
         theStage.setResizable(false);
         EventManager a = new EventManager(root);
         a.drawBoard();
-        
-        /*Test rect = new Test(120,100);
-        /root.getChildren().add(rect);
-      
+       
+        Rectangle rect = new Rectangle (100, 40, 100, 100);
+        root.getChildren().add(rect);
+        rect.setArcHeight(50);
+        rect.setArcWidth(50);
         rect.setFill(Color.VIOLET);
     
-        TranslateTransition tt = new TranslateTransition(Duration.seconds(0.2), rect);
-        tt.setByX(560);
-        tt.setCycleCount(1000);
-        tt.setAutoReverse(true);
+        FadeTransition ft = new FadeTransition(Duration.millis(300), rect);
+        ft.setFromValue(1.0);
+        ft.setToValue(0);
+        ft.setCycleCount(1);
+        ft.play();
+        
+        //ft.setAutoReverse(true);
     
-        tt.play();    		*/
+         		
         
         
     
