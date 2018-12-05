@@ -35,14 +35,8 @@ public class Main extends Application
         tt.setCycleCount(1000);
         tt.setAutoReverse(true);
     
-<<<<<<< HEAD
-        tt.play();
-    		*/
-        //root.getChildren().add(new Bullet(100,100,1).bullet);
-=======
         tt.play();    		*/
         
->>>>>>> cd6c1cd52ad44431ef340ea7952a99774948986c
         
     
         	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.MoveUnitOne(event));

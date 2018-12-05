@@ -5,23 +5,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Bullet {
-<<<<<<< HEAD
-		
-	
-
-	public Rectangle bullet=new Rectangle();
-	public int direction;
-	public int speed=5;
-	public int damage;
-	
-	public Bullet(double x,double y,int z) {
-		bullet.setX(x);
-		bullet.setY(y);
-		bullet.setWidth(20);
-		bullet.setHeight(10);
-		direction=z;
-		damage=1;
-=======
 		 
 	private Image bullet ;
 	//public Rectangle bullet=new Rectangle();
@@ -35,12 +18,11 @@ public class Bullet {
 		imageView.setX(X_axis);
 		imageView.setY(Y_axis);
 		direction=Direction;
->>>>>>> cd6c1cd52ad44431ef340ea7952a99774948986c
 		
 	}
 	public void update()
 	{
-		imageView.setX(imageView.getX()+10*direction);
+		imageView.setX(imageView.getX()+5*direction);
 	}
 	public int getDirection() {
 		return direction;

@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -16,50 +15,30 @@ import javafx.scene.shape.Shape;
 public class EventManager {
 		
 	private Pane root;
-	private Unit test;
-	private Unit toot;
+	private Test test;
+	private Test toot;
 	private int step;
 	private final static int STEP_UP=-100;
 	private final static int STEP_DOWN=100;
-	public static ArrayList<Bullet> bulletList;
+	public ArrayList<Bullet> bulletList;
 	private boolean gg=true;
-	private Label labelOne;
-	private Label labelTwo;
-	public static int hpOne;
-	public static int hpTwo;
-	
+	//private SleepThread sleep=new SleepThread();
+	//private SleepThread sleep2=new SleepThread();
 	
 	
 	
 	public EventManager(Pane root)
 	{
 		this.root=root;
-		this.test=new Unit(120,300);
-		this.toot=new Unit(680,300);
+		this.test=new Test(120,300);
+		this.toot=new Test(680,300);
 		bulletList=new ArrayList<Bullet>();
 	}
 	
 	void drawBoard()
 	{
-		this.root.getChildren().add(test.unit);
-		this.root.getChildren().add(toot.unit);
-		hpOne=test.hp;
-		hpTwo=toot.hp;
-		labelOne=new Label(Integer.toString(test.hp));
-		labelOne.setLayoutX(50);
-		labelOne.setLayoutY(50);
-		
-		
-		this.root.getChildren().add(labelOne);
-		
-		
-		labelOne=new Label(Integer.toString(1));
-		labelOne.setLayoutX(50);
-		labelOne.setLayoutY(50);
-	
-		
-		this.root.getChildren().add(labelOne);
-
+		this.root.getChildren().add(test);
+		this.root.getChildren().add(toot);
 	}
 	
 	void MoveUnitOne(KeyEvent event)
@@ -79,12 +58,12 @@ public class EventManager {
  
         }
         
-        double a=test.unit.getCenterY();
-        if(test.unit.getCenterY()+step>=100 && test.unit.getCenterY()+step<=500)
+        double a=test.getCenterY();
+        if(test.getCenterY()+step>=100 && test.getCenterY()+step<=500)
         {
-        	this.root.getChildren().remove(test.unit);
-            test=new Unit(120,a+step);
-            this.root.getChildren().add(test.unit);
+        	this.root.getChildren().remove(test);
+            test=new Test(120,a+step);
+            this.root.getChildren().add(test);
         }
       
         	
@@ -110,12 +89,12 @@ public class EventManager {
         	step=100;
         }
         
-        double a=toot.unit.getCenterY();
-        if(toot.unit.getCenterY()+step>=100 && toot.unit.getCenterY()+step<=500)
+        double a=toot.getCenterY();
+        if(toot.getCenterY()+step>=100 && toot.getCenterY()+step<=500)
         {
-        	this.root.getChildren().remove(toot.unit);
-            toot=new Unit(680,a+step);
-            this.root.getChildren().add(toot.unit);
+        	this.root.getChildren().remove(toot);
+            toot=new Test(680,a+step);
+            this.root.getChildren().add(toot);
         }
         
         step=0;
@@ -125,31 +104,18 @@ public class EventManager {
        
     
 	}
-<<<<<<< HEAD
-	void fireOne(KeyEvent event)
-	{	
-			
-		if(event.getCode()==KeyCode.D)
-	{
-		Bullet v=new Bullet(test.unit.getCenterX(),test.unit.getCenterY(),1);
-=======
 	void fireOne(KeyEvent event) throws FileNotFoundException
 	{	if(event.getCode()==KeyCode.D)
 	{
-		FileInputStream inputstream = new FileInputStream("C:\\Users\\Warit\\eclipse-workspace\\-Bullet_GOD-TOP-and-V\\src\\res\\BlueShip\\Blue Ship bullet_.png");
+		FileInputStream inputstream = new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png");
 		Bullet v=new Bullet(test.getCenterX(),test.getCenterY(),1,inputstream);
->>>>>>> cd6c1cd52ad44431ef340ea7952a99774948986c
 		bulletList.add(v);
 		root.getChildren().add(v.getImageView());
 	}
 	else if(event.getCode()==KeyCode.LEFT)
 		{
-<<<<<<< HEAD
-			Bullet v=new Bullet(toot.unit.getCenterX(),toot.unit.getCenterY(),-1);
-=======
-			FileInputStream inputstream = new FileInputStream("C:\\Users\\Warit\\eclipse-workspace\\-Bullet_GOD-TOP-and-V\\src\\res\\RedShip\\Red Ship bullet.png");
+			FileInputStream inputstream = new FileInputStream("res/RedShip/Red Ship bullet.png");
 			Bullet v=new Bullet(toot.getCenterX(),toot.getCenterY(),-1,inputstream);
->>>>>>> cd6c1cd52ad44431ef340ea7952a99774948986c
 			bulletList.add(v);
 			root.getChildren().add(v.getImageView());
 		}
@@ -158,7 +124,6 @@ public class EventManager {
 		Thread a = new Thread(() -> {
 			while (true)
 			{	
-				
 				
 				try
 				{	
@@ -196,34 +161,26 @@ public class EventManager {
 									}
 								}
 								
-								if(x.bullet.getX()==test.unit.getCenterX() && x.bullet.getY()==test.unit.getCenterY() && x.bullet.isVisible())
-								{
-									x.bullet.setVisible(false);
-									hpOne-=1;
-						
-									test.setHp(hpOne);
-									System.out.println(test.hp);
-									  
-								}
-								
 								
 								
 							}
 							
-							for(Bullet x:bulletList)
-							{	if(x.getImageView().getX()>=800 && x.getImageView().getX()<=0)
+							for(int i=bulletList.size()-1;i!=-1;i--)
+							{	if(bulletList.get(i).getImageView().getX()>=850 || bulletList.get(i).getImageView().getX()<=-20)
 							{
-								bulletList.remove(x);
+								bulletList.remove(i);
 							}
 								
 							}
-							
+		
 						}
 						});
 					
-			
+					//ArrayList<Bullet> A=(ArrayList<Bullet>) bulletList.clone();
+		
 					
-					Thread.sleep(10);
+					
+					//Thread.sleep(10);
 					
 					
 					
