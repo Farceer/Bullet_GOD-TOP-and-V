@@ -14,11 +14,11 @@ public class Main extends Application
 {	
 	
   
-    public void start(Stage theStage) 
+    public void start(Stage theStage) throws FileNotFoundException 
     {	Timer timer=new Timer();
         theStage.setTitle("BulletGod");
         Pane root = new Pane();
-        Scene theScene = new Scene( root,800,600);
+        Scene theScene = new Scene( root,2000,2000);
         theStage.setScene( theScene );
         
         theStage.setResizable(false);

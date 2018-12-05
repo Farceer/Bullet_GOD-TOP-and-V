@@ -15,8 +15,8 @@ import javafx.scene.shape.Shape;
 public class EventManager {
 		
 	private Pane root;
-	private Test test;
-	private Test toot;
+	private SpaceShip ShipLeft;
+	private SpaceShip ShipRight;
 	private int step;
 	private final static int STEP_UP=-100;
 	private final static int STEP_DOWN=100;
@@ -24,21 +24,24 @@ public class EventManager {
 	private boolean gg=true;
 	//private SleepThread sleep=new SleepThread();
 	//private SleepThread sleep2=new SleepThread();
+	private FileInputStream ShipLeftinputstream = new FileInputStream("res/BlueShip/Blue Ship.png");
+	private FileInputStream ShipRightinputstream = new FileInputStream("res/RedShip/Red Ship.jpg");
 	
-	
-	
-	public EventManager(Pane root)
+	//getShipLeftinputstream();
+	//getShipRigtinputstream();
+	public EventManager(Pane root) throws FileNotFoundException
 	{
 		this.root=root;
-		this.test=new Test(120,300);
-		this.toot=new Test(680,300);
+		
+		this.ShipLeft=new SpaceShip(120,300,ShipLeftinputstream);
+		this.ShipRight=new SpaceShip(680,300,ShipRightinputstream);
 		bulletList=new ArrayList<Bullet>();
 	}
 	
 	void drawBoard()
 	{
-		this.root.getChildren().add(test);
-		this.root.getChildren().add(toot);
+		this.root.getChildren().add(ShipLeft.getSpaceShip());
+		this.root.getChildren().add(ShipRight.getSpaceShip());
 	}
 	
 	void MoveUnitOne(KeyEvent event)
@@ -57,13 +60,16 @@ public class EventManager {
 
  
         }
+        //************************************* Fix Center *************************************//
+        double a = ShipLeft.getCenterY();;
         
-        double a=test.getCenterY();
-        if(test.getCenterY()+step>=100 && test.getCenterY()+step<=500)
+      
+      //************************************* Fix Center *************************************//
+        if(ShipLeft.getCenterY()+step>=100 && ShipLeft.getCenterY()+step<=500)
         {
-        	this.root.getChildren().remove(test);
-            test=new Test(120,a+step);
-            this.root.getChildren().add(test);
+        	this.root.getChildren().remove(ShipLeft.getSpaceShip());
+            ShipLeft=new SpaceShip(120,a+step,ShipLeftinputstream);
+            this.root.getChildren().add(ShipLeft.getSpaceShip());
         }
       
         	
@@ -88,13 +94,14 @@ public class EventManager {
         
         	step=100;
         }
-        
-        double a=toot.getCenterY();
-        if(toot.getCenterY()+step>=100 && toot.getCenterY()+step<=500)
+      //************************************* Fix Center *************************************//
+        double a=ShipRight.getCenterY();
+      //************************************* Fix Center *************************************//
+        if(ShipRight.getCenterY()+step>=100 && ShipRight.getCenterY()+step<=500)
         {
-        	this.root.getChildren().remove(toot);
-            toot=new Test(680,a+step);
-            this.root.getChildren().add(toot);
+        	this.root.getChildren().remove(ShipRight.getSpaceShip());
+            ShipRight=new SpaceShip(680,a+step,ShipRightinputstream);
+            this.root.getChildren().add(ShipRight.getSpaceShip());
         }
         
         step=0;
@@ -108,14 +115,14 @@ public class EventManager {
 	{	if(event.getCode()==KeyCode.D)
 	{
 		FileInputStream inputstream = new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png");
-		Bullet v=new Bullet(test.getCenterX(),test.getCenterY(),1,inputstream);
+		Bullet v=new Bullet(ShipLeft.getCenterX(),ShipLeft.getCenterY(),1,inputstream);
 		bulletList.add(v);
 		root.getChildren().add(v.getImageView());
 	}
 	else if(event.getCode()==KeyCode.LEFT)
 		{
 			FileInputStream inputstream = new FileInputStream("res/RedShip/Red Ship bullet.png");
-			Bullet v=new Bullet(toot.getCenterX(),toot.getCenterY(),-1,inputstream);
+			Bullet v=new Bullet(ShipRight.getCenterX(),ShipRight.getCenterY(),-1,inputstream);
 			bulletList.add(v);
 			root.getChildren().add(v.getImageView());
 		}
@@ -202,5 +209,13 @@ public class EventManager {
 	ArrayList<Bullet> getArray()
 	{
 		return bulletList;
+	}
+
+	public FileInputStream getShipLeftinputstream() {
+		return ShipLeftinputstream;
+	}
+
+	public FileInputStream getShipRightinputstream() {
+		return ShipRightinputstream;
 	}
 }
