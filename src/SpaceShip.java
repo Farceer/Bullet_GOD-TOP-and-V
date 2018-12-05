@@ -9,8 +9,11 @@ public class SpaceShip {
 	private Image Ship;
 	//************************************* Fix Center *************************************//
 	public SpaceShip(double X_axis, double Y_axis, FileInputStream inputstream) {
-		Ship = new Image(inputstream, 276, 393, false, false);
+		Ship = new Image(inputstream, 50, 50, false, false);
+		
 		SpaceShip = new ImageView(Ship);
+		SpaceShip.setFitHeight(100);
+		SpaceShip.setFitWidth(50);
 		SpaceShip.setPreserveRatio(true);
 		SpaceShip.setX(X_axis);
 		SpaceShip.setY(Y_axis);
@@ -47,7 +50,7 @@ public class SpaceShip {
 		getSpaceShip().setY(y_axis);
 	}
 ///////////////////////////////////////////////////////************************************* Fix Center *************************************//
-	public double getCenterY() {
+	public double getdeenterY() {
 		return 0;
 
 	}

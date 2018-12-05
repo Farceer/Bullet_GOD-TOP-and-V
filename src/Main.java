@@ -18,7 +18,7 @@ public class Main extends Application
     {	Timer timer=new Timer();
         theStage.setTitle("BulletGod");
         Pane root = new Pane();
-        Scene theScene = new Scene( root,2000,2000);
+        Scene theScene = new Scene( root,800,600);
         theStage.setScene( theScene );
         
         theStage.setResizable(false);

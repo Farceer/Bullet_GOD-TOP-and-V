@@ -61,15 +61,13 @@ public class EventManager {
  
         }
         //************************************* Fix Center *************************************//
-        double a = ShipLeft.getCenterY();;
+        double a = ShipLeft.getSpaceShip().getY();
         
       
       //************************************* Fix Center *************************************//
-        if(ShipLeft.getCenterY()+step>=100 && ShipLeft.getCenterY()+step<=500)
+        if(ShipLeft.getY_axis()+step>=100 && ShipLeft.getY_axis()+step<=500)
         {
-        	this.root.getChildren().remove(ShipLeft.getSpaceShip());
-            ShipLeft=new SpaceShip(120,a+step,ShipLeftinputstream);
-            this.root.getChildren().add(ShipLeft.getSpaceShip());
+        	ShipLeft.setY_axis(ShipLeft.getY_axis()+step);
         }
       
         	
@@ -95,13 +93,11 @@ public class EventManager {
         	step=100;
         }
       //************************************* Fix Center *************************************//
-        double a=ShipRight.getCenterY();
+        double a=ShipRight.getSpaceShip().getY();
       //************************************* Fix Center *************************************//
-        if(ShipRight.getCenterY()+step>=100 && ShipRight.getCenterY()+step<=500)
+        if(ShipRight.getSpaceShip().getY()+step>=100 && ShipRight.getSpaceShip().getY()+step<=500)
         {
-        	this.root.getChildren().remove(ShipRight.getSpaceShip());
-            ShipRight=new SpaceShip(680,a+step,ShipRightinputstream);
-            this.root.getChildren().add(ShipRight.getSpaceShip());
+        	ShipRight.setY_axis(ShipRight.getY_axis()+step);
         }
         
         step=0;
@@ -115,14 +111,14 @@ public class EventManager {
 	{	if(event.getCode()==KeyCode.D)
 	{
 		FileInputStream inputstream = new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png");
-		Bullet v=new Bullet(ShipLeft.getCenterX(),ShipLeft.getCenterY(),1,inputstream);
+		Bullet v=new Bullet(ShipLeft.getSpaceShip().getX(),ShipLeft.getSpaceShip().getY(),1,inputstream);
 		bulletList.add(v);
 		root.getChildren().add(v.getImageView());
 	}
 	else if(event.getCode()==KeyCode.LEFT)
 		{
 			FileInputStream inputstream = new FileInputStream("res/RedShip/Red Ship bullet.png");
-			Bullet v=new Bullet(ShipRight.getCenterX(),ShipRight.getCenterY(),-1,inputstream);
+			Bullet v=new Bullet(ShipRight.getSpaceShip().getX(),ShipRight.getSpaceShip().getY(),-1,inputstream);
 			bulletList.add(v);
 			root.getChildren().add(v.getImageView());
 		}
@@ -166,6 +162,12 @@ public class EventManager {
 										y.getImageView().setVisible(false);
 										
 									}
+									
+								}
+								if(x.getX_axis()==ShipLeft.getX_axis() && x.getY_axis()==ShipLeft.getY_axis() && x.getImageView().isVisible())
+								{
+									x.getImageView().setVisible(false);
+									  
 								}
 								
 								
