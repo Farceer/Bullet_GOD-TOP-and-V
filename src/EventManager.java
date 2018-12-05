@@ -139,28 +139,42 @@ public class EventManager {
 							{	
 								
 								if(x.bullet.getX()<=800 && x.bullet.getX()>=0)
-							{
+								{
 									x.update();
-							}
+								}
 								else
 								{
 									x.bullet.setVisible(false);
 								}
+								
+								for(Bullet y:bulletList)
+								{
+									if(y.direction==(-1)*x.direction && y.bullet.getX()==x.bullet.getX() && x.bullet.getY()==y.bullet.getY() && x.bullet.isVisible() && y.bullet.isVisible())
+									{
+										x.bullet.setVisible(false);
+										y.bullet.setVisible(false);
+										
+									}
+								}
+								
+								
+								
+							}
+							
+							for(Bullet x:bulletList)
+							{	if(x.bullet.getX()>=800 && x.bullet.getX()<=0)
+							{
+								bulletList.remove(x);
+							}
 								
 							}
 							
 						}
 						});
 					
-					ArrayList<Bullet> A=(ArrayList<Bullet>) bulletList.clone();
-					for(int i=bulletList.size()-1;i!=-1;i--)
-					{
-						if(bulletList.get(i).bullet.getX()>=800 && bulletList.get(i).bullet.getX()<=0 )
-						{
-							bulletList.remove(i);
-						}
-					}
-					bulletList=(ArrayList<Bullet>) A.clone();
+					//ArrayList<Bullet> A=(ArrayList<Bullet>) bulletList.clone();
+			
+					//bulletList=(ArrayList<Bullet>) A.clone();
 					
 					
 					Thread.sleep(10);
