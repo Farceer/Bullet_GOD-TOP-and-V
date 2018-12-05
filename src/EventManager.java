@@ -1,5 +1,7 @@
 
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javafx.application.Platform;
@@ -102,18 +104,20 @@ public class EventManager {
        
     
 	}
-	void fireOne(KeyEvent event)
+	void fireOne(KeyEvent event) throws FileNotFoundException
 	{	if(event.getCode()==KeyCode.D)
 	{
-		Bullet v=new Bullet(test.getCenterX(),test.getCenterY(),1);
+		FileInputStream inputstream = new FileInputStream("C:\\Users\\Warit\\eclipse-workspace\\-Bullet_GOD-TOP-and-V\\src\\res\\BlueShip\\Blue Ship bullet_.png");
+		Bullet v=new Bullet(test.getCenterX(),test.getCenterY(),1,inputstream);
 		bulletList.add(v);
-		root.getChildren().add(v.bullet);
+		root.getChildren().add(v.getImageView());
 	}
 	else if(event.getCode()==KeyCode.LEFT)
 		{
-			Bullet v=new Bullet(toot.getCenterX(),toot.getCenterY(),-1);
+			FileInputStream inputstream = new FileInputStream("C:\\Users\\Warit\\eclipse-workspace\\-Bullet_GOD-TOP-and-V\\src\\res\\RedShip\\Red Ship bullet.png");
+			Bullet v=new Bullet(toot.getCenterX(),toot.getCenterY(),-1,inputstream);
 			bulletList.add(v);
-			root.getChildren().add(v.bullet);
+			root.getChildren().add(v.getImageView());
 		}
 	if(gg)
 	{	gg=false;
@@ -138,21 +142,21 @@ public class EventManager {
 								
 							{	
 								
-								if(x.bullet.getX()<=800 && x.bullet.getX()>=0)
+								if(x.getImageView().getX()<=800 && x.getImageView().getX()>=0)
 								{
 									x.update();
 								}
 								else
 								{
-									x.bullet.setVisible(false);
+									x.getImageView().setVisible(false);
 								}
 								
 								for(Bullet y:bulletList)
 								{
-									if(y.direction==(-1)*x.direction && y.bullet.getX()==x.bullet.getX() && x.bullet.getY()==y.bullet.getY() && x.bullet.isVisible() && y.bullet.isVisible())
+									if(y.getDirection()==(-1)*x.getDirection() && y.getImageView().getX()==x.getImageView().getX() && x.getImageView().getY()==y.getImageView().getY() && x.getImageView().isVisible() && y.getImageView().isVisible())
 									{
-										x.bullet.setVisible(false);
-										y.bullet.setVisible(false);
+										x.getImageView().setVisible(false);
+										y.getImageView().setVisible(false);
 										
 									}
 								}
@@ -162,7 +166,7 @@ public class EventManager {
 							}
 							
 							for(Bullet x:bulletList)
-							{	if(x.bullet.getX()>=800 && x.bullet.getX()<=0)
+							{	if(x.getImageView().getX()>=800 && x.getImageView().getX()<=0)
 							{
 								bulletList.remove(x);
 							}
