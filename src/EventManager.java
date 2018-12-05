@@ -3,6 +3,7 @@
 import java.util.ArrayList;
 
 import javafx.application.Platform;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -18,9 +19,13 @@ public class EventManager {
 	private int step;
 	private final static int STEP_UP=-100;
 	private final static int STEP_DOWN=100;
-	public ArrayList<Bullet> bulletList;
+	public static ArrayList<Bullet> bulletList;
 	private boolean gg=true;
-
+	private Label labelOne;
+	private Label labelTwo;
+	public static int hpOne;
+	public static int hpTwo;
+	
 	
 	
 	
@@ -36,6 +41,22 @@ public class EventManager {
 	{
 		this.root.getChildren().add(test.unit);
 		this.root.getChildren().add(toot.unit);
+		hpOne=test.hp;
+		hpTwo=toot.hp;
+		labelOne=new Label(Integer.toString(test.hp));
+		labelOne.setLayoutX(50);
+		labelOne.setLayoutY(50);
+		
+		
+		this.root.getChildren().add(labelOne);
+		
+		
+		labelOne=new Label(Integer.toString(1));
+		labelOne.setLayoutX(50);
+		labelOne.setLayoutY(50);
+	
+		
+		this.root.getChildren().add(labelOne);
 
 	}
 	
@@ -103,7 +124,9 @@ public class EventManager {
     
 	}
 	void fireOne(KeyEvent event)
-	{	if(event.getCode()==KeyCode.D)
+	{	
+			
+		if(event.getCode()==KeyCode.D)
 	{
 		Bullet v=new Bullet(test.unit.getCenterX(),test.unit.getCenterY(),1);
 		bulletList.add(v);
@@ -120,6 +143,7 @@ public class EventManager {
 		Thread a = new Thread(() -> {
 			while (true)
 			{	
+				
 				
 				try
 				{	
@@ -155,6 +179,16 @@ public class EventManager {
 										y.bullet.setVisible(false);
 										
 									}
+								}
+								
+								if(x.bullet.getX()==test.unit.getCenterX() && x.bullet.getY()==test.unit.getCenterY() && x.bullet.isVisible())
+								{
+									x.bullet.setVisible(false);
+									hpOne-=1;
+						
+									test.setHp(hpOne);
+									System.out.println(test.hp);
+									  
 								}
 								
 								

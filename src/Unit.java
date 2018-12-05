@@ -4,7 +4,19 @@ public class Unit extends Circle{
 		private int x;
 		private int y;
 		public Circle unit=new Circle();
-		private int hp;
+		public int hp;
+	public Circle getUnit() {
+			return unit;
+		}
+		public void setUnit(Circle unit) {
+			this.unit = unit;
+		}
+		public int getHp() {
+			return hp;
+		}
+		public void setHp(int hp) {
+			this.hp = hp;
+		}
 	public Unit(double x, double y) {
         unit.setCenterX(x);
         unit.setCenterY(y);
@@ -22,6 +34,10 @@ public class Unit extends Circle{
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	public void hit()
+	{
+		this.hp-=1;
 	}
 	
 	//public void takeDamage

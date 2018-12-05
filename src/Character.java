@@ -1,4 +1,5 @@
 
+
 public class Character {
 	private int hp;
 	private int remainingShot;
@@ -7,7 +8,9 @@ public class Character {
 	private int remainingMove;
 	private boolean isDead;
 	private int position_x;
-	private int position_y; 
+	private int position_y;
+	
+
 	
 	
 	public int getHp() {
