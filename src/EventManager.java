@@ -13,30 +13,30 @@ import javafx.scene.shape.Shape;
 public class EventManager {
 		
 	private Pane root;
-	private Test test;
-	private Test toot;
+	private Unit test;
+	private Unit toot;
 	private int step;
 	private final static int STEP_UP=-100;
 	private final static int STEP_DOWN=100;
 	public ArrayList<Bullet> bulletList;
 	private boolean gg=true;
-	//private SleepThread sleep=new SleepThread();
-	//private SleepThread sleep2=new SleepThread();
+
 	
 	
 	
 	public EventManager(Pane root)
 	{
 		this.root=root;
-		this.test=new Test(120,300);
-		this.toot=new Test(680,300);
+		this.test=new Unit(120,300);
+		this.toot=new Unit(680,300);
 		bulletList=new ArrayList<Bullet>();
 	}
 	
 	void drawBoard()
 	{
-		this.root.getChildren().add(test);
-		this.root.getChildren().add(toot);
+		this.root.getChildren().add(test.unit);
+		this.root.getChildren().add(toot.unit);
+
 	}
 	
 	void MoveUnitOne(KeyEvent event)
@@ -56,12 +56,12 @@ public class EventManager {
  
         }
         
-        double a=test.getCenterY();
-        if(test.getCenterY()+step>=100 && test.getCenterY()+step<=500)
+        double a=test.unit.getCenterY();
+        if(test.unit.getCenterY()+step>=100 && test.unit.getCenterY()+step<=500)
         {
-        	this.root.getChildren().remove(test);
-            test=new Test(120,a+step);
-            this.root.getChildren().add(test);
+        	this.root.getChildren().remove(test.unit);
+            test=new Unit(120,a+step);
+            this.root.getChildren().add(test.unit);
         }
       
         	
@@ -87,12 +87,12 @@ public class EventManager {
         	step=100;
         }
         
-        double a=toot.getCenterY();
-        if(toot.getCenterY()+step>=100 && toot.getCenterY()+step<=500)
+        double a=toot.unit.getCenterY();
+        if(toot.unit.getCenterY()+step>=100 && toot.unit.getCenterY()+step<=500)
         {
-        	this.root.getChildren().remove(toot);
-            toot=new Test(680,a+step);
-            this.root.getChildren().add(toot);
+        	this.root.getChildren().remove(toot.unit);
+            toot=new Unit(680,a+step);
+            this.root.getChildren().add(toot.unit);
         }
         
         step=0;
@@ -105,13 +105,13 @@ public class EventManager {
 	void fireOne(KeyEvent event)
 	{	if(event.getCode()==KeyCode.D)
 	{
-		Bullet v=new Bullet(test.getCenterX(),test.getCenterY(),1);
+		Bullet v=new Bullet(test.unit.getCenterX(),test.unit.getCenterY(),1);
 		bulletList.add(v);
 		root.getChildren().add(v.bullet);
 	}
 	else if(event.getCode()==KeyCode.LEFT)
 		{
-			Bullet v=new Bullet(toot.getCenterX(),toot.getCenterY(),-1);
+			Bullet v=new Bullet(toot.unit.getCenterX(),toot.unit.getCenterY(),-1);
 			bulletList.add(v);
 			root.getChildren().add(v.bullet);
 		}
@@ -172,10 +172,7 @@ public class EventManager {
 						}
 						});
 					
-					//ArrayList<Bullet> A=(ArrayList<Bullet>) bulletList.clone();
 			
-					//bulletList=(ArrayList<Bullet>) A.clone();
-					
 					
 					Thread.sleep(10);
 					

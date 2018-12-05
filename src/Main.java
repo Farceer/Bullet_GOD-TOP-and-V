@@ -35,7 +35,7 @@ public class Main extends Application
     
         tt.play();
     		*/
-        root.getChildren().add(new Bullet(100,100,1).bullet);
+        //root.getChildren().add(new Bullet(100,100,1).bullet);
         
     
         	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.MoveUnitOne(event));

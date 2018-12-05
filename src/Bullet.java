@@ -10,6 +10,7 @@ public class Bullet {
 	public Rectangle bullet=new Rectangle();
 	public int direction;
 	public int speed=5;
+	public int damage;
 	
 	public Bullet(double x,double y,int z) {
 		bullet.setX(x);
@@ -17,6 +18,7 @@ public class Bullet {
 		bullet.setWidth(20);
 		bullet.setHeight(10);
 		direction=z;
+		damage=1;
 		
 	}
 	public void update()
