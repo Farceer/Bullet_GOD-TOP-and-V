@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -33,14 +35,26 @@ public class Main extends Application
         tt.setCycleCount(1000);
         tt.setAutoReverse(true);
     
+<<<<<<< HEAD
         tt.play();
     		*/
         //root.getChildren().add(new Bullet(100,100,1).bullet);
+=======
+        tt.play();    		*/
+        
+>>>>>>> cd6c1cd52ad44431ef340ea7952a99774948986c
         
     
         	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.MoveUnitOne(event));
         	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.MoveUnitTwo(event));
-        	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.fireOne(event));
+        	theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->{
+				try {
+					a.fireOne(event);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
         	//theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.fireTwo(event));
         timer.start();
         theStage.show();
