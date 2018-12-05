@@ -109,6 +109,12 @@ public class EventManager {
 		bulletList.add(v);
 		root.getChildren().add(v.bullet);
 	}
+	else if(event.getCode()==KeyCode.LEFT)
+		{
+			Bullet v=new Bullet(toot.getCenterX(),toot.getCenterY(),-1);
+			bulletList.add(v);
+			root.getChildren().add(v.bullet);
+		}
 	if(gg)
 	{	gg=false;
 		Thread a = new Thread(() -> {
@@ -132,10 +138,14 @@ public class EventManager {
 								
 							{	
 								
-								if(x.bullet.getX()<=799)
+								if(x.bullet.getX()<=800 && x.bullet.getX()>=0)
 							{
-									x.bullet.setX(x.bullet.getX()+5);
+									x.update();
 							}
+								else
+								{
+									x.bullet.setVisible(false);
+								}
 								
 							}
 							
@@ -145,9 +155,9 @@ public class EventManager {
 					ArrayList<Bullet> A=(ArrayList<Bullet>) bulletList.clone();
 					for(int i=bulletList.size()-1;i!=-1;i--)
 					{
-						if(bulletList.get(i).bullet.getX()>799)
+						if(bulletList.get(i).bullet.getX()>=800 && bulletList.get(i).bullet.getX()<=0 )
 						{
-							A.remove(i);
+							bulletList.remove(i);
 						}
 					}
 					bulletList=(ArrayList<Bullet>) A.clone();
