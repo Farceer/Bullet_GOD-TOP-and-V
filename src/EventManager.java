@@ -40,9 +40,10 @@ public class EventManager {
 	private Stage theStage;
 	private int time1=0;
 	private int time2=0;
-	public static int hpOne=5;
-	public static int hpTwo=5;
+	public static int hpOne=10;
+	public static int hpTwo=10;
 	ProgressBar p = new ProgressBar();
+	ProgressBar p2= new ProgressBar();
 	
 	//
 	private ImageView  GameBG ; 
@@ -65,7 +66,23 @@ public class EventManager {
 		this.root.getChildren().add(ShipLeft.getSpaceShip());
 		this.root.getChildren().add(ShipRight.getSpaceShip());
 		p.setProgress(1.0);
+		p.setPrefWidth(400);
+		p.setPrefHeight(30);
+		p.setStyle("-fx-accent: blue;");;
+		p.setLayoutX(0);
+		p.setLayoutY(1);
 		root.getChildren().add(p);
+		
+		p2.setProgress(1.0);
+		p2.setPrefWidth(400);
+		p2.setPrefHeight(30);
+		p2.setStyle("-fx-accent: Red;");
+		p2.setRotate(180);
+		p2.setLayoutX(400);
+		p2.setTranslateY(0);;
+	
+		root.getChildren().add(p2);
+		
 	}
 	
 	void MoveUnitOne(KeyEvent event)
@@ -189,7 +206,7 @@ public class EventManager {
 								        FadeTransition ft = new FadeTransition(Duration.millis(200), rect);
 								        ft.setFromValue(1);
 								        ft.setToValue(0);
-								        ft.setCycleCount(1);
+								   
 								        ft.play();
 										
 									}
@@ -199,9 +216,9 @@ public class EventManager {
 								{
 									x.getbulletImageView().setVisible(false);
 									hpOne-=1;
-									if(hpOne>0)
+									if(hpOne>=0)
 									{
-										p.setProgress((double) hpOne/5.0);
+										p.setProgress((double) hpOne/10.0);
 									}
 									
 									  
@@ -210,6 +227,10 @@ public class EventManager {
 								{
 									x.getbulletImageView().setVisible(false);
 									hpTwo-=1;
+									if(hpTwo>=0)
+									{
+										p2.setProgress((double) hpTwo/10.0);
+									}
 								}
 								
 								
@@ -217,7 +238,7 @@ public class EventManager {
 							}
 							for(int i=bulletList.size()-1;i!=-1;i--)
 							{
-							if(bulletList.get(i).getX_axis()>=800 || bulletList.get(i).getX_axis()<=0)
+							if(bulletList.get(i).getX_axis()>=799 || bulletList.get(i).getX_axis()<=0)
 							{	System.out.println(bulletList.size());
 								bulletList.get(i).getbulletImageView().setVisible(false);
 								bulletList.remove(i);
