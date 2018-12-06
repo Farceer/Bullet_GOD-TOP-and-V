@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -15,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class EventManager {
@@ -33,17 +35,19 @@ public class EventManager {
 	private FileInputStream ShipRightinputstream = new FileInputStream("res/RedShip/Red Ship.png");
 	private FileInputStream RedBomb=new FileInputStream("res/RedShip/Red Ship exposive.png");
 	private FileInputStream BlueBomb=new FileInputStream("res/BlueShip/Blue Ship exposive.png");
-	
+	private Scene Gamescene;
+	private Stage theStage;
 	//
 	private ImageView  GameBG ; 
 	//
 	
 	//getShipLeftinputstream();
 	//getShipRigtinputstream();
-	public EventManager(Pane root) throws FileNotFoundException
+	public EventManager(Pane root,Scene scene, Stage theStage) throws FileNotFoundException
 	{
 		this.root=root;
-		
+		Gamescene = scene ;
+		this.theStage = theStage ;
 		this.ShipLeft=new SpaceShip(120,300,ShipLeftinputstream);
 		this.ShipRight=new SpaceShip(680,300,ShipRightinputstream);
 		bulletList=new ArrayList<Bullet>();
@@ -233,6 +237,14 @@ public class EventManager {
 
 	public FileInputStream getShipRightinputstream() {
 		return ShipRightinputstream;
+	}
+
+	public Scene getGamescene() {
+		return Gamescene;
+	}
+
+	public Stage getTheStage() {
+		return theStage;
 	}
 
 }
