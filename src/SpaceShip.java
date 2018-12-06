@@ -1,6 +1,8 @@
 import java.io.FileInputStream;
 
 import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
@@ -9,6 +11,7 @@ import javafx.util.Duration;
 public class SpaceShip implements Bombable {
 	private ImageView SpaceShip;
 	private Image Ship;
+	private boolean isBomb; 
 	//************************************* Fix Center *************************************//
 	public SpaceShip(double X_axis, double Y_axis, FileInputStream inputstream) {
 		Ship = new Image(inputstream, 50, 50, false, false);
@@ -19,6 +22,7 @@ public class SpaceShip implements Bombable {
 		SpaceShip.setPreserveRatio(true);
 		SpaceShip.setX(X_axis);
 		SpaceShip.setY(Y_axis);
+		this.isBomb = false ; 
 		//************************************* Fix Center *************************************//
 	}
 
@@ -67,7 +71,17 @@ public class SpaceShip implements Bombable {
 			x.setFromValue(1);
 			x.setToValue(0);
 			x.setCycleCount(1);
+			
 			x.play();
+			x.setOnFinished(new EventHandler<ActionEvent>() {
+
+	            public void handle(ActionEvent actionEvent) {
+	            	setBomb(true);
+	            }
+	        });
+				
+		
+			
 			
 		
 			
@@ -80,6 +94,15 @@ public class SpaceShip implements Bombable {
 		this.getSpaceShip().setVisible(true);
 		this.setY_axis(300); // Set Ship to Center
 		this.setY_axis(300);// Set Ship to Center
+	}
+
+	@Override
+	public boolean isBomb() {
+		return isBomb;
+	}
+
+	public void setBomb(boolean isBomb) {
+		this.isBomb = isBomb;
 	}
 
 }

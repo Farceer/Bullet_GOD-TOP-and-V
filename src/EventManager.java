@@ -227,15 +227,19 @@ public class EventManager {
 
 										}
 										
-										//theStage.setScene(Gamescene);
-										hpOne = 5;
-										hpTwo = 5;
-										p.setProgress(1.0);
-
+										if (ShipLeft.isBomb() || ShipRight.isBomb()) {
+											theStage.setScene(Gamescene);
+											hpOne = 5;
+											hpTwo = 5;
+											p.setProgress(1.0);
+											ShipLeft.BombReClaim();
+											ShipRight.BombReClaim();
+											ShipRight.setBomb(false);
+											ShipRight.setBomb(false);
+											
+											break;
+										}
 										
-										ShipLeft.BombReClaim();
-										ShipRight.BombReClaim();
-										break;
 
 									}
 
