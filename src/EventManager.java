@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -37,6 +38,12 @@ public class EventManager {
 	private FileInputStream BlueBomb=new FileInputStream("res/BlueShip/Blue Ship exposive.png");
 	private Scene Gamescene;
 	private Stage theStage;
+	private int time1=0;
+	private int time2=0;
+	public static int hpOne=5;
+	public static int hpTwo=5;
+	ProgressBar p = new ProgressBar();
+	
 	//
 	private ImageView  GameBG ; 
 	//
@@ -57,6 +64,8 @@ public class EventManager {
 	{
 		this.root.getChildren().add(ShipLeft.getSpaceShip());
 		this.root.getChildren().add(ShipRight.getSpaceShip());
+		p.setProgress(1.0);
+		root.getChildren().add(p);
 	}
 	
 	void MoveUnitOne(KeyEvent event)
@@ -117,19 +126,21 @@ public class EventManager {
     
 	}
 	void fireOne(KeyEvent event) throws FileNotFoundException
-	{	if(event.getCode()==KeyCode.D)
+	{	if(event.getCode()==KeyCode.D && time1!=Timer.TIME)
 	{
 		FileInputStream inputstream = new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png");
 		Bullet v=new Bullet(ShipLeft.getSpaceShip().getX(),ShipLeft.getSpaceShip().getY(),1,inputstream);
 		bulletList.add(v);
 		root.getChildren().add(v.getbulletImageView());
+		time1=Timer.TIME;
 	}
-	else if(event.getCode()==KeyCode.LEFT)
+	else if(event.getCode()==KeyCode.LEFT &&  time2!=Timer.TIME)
 		{
 			FileInputStream inputstream = new FileInputStream("res/RedShip/Red Ship bullet.png");
 			Bullet v=new Bullet(ShipRight.getSpaceShip().getX(),ShipRight.getSpaceShip().getY(),-1,inputstream);
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
+			time2=Timer.TIME;
 		}
 	if(gg)
 	{	gg=false;
@@ -187,16 +198,37 @@ public class EventManager {
 								if(x.getX_axis()==ShipLeft.getX_axis() && x.getY_axis()==ShipLeft.getY_axis() && x.getbulletImageView().isVisible())
 								{
 									x.getbulletImageView().setVisible(false);
+									hpOne-=1;
+									if(hpOne>0)
+									{
+										p.setProgress((double) hpOne/5.0);
+									}
+									
 									  
 								}
-								
-								
-								if(x.getbulletImageView().getX()>=850 || x.getbulletImageView().getX()<=-20)
+								else if(x.getX_axis()==ShipRight.getX_axis() && x.getY_axis()==ShipRight.getY_axis() && x.getbulletImageView().isVisible())
 								{
-									bulletList.remove(x);
+									x.getbulletImageView().setVisible(false);
+									hpTwo-=1;
 								}
+								
+								
+								
 							}
-							
+							for(int i=bulletList.size()-1;i!=-1;i--)
+							{
+							if(bulletList.get(i).getX_axis()>=800 || bulletList.get(i).getX_axis()<=0)
+							{	System.out.println(bulletList.size());
+								bulletList.get(i).getbulletImageView().setVisible(false);
+								bulletList.remove(i);
+								System.out.println("xxx");
+								
+							}
+							else
+							{
+								break;
+							}
+							}
 							
 		
 						}

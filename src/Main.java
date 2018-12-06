@@ -7,6 +7,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -17,7 +18,7 @@ import javafx.util.Duration;
 public class Main extends Application {
 
 	public void start(Stage theStage) throws FileNotFoundException {
-		// Timer timer = new Timer();
+		Timer timer = new Timer();
 		theStage.setTitle("BulletGod");
 
 		Pane root1 = new Pane();
@@ -41,12 +42,12 @@ public class Main extends Application {
 		GameMenu.drawBoard();
 		EventManager GamePane = new EventManager(root2,theScene1,theStage);
 
-		theStage.setScene(theScene2);
+	
 
 		GamePane.drawBoard();
 
 		// ft.setAutoReverse(true);
-
+		 
 		theScene2.addEventHandler(KeyEvent.KEY_PRESSED, event -> GamePane.MoveUnitOne(event));
 		theScene2.addEventHandler(KeyEvent.KEY_PRESSED, event -> GamePane.MoveUnitTwo(event));
 		theScene2.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -59,7 +60,7 @@ public class Main extends Application {
 		});
 
 		// theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.fireTwo(event));
-		// timer.start();
+		timer.start();
 		
 		theStage.show();
 
