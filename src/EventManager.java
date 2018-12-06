@@ -30,9 +30,13 @@ public class EventManager {
 	//private SleepThread sleep=new SleepThread();
 	//private SleepThread sleep2=new SleepThread();
 	private FileInputStream ShipLeftinputstream = new FileInputStream("res/BlueShip/Blue Ship.png");
-	private FileInputStream ShipRightinputstream = new FileInputStream("res/RedShip/Red Ship.jpg");
+	private FileInputStream ShipRightinputstream = new FileInputStream("res/RedShip/Red Ship.png");
 	private FileInputStream RedBomb=new FileInputStream("res/RedShip/Red Ship exposive.png");
 	private FileInputStream BlueBomb=new FileInputStream("res/BlueShip/Blue Ship exposive.png");
+	
+	//
+	private ImageView  GameBG ; 
+	//
 	
 	//getShipLeftinputstream();
 	//getShipRigtinputstream();
@@ -68,10 +72,6 @@ public class EventManager {
  
         }
         //************************************* Fix Center *************************************//
-        double a = ShipLeft.getSpaceShip().getY();
-        
-      
-      //************************************* Fix Center *************************************//
         if(ShipLeft.getY_axis()+step>=100 && ShipLeft.getY_axis()+step<=500)
         {
         	ShipLeft.setY_axis(ShipLeft.getY_axis()+step);
@@ -100,8 +100,6 @@ public class EventManager {
         	step=100;
         }
       //************************************* Fix Center *************************************//
-        double a=ShipRight.getSpaceShip().getY();
-      //************************************* Fix Center *************************************//
         if(ShipRight.getSpaceShip().getY()+step>=100 && ShipRight.getSpaceShip().getY()+step<=500)
         {
         	ShipRight.setY_axis(ShipRight.getY_axis()+step);
@@ -120,14 +118,14 @@ public class EventManager {
 		FileInputStream inputstream = new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png");
 		Bullet v=new Bullet(ShipLeft.getSpaceShip().getX(),ShipLeft.getSpaceShip().getY(),1,inputstream);
 		bulletList.add(v);
-		root.getChildren().add(v.getImageView());
+		root.getChildren().add(v.getbulletImageView());
 	}
 	else if(event.getCode()==KeyCode.LEFT)
 		{
 			FileInputStream inputstream = new FileInputStream("res/RedShip/Red Ship bullet.png");
 			Bullet v=new Bullet(ShipRight.getSpaceShip().getX(),ShipRight.getSpaceShip().getY(),-1,inputstream);
 			bulletList.add(v);
-			root.getChildren().add(v.getImageView());
+			root.getChildren().add(v.getbulletImageView());
 		}
 	if(gg)
 	{	gg=false;
@@ -152,21 +150,21 @@ public class EventManager {
 								
 							{	
 								
-								if(x.getImageView().getX()<=800 && x.getImageView().getX()>=0)
+								if(x.getbulletImageView().getX()<=800 && x.getbulletImageView().getX()>=0)
 								{
 									x.update();
 								}
 								else
 								{
-									x.getImageView().setVisible(false);
+									x.getbulletImageView().setVisible(false);
 								}
 								
 								for(Bullet y:bulletList)
 								{
-									if(y.getDirection()==(-1)*x.getDirection() && y.getImageView().getX()==x.getImageView().getX() && x.getImageView().getY()==y.getImageView().getY() && x.getImageView().isVisible() && y.getImageView().isVisible())
+									if(y.getDirection()==(-1)*x.getDirection() && y.getbulletImageView().getX()==x.getbulletImageView().getX() && x.getbulletImageView().getY()==y.getbulletImageView().getY() && x.getbulletImageView().isVisible() && y.getbulletImageView().isVisible())
 									{
-										x.getImageView().setVisible(false);
-										y.getImageView().setVisible(false);
+										x.getbulletImageView().setVisible(false);
+										y.getbulletImageView().setVisible(false);
 										
 										Circle rect = new Circle(x.getX_axis()+25,x.getY_axis()+25,45);
 								        root.getChildren().add(rect);
@@ -182,14 +180,14 @@ public class EventManager {
 									}
 									
 								}
-								if(x.getX_axis()==ShipLeft.getX_axis() && x.getY_axis()==ShipLeft.getY_axis() && x.getImageView().isVisible())
+								if(x.getX_axis()==ShipLeft.getX_axis() && x.getY_axis()==ShipLeft.getY_axis() && x.getbulletImageView().isVisible())
 								{
-									x.getImageView().setVisible(false);
+									x.getbulletImageView().setVisible(false);
 									  
 								}
 								
 								
-								if(x.getImageView().getX()>=850 || x.getImageView().getX()<=-20)
+								if(x.getbulletImageView().getX()>=850 || x.getbulletImageView().getX()<=-20)
 								{
 									bulletList.remove(x);
 								}

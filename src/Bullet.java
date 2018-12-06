@@ -10,43 +10,43 @@ public class Bullet {
 	//public Rectangle bullet=new Rectangle();
 	private int direction;
 	//private int SPEED=5;
-	private ImageView imageView ; 
+	private ImageView bulletImageView ; 
 	public Bullet(double X_axis ,double Y_axis,int Direction,FileInputStream inputstream ) throws FileNotFoundException {
 		bullet= new Image(inputstream, 50, 50, false, false);
-		imageView = new ImageView(bullet);
-		imageView.setPreserveRatio(true);
-		imageView.setX(X_axis);
-		imageView.setY(Y_axis);
+		bulletImageView = new ImageView(bullet);
+		bulletImageView.setPreserveRatio(true);
+		bulletImageView.setX(X_axis);
+		bulletImageView.setY(Y_axis);
 		direction=Direction;
 		
 	}
 	public void update()
 	{
-		imageView.setX(imageView.getX()+5*direction);
+		bulletImageView.setX(bulletImageView.getX()+5*direction);
 	}
 	public int getDirection() {
 		return direction;
 	}
 	public double getX_axis() {
-		return getImageView().getX();
+		return getbulletImageView().getX();
 	}
 	public double getY_axis() {
-		return getImageView().getY();
+		return getbulletImageView().getY();
 	}
 	public void setDirection(int direction) {
 		this.direction = direction;
 	}
 	public void setX_axis(double x_axis) {
-		getImageView().setX(x_axis); 
+		getbulletImageView().setX(x_axis); 
 	}
 	public void setY_axis(double y_axis) {
-		getImageView().setY(y_axis); 
+		getbulletImageView().setY(y_axis); 
 	}
 	public Image getBullet() {
 		return bullet;
 	}
-	public ImageView getImageView() {
-		return imageView;
+	public ImageView getbulletImageView() {
+		return bulletImageView;
 	}
 	
 

@@ -49,15 +49,5 @@ public class SpaceShip {
 	public void setY_axis(double y_axis) {
 		getSpaceShip().setY(y_axis);
 	}
-///////////////////////////////////////////////////////************************************* Fix Center *************************************//
-	public double getdeenterY() {
-		return 0;
 
-	}
-
-	public double getCenterX() {
-		return 0;
-
-	}
-//////////////////////////////////////////////////////************************************* Fix Center *************************************//
 }
