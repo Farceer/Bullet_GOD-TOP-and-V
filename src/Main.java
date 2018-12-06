@@ -16,18 +16,18 @@ import javafx.util.Duration;
 public class Main extends Application {
 
 	public void start(Stage theStage) throws FileNotFoundException {
-		Timer timer = new Timer();
+		//Timer timer = new Timer();
 		theStage.setTitle("BulletGod");
 		Pane root = new Pane();
 		Scene theScene = new Scene(root, 800, 600);
 		theStage.setScene(theScene);
 		theStage.setResizable(false);
 		//root.getChildren().add(new Rectangle(300, 300,Color.BLUE)) ;
-		GameMenu e = new GameMenu(root);
-      	//e.drawBoard();
-
+		GameMenu GameMenu = new GameMenu(root);
+		GameMenu.drawBoard();
+		
 //        
-//        if ( true ) {
+//        if ( GameMenu.isGameStart()  ) {
 //
 //            EventManager GamePane = new EventManager(root);
 //            GamePane.drawBoard();
@@ -61,9 +61,9 @@ public class Main extends Application {
 //    				}
 //    			});
 //        }
-//        
+        
 		// theScene.addEventHandler(KeyEvent.KEY_PRESSED, event->a.fireTwo(event));
-		timer.start();
+		//timer.start();
 		theStage.show();
 
 	}
