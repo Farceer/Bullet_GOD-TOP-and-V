@@ -52,6 +52,7 @@ public class EventManager {
 	
 	public static int xand=0;
 	public static int yand=0;
+	public static int fff=0;
 	ProgressBar p = new ProgressBar();
 	ProgressBar p2 = new ProgressBar();
 	ProgressBar e1 = new ProgressBar();
@@ -154,7 +155,7 @@ public class EventManager {
 
 		if (event.getCode() == KeyCode.UP) {
 			step = -100;
-		} else if (event.getCode() == KeyCode.DOWN) {
+		} if (event.getCode() == KeyCode.DOWN) {
 
 			step = 100;
 		}
@@ -193,7 +194,13 @@ public class EventManager {
 			Bullet v = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY(), 1, inputstream);
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
-			
+			if(fff>0)
+			{
+				Bullet vv = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY()+100, 1, new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png"));
+				Bullet vvv = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY()-100, 1, new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png"));
+				bulletList.add(vv); bulletList.add(vvv);
+				root.getChildren().addAll(vv.getbulletImageView(),vvv.getbulletImageView());
+			}
 			
 			time1 = Timer.TIME;
 			
@@ -201,7 +208,7 @@ public class EventManager {
 			e1.setProgress((double) energy1/100.0);
 	
 			
-		} else if (event.getCode() == KeyCode.LEFT && time2 < Timer.TIME  && energy2>2) {
+		} if (event.getCode() == KeyCode.LEFT && time2 < Timer.TIME  && energy2>2) {
 			FileInputStream inputstream = new FileInputStream("res/RedShip/Red Ship bullet.png");
 			Bullet v = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY(), -1, inputstream);
 			bulletList.add(v);
@@ -236,6 +243,7 @@ public class EventManager {
 						{
 							ShipLeft.getSpaceShip().setVisible(true);
 						}
+						fff-=10;
 						yand-=1;
 						xand-=1;
 						Thread.sleep(10);
@@ -283,10 +291,10 @@ public class EventManager {
 											ft.setToValue(0);
 
 											ft.play();
+											bulletList.remove(x);
+											bulletList.remove(y);
 											if(x.getDirection()==3 || y.getDirection()==3)
-									{
-											if(x.type+y.type==1) 
-											{
+									{		
 												if(x.getDirection()+y.getDirection()==2)
 												{
 													energy2+=20;
@@ -305,23 +313,37 @@ public class EventManager {
 													}
 												
 												}
+												
+											if(x.type+y.type==1) 
+											{
+												fff=2000;
 											 }
 											if(x.type+y.type==2) 
 											{
-												if(x.getDirection()+y.getDirection()==2)
+												if(x.getDirection()+y.getDirection()==2 && yand<=0)
 												{
-													yand=800;
-												}
-												else
-												{
-													xand=800;
-													Circle aaaa = new Circle(120 + 25, ShipLeft.getY_axis() + 25, 100);
+													yand=400;
+													Circle aaaa = new Circle(540 , ShipLeft.getY_axis() + 25, 100);
 													root.getChildren().add(aaaa);
 
 													aaaa.setFill(Color.color(Math.random(), Math.random(), Math.random()));
 
 													FadeTransition vv = new FadeTransition(Duration.millis(200), aaaa);
 													vv.setFromValue(1);
+													vv.setToValue(0);
+
+													vv.play();
+												}
+												else if(xand<=0)
+												{
+													xand=400;
+													Circle aaaa = new Circle(120 + 25, ShipLeft.getY_axis() + 25, 100);
+													root.getChildren().add(aaaa);
+
+													aaaa.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+
+													FadeTransition vv = new FadeTransition(Duration.millis(1000), aaaa);
+													vv.setFromValue(0.5);
 													vv.setToValue(0);
 
 													vv.play();

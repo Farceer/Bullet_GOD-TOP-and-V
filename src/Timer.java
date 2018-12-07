@@ -5,7 +5,7 @@ class Timer extends Thread{
 		while(true)
 		{
 		try{
-			Thread.sleep(200);
+			Thread.sleep(60);
 			TIME+=1;
 			//System.out.println(time);
 			}	
