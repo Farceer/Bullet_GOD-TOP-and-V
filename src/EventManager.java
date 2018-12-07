@@ -38,6 +38,7 @@ public class EventManager {
 	private FileInputStream BlueBomb = new FileInputStream("res/BlueShip/Blue Ship exposive.png");
 	private FileInputStream BG = new FileInputStream("res/BG/Untitled-1.png");
 	private FileInputStream test =new FileInputStream("res/Item/Item Energy.png");
+	private String s[]= new String[] {"res/Item/Item Energy.png","res/Item/Item Move.png","res/Item/Item Speed.png"};
 	private Scene Gamescene;
 	private Stage theStage;
 	private int time1 = 0;
@@ -48,6 +49,9 @@ public class EventManager {
 	
 	public static double energy1=100;
 	public static double energy2=100;
+	
+	public static int xand=0;
+	public static int yand=0;
 	ProgressBar p = new ProgressBar();
 	ProgressBar p2 = new ProgressBar();
 	ProgressBar e1 = new ProgressBar();
@@ -165,8 +169,10 @@ public class EventManager {
 		step = 0;
 		double random = Math.random() * 1900 + 1;
 		if(random+n>2000)
-		{	FileInputStream xy =new FileInputStream("res/Item/Item Energy.png");
-			Bullet e=new Bullet(220+(new Random().nextInt(34))*10,100+new Random().nextInt(5)*100, 3, xy);
+			
+		{	int bb=new Random().nextInt(3);
+			FileInputStream xy =new FileInputStream(s[bb]);
+			Bullet e=new Bullet(220+(new Random().nextInt(34))*10,100+new Random().nextInt(5)*100, 3, xy,bb);
 			System.out.println("xxx");
 			root.getChildren().add(e.getbulletImageView());
 			bulletList.add(e);
@@ -182,23 +188,30 @@ public class EventManager {
 	}
 
 	void fireOne(KeyEvent event) throws FileNotFoundException,IllegalStateException {
-		if (event.getCode() == KeyCode.D && time1 != Timer.TIME && energy1>2) {
+		if (event.getCode() == KeyCode.D && (time1 < Timer.TIME||xand!=0) && energy1>2) {
 			FileInputStream inputstream = new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png");
 			Bullet v = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY(), 1, inputstream);
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			time1 = Timer.TIME;
+			if(xand==0)
+			{
+				energy1-=2;
+				e1.setProgress((double) energy1/100.0);
+			}
 			
-			energy1-=2;
-			e1.setProgress((double) energy1/100.0);
-		} else if (event.getCode() == KeyCode.LEFT && time2 != Timer.TIME && energy2>2) {
+		} else if (event.getCode() == KeyCode.LEFT &&( time2 < Timer.TIME || yand!=0 )&& energy2>2) {
 			FileInputStream inputstream = new FileInputStream("res/RedShip/Red Ship bullet.png");
 			Bullet v = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY(), -1, inputstream);
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			time2 = Timer.TIME;
-			energy2-=2;
-			e2.setProgress((double) energy2/100.0);
+			if(yand==0)
+			{
+				energy2-=2;
+				e2.setProgress((double) energy2/100.0);
+			}
+			
 		}
 		
 		
@@ -216,7 +229,7 @@ public class EventManager {
 
 					try {
 						
-						
+						if(yand>0) {yand-=1;}
 						Thread.sleep(10);
 						if(energy1<100)
 						{
@@ -262,6 +275,8 @@ public class EventManager {
 
 											ft.play();
 											if(x.getDirection()==3 || y.getDirection()==3)
+									{
+											if(x.type+y.type==1) 
 											{
 												if(x.getDirection()+y.getDirection()==2)
 												{
@@ -281,7 +296,20 @@ public class EventManager {
 													}
 												
 												}
-											}
+											 }
+											if(x.type+y.type==2) 
+											{
+												if(x.getDirection()+y.getDirection()==2)
+												{
+													yand=500;
+												}
+												else
+												{
+													xand=500;
+												}
+											 }
+											
+								}
 
 										}
 

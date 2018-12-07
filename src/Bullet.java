@@ -9,16 +9,27 @@ public class Bullet {
 	private Image bullet ;
 	//public Rectangle bullet=new Rectangle();
 	private int direction;
-	//private int SPEED=5;
+	public int type;
 	private ImageView bulletImageView ; 
-	public Bullet(double X_axis ,double Y_axis,int Direction,FileInputStream inputstream ) throws FileNotFoundException {
+	public Bullet(double X_axis ,double Y_axis,int Direction,FileInputStream inputstream) throws FileNotFoundException {
 		bullet= new Image(inputstream, 50, 50, false, false);
 		bulletImageView = new ImageView(bullet);
 		bulletImageView.setPreserveRatio(true);
 		bulletImageView.setX(X_axis);
 		bulletImageView.setY(Y_axis);
 		direction=Direction;
-		
+		this.type=0;
+	}
+	public Bullet(double X_axis ,double Y_axis,int Direction,FileInputStream inputstream,int type)
+	{
+		bullet= new Image(inputstream, 50, 50, false, false);
+		bulletImageView = new ImageView(bullet);
+		bulletImageView.setPreserveRatio(true);
+		bulletImageView.setX(X_axis);
+		bulletImageView.setY(Y_axis);
+		direction=Direction;
+		this.type=type;
+	
 	}
 	public void update()
 	{	if(direction!=3)
