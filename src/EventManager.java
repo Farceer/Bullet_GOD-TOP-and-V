@@ -202,9 +202,14 @@ public class EventManager {
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			if(fff>0)
+			{	double hi=ShipLeft.getSpaceShip().getY()-100;
+			if(hi==0)
 			{
+				hi-=100;
+			}
+
 				Bullet vv = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY()+100, 1, new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png"));
-				Bullet vvv = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY()-100, 1, new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png"));
+				Bullet vvv = new Bullet(ShipLeft.getSpaceShip().getX(),hi, 1, new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png"));
 				vv.setSpeed(v.getSpeed()); vvv.setSpeed(v.getSpeed());
 				bulletList.add(vv); bulletList.add(vvv);
 				root.getChildren().addAll(vv.getbulletImageView(),vvv.getbulletImageView());
@@ -226,7 +231,13 @@ public class EventManager {
 			if(ggg>0)
 			{
 				Bullet vv = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY()+100, -1, new FileInputStream("res/RedShip/Red Ship bullet.png"));
-				Bullet vvv = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY()-100, -1, new FileInputStream("res/RedShip/Red Ship bullet.png"));
+				double hi=ShipRight.getSpaceShip().getY()-100;
+				if(hi==0)
+				{
+					hi-=100;
+				}
+
+				Bullet vvv = new Bullet(ShipRight.getSpaceShip().getX(), hi, -1, new FileInputStream("res/RedShip/Red Ship bullet.png"));
 				vv.setSpeed(v.getSpeed()); vvv.setSpeed(v.getSpeed());
 				bulletList.add(vv); bulletList.add(vvv);
 				root.getChildren().addAll(vv.getbulletImageView(),vvv.getbulletImageView());
