@@ -193,7 +193,7 @@ public class EventManager {
 	}
 
 	void fireOne(KeyEvent event) throws FileNotFoundException,IllegalStateException {
-		if (event.getCode() == KeyCode.D && (time1 < Timer.TIME || xand>0) && energy1>2) {
+		if (event.getCode() == KeyCode.D && (time1 < Timer.TIME || last1>0) && energy1>2) {
 			
 			FileInputStream inputstream = new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png");
 			Bullet v = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY(), 1, inputstream);
@@ -280,9 +280,25 @@ public class EventManager {
 
 								{	if(yand>0 && x.getDirection()==1 )
 								{
+									double aaa=500-x.getX_axis();
+									if(aaa<0)
+									{
+										aaa=0;
+									}
+									x.getbulletImageView().setScaleX(aaa/680.0);
+									x.getbulletImageView().setScaleY(aaa/680.0);
+									
+								}
 								
-									x.getbulletImageView().setScaleX(800.0-x.getX_axis()/680.0);
-									x.getbulletImageView().setScaleY(800.0-x.getX_axis()/680.0);
+								if(xand>0 && x.getDirection()==-1 )
+								{
+									double aaa=x.getX_axis()-300;
+									if(aaa<0)
+									{
+										aaa=0;
+									}
+									x.getbulletImageView().setScaleX(aaa/680.0);
+									x.getbulletImageView().setScaleY(aaa/680.0);
 									
 								}
 								
@@ -317,7 +333,7 @@ public class EventManager {
 											////item hit////
 											if(x.getDirection()==3 || y.getDirection()==3)
 									{		
-												if(x.getDirection()+y.getDirection()!=2)
+												if(x.getDirection()+y.getDirection()==2)
 												{
 													energy2+=20;
 													if(energy2>100)
