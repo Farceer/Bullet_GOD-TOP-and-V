@@ -188,29 +188,29 @@ public class EventManager {
 	}
 
 	void fireOne(KeyEvent event) throws FileNotFoundException,IllegalStateException {
-		if (event.getCode() == KeyCode.D && (time1 < Timer.TIME||xand!=0) && energy1>2) {
+		if (event.getCode() == KeyCode.D && time1 < Timer.TIME && energy1>2) {
 			FileInputStream inputstream = new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png");
 			Bullet v = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY(), 1, inputstream);
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
-			time1 = Timer.TIME;
-			if(xand==0)
-			{
-				energy1-=2;
-				e1.setProgress((double) energy1/100.0);
-			}
 			
-		} else if (event.getCode() == KeyCode.LEFT &&( time2 < Timer.TIME || yand!=0 )&& energy2>2) {
+			
+			time1 = Timer.TIME;
+			
+			energy1-=2;
+			e1.setProgress((double) energy1/100.0);
+	
+			
+		} else if (event.getCode() == KeyCode.LEFT && time2 < Timer.TIME  && energy2>2) {
 			FileInputStream inputstream = new FileInputStream("res/RedShip/Red Ship bullet.png");
 			Bullet v = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY(), -1, inputstream);
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			time2 = Timer.TIME;
-			if(yand==0)
-			{
+			
 				energy2-=2;
 				e2.setProgress((double) energy2/100.0);
-			}
+			
 			
 		}
 		
@@ -228,16 +228,25 @@ public class EventManager {
 				while (true) {
 
 					try {
-						
-						if(yand>0) {yand-=1;}
+						if(xand>0)
+						{
+							ShipLeft.getSpaceShip().setVisible(false);
+						}
+						else
+						{
+							ShipLeft.getSpaceShip().setVisible(true);
+						}
+						yand-=1;
+						xand-=1;
 						Thread.sleep(10);
+						
 						if(energy1<100)
 						{
-							energy1+=0.025;
+							energy1+=0.04;
 						}
 						if(energy2<100)
 						{
-							energy2+=0.025;
+							energy2+=0.04;
 						}
 					
 						e2.setProgress((double) energy2/100.0);
@@ -301,11 +310,21 @@ public class EventManager {
 											{
 												if(x.getDirection()+y.getDirection()==2)
 												{
-													yand=500;
+													yand=800;
 												}
 												else
 												{
-													xand=500;
+													xand=800;
+													Circle aaaa = new Circle(120 + 25, ShipLeft.getY_axis() + 25, 100);
+													root.getChildren().add(aaaa);
+
+													aaaa.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+
+													FadeTransition vv = new FadeTransition(Duration.millis(200), aaaa);
+													vv.setFromValue(1);
+													vv.setToValue(0);
+
+													vv.play();
 												}
 											 }
 											
