@@ -2,6 +2,7 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -36,12 +37,14 @@ public class EventManager {
 	private FileInputStream RedBomb = new FileInputStream("res/RedShip/Red Ship exposive.png");
 	private FileInputStream BlueBomb = new FileInputStream("res/BlueShip/Blue Ship exposive.png");
 	private FileInputStream BG = new FileInputStream("res/BG/Untitled-1.png");
+	private FileInputStream test =new FileInputStream("res/Item/Item Energy.png");
 	private Scene Gamescene;
 	private Stage theStage;
 	private int time1 = 0;
 	private int time2 = 0;
 	public static int hpOne = 10;
 	public static int hpTwo = 10;
+	private static int n=0;
 	
 	public static double energy1=100;
 	public static double energy2=100;
@@ -65,13 +68,16 @@ public class EventManager {
 		this.theStage = theStage;
 		this.ShipLeft = new SpaceShip(120, 300, ShipLeftinputstream);
 		this.ShipRight = new SpaceShip(680, 300, ShipRightinputstream);
+		
 		bulletList = new ArrayList<Bullet>();
 	}
 
-	void drawBoard() {
+	void drawBoard() throws FileNotFoundException {
 		this.root.getChildren().add(GameBG);
 		this.root.getChildren().add(ShipLeft.getSpaceShip());
 		this.root.getChildren().add(ShipRight.getSpaceShip());
+		Potion aa=new Potion(300, 300, 0, test);
+		this.root.getChildren().add(aa.getPotionImageView());
 		p.setProgress(1.0);
 		p.setPrefWidth(400);
 		p.setPrefHeight(30);
@@ -116,7 +122,7 @@ public class EventManager {
 
 	}
 
-	void MoveUnitOne(KeyEvent event) {
+	void MoveUnitOne(KeyEvent event) throws FileNotFoundException {
 
 		if (event.getCode() == KeyCode.W) {
 			step = STEP_UP;
@@ -135,11 +141,13 @@ public class EventManager {
 		}
 
 		step = 0;
+		double random = Math.random() * 1000 + 1;
+		
 		// sleep2.run();
 
 	}
 
-	void MoveUnitTwo(KeyEvent event) {
+	void MoveUnitTwo(KeyEvent event) throws FileNotFoundException {
 
 		if (event.getCode() == KeyCode.UP) {
 			step = -100;
@@ -156,6 +164,20 @@ public class EventManager {
 		}
 
 		step = 0;
+		double random = Math.random() * 1000 + 1;
+		if(random+n>1000)
+		{	FileInputStream xy =new FileInputStream("res/Item/Item Energy.png");
+			Bullet e=new Bullet(320,300, 3, xy);
+			System.out.println("xxx");
+			root.getChildren().add(e.getbulletImageView());
+			bulletList.add(e);
+	
+			n=0;
+		}
+		else
+		{
+			n++;
+		}
 		// sleep.run();
 
 	}
@@ -167,7 +189,7 @@ public class EventManager {
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			time1 = Timer.TIME;
-	
+			
 			energy1-=2;
 			e1.setProgress((double) energy1/100.0);
 		} else if (event.getCode() == KeyCode.LEFT && time2 != Timer.TIME && energy2>2) {
@@ -179,17 +201,23 @@ public class EventManager {
 			energy2-=2;
 			e2.setProgress((double) energy2/100.0);
 		}
+		
+		
+		
+		
+
+		
+	
+		
 		if (gg) {
 			gg = false;
+			
 			Thread a = new Thread(() -> {
 				while (true) {
 
 					try {
-						// for(int i=0;i!=bulletList.size();i++)
-						// {
-						// root.getChildren().add(bulletList.get(i).bullet);
-						// }
-
+						
+						
 						Thread.sleep(10);
 						if(energy1<100)
 						{
@@ -216,7 +244,7 @@ public class EventManager {
 									}
 
 									for (Bullet y : bulletList) {
-										if (y.getDirection() == (-1) * x.getDirection()
+										if (y.getDirection() != x.getDirection()
 												&& y.getbulletImageView().getX() == x.getbulletImageView().getX()
 												&& x.getbulletImageView().getY() == y.getbulletImageView().getY()
 												&& x.getbulletImageView().isVisible()

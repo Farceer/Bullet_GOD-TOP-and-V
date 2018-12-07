@@ -21,8 +21,11 @@ public class Bullet {
 		
 	}
 	public void update()
+	{	if(direction!=3)
 	{
 		bulletImageView.setX(bulletImageView.getX()+5*direction);
+	}
+	
 	}
 	public int getDirection() {
 		return direction;

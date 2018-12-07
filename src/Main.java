@@ -46,8 +46,22 @@ public class Main extends Application {
 
 		// ft.setAutoReverse(true);
 		 
-		theScene2.addEventHandler(KeyEvent.KEY_PRESSED, event -> GamePane.MoveUnitOne(event));
-		theScene2.addEventHandler(KeyEvent.KEY_PRESSED, event -> GamePane.MoveUnitTwo(event));
+		theScene2.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			try {
+				GamePane.MoveUnitOne(event);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		theScene2.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			try {
+				GamePane.MoveUnitTwo(event);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		theScene2.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			try {
 				GamePane.fireOne(event);
