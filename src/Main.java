@@ -30,9 +30,7 @@ public class Main extends Application {
 		theStage.setResizable(false);
 		theStage.setAlwaysOnTop(false);
 		// root.getChildren().add(new Rectangle(300, 300,Color.BLUE)) ;
-		theScene1.setOnMouseClicked(e -> {
-			theStage.setScene(theScene2);
-		});
+		
 		
 		theScene2.setOnMouseClicked(e -> {
 			theStage.setScene(theScene1);

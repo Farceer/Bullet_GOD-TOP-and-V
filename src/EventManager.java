@@ -42,8 +42,13 @@ public class EventManager {
 	private int time2 = 0;
 	public static int hpOne = 10;
 	public static int hpTwo = 10;
+	
+	public static double energy1=100;
+	public static double energy2=100;
 	ProgressBar p = new ProgressBar();
 	ProgressBar p2 = new ProgressBar();
+	ProgressBar e1 = new ProgressBar();
+	ProgressBar e2 = new ProgressBar();
 
 	//
 	private ImageView GameBG;
@@ -75,7 +80,7 @@ public class EventManager {
 		p.setLayoutX(0);
 		p.setLayoutY(1);
 		root.getChildren().add(p);
-
+		
 		p2.setProgress(1.0);
 		p2.setPrefWidth(400);
 		p2.setPrefHeight(30);
@@ -83,9 +88,31 @@ public class EventManager {
 		p2.setRotate(180);
 		p2.setLayoutX(400);
 		p2.setTranslateY(0);
-		;
-
 		root.getChildren().add(p2);
+		
+		e1.setProgress(1.0);
+		e1.setPrefWidth(400);
+		e1.setPrefHeight(30);
+		e1.setStyle("-fx-accent: Green;");
+		
+		e1.setLayoutX(0);
+		e1.setLayoutY(30);
+		
+		e2.setProgress(1.0);
+		e2.setPrefWidth(400);
+		e2.setPrefHeight(30);
+		e2.setStyle("-fx-accent: Orange;");
+		e2.setRotate(180);
+		e2.setLayoutX(400);
+		e2.setTranslateY(30);
+		root.getChildren().add(e2);
+		
+		
+		
+		root.getChildren().add(e1);
+		
+
+
 
 	}
 
@@ -101,8 +128,10 @@ public class EventManager {
 		}
 		// ************************************* Fix Center
 		// *************************************//
-		if (ShipLeft.getY_axis() + step >= 100 && ShipLeft.getY_axis() + step <= 500) {
+		if (ShipLeft.getY_axis() + step >= 100 && ShipLeft.getY_axis() + step <= 500 && step!=0 && energy1>2) {
 			ShipLeft.setY_axis(ShipLeft.getY_axis() + step);
+			energy1-=2;
+			e1.setProgress((double) energy1/100.0);
 		}
 
 		step = 0;
@@ -120,8 +149,10 @@ public class EventManager {
 		}
 		// ************************************* Fix Center
 		// *************************************//
-		if (ShipRight.getSpaceShip().getY() + step >= 100 && ShipRight.getSpaceShip().getY() + step <= 500) {
+		if (ShipRight.getSpaceShip().getY() + step >= 100 && ShipRight.getSpaceShip().getY() + step <= 500 && step!=0 && energy2>2 ) {
 			ShipRight.setY_axis(ShipRight.getY_axis() + step);
+			energy2-=2;
+			e2.setProgress((double) energy2/100.0);
 		}
 
 		step = 0;
@@ -130,18 +161,23 @@ public class EventManager {
 	}
 
 	void fireOne(KeyEvent event) throws FileNotFoundException {
-		if (event.getCode() == KeyCode.D && time1 != Timer.TIME) {
+		if (event.getCode() == KeyCode.D && time1 != Timer.TIME && energy1>2) {
 			FileInputStream inputstream = new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png");
 			Bullet v = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY(), 1, inputstream);
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			time1 = Timer.TIME;
-		} else if (event.getCode() == KeyCode.LEFT && time2 != Timer.TIME) {
+	
+			energy1-=2;
+			e1.setProgress((double) energy1/100.0);
+		} else if (event.getCode() == KeyCode.LEFT && time2 != Timer.TIME && energy2>2) {
 			FileInputStream inputstream = new FileInputStream("res/RedShip/Red Ship bullet.png");
 			Bullet v = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY(), -1, inputstream);
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			time2 = Timer.TIME;
+			energy2-=2;
+			e2.setProgress((double) energy2/100.0);
 		}
 		if (gg) {
 			gg = false;
@@ -155,6 +191,17 @@ public class EventManager {
 						// }
 
 						Thread.sleep(10);
+						if(energy1<100)
+						{
+							energy1+=0.025;
+						}
+						if(energy2<100)
+						{
+							energy2+=0.025;
+						}
+					
+						e2.setProgress((double) energy2/100.0);
+						e1.setProgress((double) energy1/100.0);
 						Platform.runLater(new Runnable() {
 
 							public void run() {
@@ -229,14 +276,16 @@ public class EventManager {
 										
 										if (ShipLeft.isBomb() || ShipRight.isBomb()) {
 											theStage.setScene(Gamescene);
-											hpOne = 5;
-											hpTwo = 5;
+											hpOne = 10;
+											hpTwo = 10;
 											p.setProgress(1.0);
+											p2.setProgress(1.0);
 											ShipLeft.BombReClaim();
 											ShipRight.BombReClaim();
-											ShipRight.setBomb(false);
+											ShipLeft.setBomb(false);
 											ShipRight.setBomb(false);
 											
+											//https://github.com/Farceer/Bullet_GOD-TOP-and-V.git
 											break;
 										}
 										

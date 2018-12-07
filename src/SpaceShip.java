@@ -94,6 +94,7 @@ public class SpaceShip implements Bombable {
 		this.getSpaceShip().setVisible(true);
 		this.setY_axis(300); // Set Ship to Center
 		this.setY_axis(300);// Set Ship to Center
+		this.isBomb = false;
 	}
 
 	@Override
