@@ -10,7 +10,8 @@ public class Bullet {
 	//public Rectangle bullet=new Rectangle();
 	private int direction;
 	public int type;
-	private ImageView bulletImageView ; 
+	private ImageView bulletImageView ;
+	private int speed=1;
 	public Bullet(double X_axis ,double Y_axis,int Direction,FileInputStream inputstream) throws FileNotFoundException {
 		bullet= new Image(inputstream, 50, 50, false, false);
 		bulletImageView = new ImageView(bullet);
@@ -34,7 +35,7 @@ public class Bullet {
 	public void update()
 	{	if(direction!=3)
 	{
-		bulletImageView.setX(bulletImageView.getX()+5*direction);
+		bulletImageView.setX(bulletImageView.getX()+10*direction*speed);
 	}
 	
 	}
@@ -61,6 +62,14 @@ public class Bullet {
 	}
 	public ImageView getbulletImageView() {
 		return bulletImageView;
+	}
+	public void setSpeed(int x)
+	{
+		this.speed=x;
+	}
+	public int getSpeed()
+	{
+		return speed;
 	}
 	
 

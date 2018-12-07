@@ -53,10 +53,14 @@ public class EventManager {
 	public static int xand=0;
 	public static int yand=0;
 	public static int fff=0;
+	public static int ggg=0;
+	public static int last1=0;
+	public static int last2=0;
 	ProgressBar p = new ProgressBar();
 	ProgressBar p2 = new ProgressBar();
 	ProgressBar e1 = new ProgressBar();
 	ProgressBar e2 = new ProgressBar();
+	public static boolean magic=true;
 
 	//
 	private ImageView GameBG;
@@ -173,7 +177,7 @@ public class EventManager {
 			
 		{	int bb=new Random().nextInt(3);
 			FileInputStream xy =new FileInputStream(s[bb]);
-			Bullet e=new Bullet(220+(new Random().nextInt(34))*10,100+new Random().nextInt(5)*100, 3, xy,bb);
+			Bullet e=new Bullet(220+(new Random().nextInt(17))*20,100+new Random().nextInt(5)*100, 3, xy,bb);
 			System.out.println("xxx");
 			root.getChildren().add(e.getbulletImageView());
 			bulletList.add(e);
@@ -189,15 +193,19 @@ public class EventManager {
 	}
 
 	void fireOne(KeyEvent event) throws FileNotFoundException,IllegalStateException {
-		if (event.getCode() == KeyCode.D && time1 < Timer.TIME && energy1>2) {
+		if (event.getCode() == KeyCode.D && (time1 < Timer.TIME || xand>0) && energy1>2) {
+			
 			FileInputStream inputstream = new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png");
 			Bullet v = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY(), 1, inputstream);
+			if(last1>0) v.setSpeed(2);
+			else v.setSpeed(1);
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			if(fff>0)
 			{
 				Bullet vv = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY()+100, 1, new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png"));
 				Bullet vvv = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY()-100, 1, new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png"));
+				vv.setSpeed(v.getSpeed()); vvv.setSpeed(v.getSpeed());
 				bulletList.add(vv); bulletList.add(vvv);
 				root.getChildren().addAll(vv.getbulletImageView(),vvv.getbulletImageView());
 			}
@@ -208,11 +216,21 @@ public class EventManager {
 			e1.setProgress((double) energy1/100.0);
 	
 			
-		} if (event.getCode() == KeyCode.LEFT && time2 < Timer.TIME  && energy2>2) {
+		} if (event.getCode() == KeyCode.LEFT && (time2 < Timer.TIME || last2>0)  && energy2>2) {
 			FileInputStream inputstream = new FileInputStream("res/RedShip/Red Ship bullet.png");
 			Bullet v = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY(), -1, inputstream);
+			if(last2>0) v.setSpeed(2);
+			else v.setSpeed(1);
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
+			if(ggg>0)
+			{
+				Bullet vv = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY()+100, -1, new FileInputStream("res/RedShip/Red Ship bullet.png"));
+				Bullet vvv = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY()-100, -1, new FileInputStream("res/RedShip/Red Ship bullet.png"));
+				vv.setSpeed(v.getSpeed()); vvv.setSpeed(v.getSpeed());
+				bulletList.add(vv); bulletList.add(vvv);
+				root.getChildren().addAll(vv.getbulletImageView(),vvv.getbulletImageView());
+			}
 			time2 = Timer.TIME;
 			
 				energy2-=2;
@@ -235,26 +253,22 @@ public class EventManager {
 				while (true) {
 
 					try {
-						if(xand>0)
-						{
-							ShipLeft.getSpaceShip().setVisible(false);
-						}
-						else
-						{
-							ShipLeft.getSpaceShip().setVisible(true);
-						}
+						
 						fff-=10;
+						ggg-=10;
 						yand-=1;
 						xand-=1;
-						Thread.sleep(10);
+						last1-=1;
+						last2-=1;
+						Thread.sleep(15);
 						
 						if(energy1<100)
 						{
-							energy1+=0.04;
+							energy1+=0.1;
 						}
 						if(energy2<100)
 						{
-							energy2+=0.04;
+							energy2+=0.1;
 						}
 					
 						e2.setProgress((double) energy2/100.0);
@@ -264,8 +278,14 @@ public class EventManager {
 							public void run() {
 								for (Bullet x : bulletList)
 
+								{	if(yand>0 && x.getDirection()==1 )
 								{
-
+								
+									x.getbulletImageView().setScaleX(800.0-x.getX_axis()/680.0);
+									x.getbulletImageView().setScaleY(800.0-x.getX_axis()/680.0);
+									
+								}
+								
 									if (x.getbulletImageView().getX() <= 800 && x.getbulletImageView().getX() >= 0) {
 										x.update();
 									} else {
@@ -274,7 +294,7 @@ public class EventManager {
 
 									for (Bullet y : bulletList) {
 										if (y.getDirection() != x.getDirection()
-												&& y.getbulletImageView().getX() == x.getbulletImageView().getX()
+												&& Math.abs(y.getbulletImageView().getX() -x.getbulletImageView().getX())<=10
 												&& x.getbulletImageView().getY() == y.getbulletImageView().getY()
 												&& x.getbulletImageView().isVisible()
 												&& y.getbulletImageView().isVisible()) {
@@ -293,9 +313,11 @@ public class EventManager {
 											ft.play();
 											bulletList.remove(x);
 											bulletList.remove(y);
+											
+											////item hit////
 											if(x.getDirection()==3 || y.getDirection()==3)
 									{		
-												if(x.getDirection()+y.getDirection()==2)
+												if(x.getDirection()+y.getDirection()!=2)
 												{
 													energy2+=20;
 													if(energy2>100)
@@ -316,41 +338,43 @@ public class EventManager {
 												
 											if(x.type+y.type==1) 
 											{
-												fff=2000;
+												if(x.getDirection()+y.getDirection()!=2)
+												{
+													fff=2000;
+												}
+												else
+												{
+													ggg=2000;
+												}
+											
 											 }
 											if(x.type+y.type==2) 
 											{
-												if(x.getDirection()+y.getDirection()==2 && yand<=0)
+												if(x.getDirection()+y.getDirection()!=2 )
 												{
-													yand=400;
-													Circle aaaa = new Circle(540 , ShipLeft.getY_axis() + 25, 100);
-													root.getChildren().add(aaaa);
-
-													aaaa.setFill(Color.color(Math.random(), Math.random(), Math.random()));
-
-													FadeTransition vv = new FadeTransition(Duration.millis(200), aaaa);
-													vv.setFromValue(1);
-													vv.setToValue(0);
-
-													vv.play();
+													yand=1000;
+													
 												}
 												else if(xand<=0)
 												{
-													xand=400;
-													Circle aaaa = new Circle(120 + 25, ShipLeft.getY_axis() + 25, 100);
-													root.getChildren().add(aaaa);
-
-													aaaa.setFill(Color.color(Math.random(), Math.random(), Math.random()));
-
-													FadeTransition vv = new FadeTransition(Duration.millis(1000), aaaa);
-													vv.setFromValue(0.5);
-													vv.setToValue(0);
-
-													vv.play();
+						/*asd*/						xand=1000;
+													
 												}
+												
 											 }
+											else if(x.type+y.type==0)
+											{
+												if(x.getDirection()+y.getDirection()!=2)
+												{
+													last1=200;
+												}
+												else
+												{
+													last2=200;
+												}
+											}
 											
-								}
+								}	
 
 										}
 
