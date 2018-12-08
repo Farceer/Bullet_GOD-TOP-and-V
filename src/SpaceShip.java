@@ -35,7 +35,7 @@ public class SpaceShip implements Bombable {
 		FadeTransition x = new FadeTransition(Duration.millis(2000), Bomb);
 		x.setFromValue(1);
 		x.setToValue(0);
-		x.setCycleCount(2);
+		x.setCycleCount(1);
 
 		x.play();
 		x.setOnFinished(new EventHandler<ActionEvent>() {

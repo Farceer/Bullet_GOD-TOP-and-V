@@ -40,8 +40,8 @@ public class EventManager {
 	private FileInputStream BG = new FileInputStream("res/BG/GameBG.png");
 //	private FileInputStream RedWin = new FileInputStream("res/BG/RED TEAM WIN.png");
 //	private FileInputStream BlueWin = new FileInputStream("res/BG/BLUE TEAM WIN.png");
-//	private ImageView temp_left;
-//	private ImageView temp_right;
+	private ImageView temp_left;
+	private ImageView temp_right;
 //	private ImageView RedBG = new ImageView(new Image(RedWin));
 //	private ImageView BlueBG = new ImageView(new Image(BlueWin));
 	private ImageView GameBG;
@@ -273,9 +273,9 @@ public class EventManager {
 
 		if (gg) {
 			gg = false;
-
+			
 			Thread a = new Thread(() -> {
-				while (isGameEnd == false) {
+				while (true) {
 
 					try {
 
@@ -419,16 +419,30 @@ public class EventManager {
 
 									if (hpOne <= 0 || hpTwo <= 0) {
 										if (hpOne <= 0) {
-
-											root.getChildren().add(ShipLeft.Bomb(BlueBomb));
+											temp_left = ShipLeft.Bomb(BlueBomb) ;
+											root.getChildren().add(temp_left);
+											if (  ShipLeft.isBomb() ) {
+												root.getChildren().remove(temp_left);
+												ShipLeft.BombReClaim();
+												theStage.setScene(Gamescene);
+											}
 										} else if (hpTwo <= 0) {
-											root.getChildren().add(ShipRight.Bomb(RedBomb));
+											temp_right = ShipRight.Bomb(RedBomb) ;
+											root.getChildren().add(temp_right);
+											if ( ShipRight.isBomb()) {
+												root.getChildren().remove(temp_right);
+												ShipRight.BombReClaim();
+												theStage.setScene(Gamescene);
+											}
+											
 										}
-
-										
+											hpOne = 10;
+											hpTwo = 10;
+											p.setProgress(1.0);
+											p2.setProgress(1.0);
+											break;
 										
 									}
-
 									// BOMB //
 
 									for (int i = bulletList.size() - 1; i != -1; i--) {
@@ -454,6 +468,10 @@ public class EventManager {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+					
+					
+					
+
 //					if (ShipLeft.isBomb() || ShipRight.isBomb()) {
 //						theStage.setScene(Gamescene);
 //						hpOne = 10;
