@@ -321,7 +321,7 @@ public class EventManager {
 										x.getbulletImageView().setScaleY(aaa / 680.0);
 
 									}
-
+									
 									if (x.getbulletImageView().getX() <= 800 && x.getbulletImageView().getX() >= 0) {
 										x.update();
 									} else {
@@ -436,11 +436,15 @@ public class EventManager {
 											}
 											
 										}
+										if ( ShipRight.isBomb() ||  ShipLeft.isBomb()) {
+											theStage.setScene(Gamescene);
 											hpOne = 10;
 											hpTwo = 10;
 											p.setProgress(1.0);
 											p2.setProgress(1.0);
 											break;
+										}
+											
 										
 									}
 									// BOMB //
