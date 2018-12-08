@@ -1,8 +1,7 @@
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
 
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,8 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 
 public class GameMenu extends Pane {
 	private Pane root;
@@ -27,40 +24,31 @@ public class GameMenu extends Pane {
 	private VBox box;
 	private Scene Menuscene;
 	private Stage theStage;
-	private FileInputStream BG = new FileInputStream("res/BG/MenuBG.png");
-	private FileInputStream TitleBG = new FileInputStream("res/BG/Bullet GOD title.png");
-	private FileInputStream StartBG = new FileInputStream("res/BG/Start.png");
-	private FileInputStream QuitBG = new FileInputStream("res/BG/Quit.png");
-	private ImageView Menu, GameTitle, StartGUI, QuitGUI;// Rectangle Text = new Rectangle(400, 200,Color.BLUE); GAME
+	 ImageView Menu, GameTitle, StartGUI, QuitGUI;// Rectangle Text = new Rectangle(400, 200,Color.BLUE); GAME
 															// TITLE
-
 	public GameMenu(Pane root, Scene scene, Stage theStage) throws FileNotFoundException {
-
 		this.root = root;
-		Menu = new ImageView(new Image(BG));
-		Menu.setFitHeight(600);
-		Menu.setFitWidth(800);
-
-		GameTitle = new ImageView(new Image(TitleBG));
-		GameTitle.setFitHeight(200);
-		GameTitle.setFitWidth(371.4285);
-		GameTitle.setTranslateX(200);
-		GameTitle.setTranslateY(100);
-
-		StartGUI = new ImageView(new Image(StartBG));
-		StartGUI.setFitHeight(30);
-		StartGUI.setFitWidth(150);
-
-		QuitGUI = new ImageView(new Image(QuitBG));
-		QuitGUI.setFitHeight(30);
-		QuitGUI.setFitWidth(150);
-
+//		String GameTitle_path = ClassLoader.getSystemResource("BG/Bullet GOD title.png").toString();
+//		GameTitle  = new ImageView(new Image(GameTitle_path));
+//		String StartGUI_path = ClassLoader.getSystemResource("BG/Start.png").toString();
+//		StartGUI = new ImageView(new Image(StartGUI_path));
+//		String QuitGUI_path = ClassLoader.getSystemResource("BG/Quit.png").toString();
+//		QuitGUI= new ImageView(new Image(QuitGUI_path));
+//		String Menu_path = ClassLoader.getSystemResource("BG/MenuBG.png").toString();
+//		Menu = new ImageView(new Image(Menu_path));
+		ImageLoader loader = new ImageLoader();
+		Menu      = loader.getMenu();
+		GameTitle =loader.getGameTitle();
+		StartGUI = loader.getStartGUI();
+		QuitGUI  = loader.getQuitGUI();
+		
 		Start = new Button("", StartGUI);
 		Start.setBackground(null);
 		Credit = new Button("Credit");
 
 		Quit = new Button("", QuitGUI);
 		Quit.setBackground(null);
+
 		Start.setPrefSize(150, 30);
 		Credit.setPrefSize(150, 30);
 		Quit.setPrefSize(150, 30);
@@ -91,11 +79,10 @@ public class GameMenu extends Pane {
 		});
 
 		Quit.setOnMouseClicked((event) -> {
-			
+
 			Platform.exit();
 			theStage.close();
 			System.exit(0);
-
 
 		});
 
@@ -114,7 +101,7 @@ public class GameMenu extends Pane {
 	}
 
 	void drawBoard() {
-		root.getChildren().addAll(Menu, box, GameTitle);
+		root.getChildren().addAll(Menu,box,GameTitle);
 
 	}
 

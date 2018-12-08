@@ -8,27 +8,32 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class SpaceShip implements Bombable {
-	private ImageView SpaceShip;
-	private Image Ship;
+	private ImageView Ship;
 	private boolean isBomb;
-	public SpaceShip(double X_axis, double Y_axis, FileInputStream inputstream) {
-		Ship = new Image(inputstream, 50, 50, false, false);
-
-		SpaceShip = new ImageView(Ship);
-		SpaceShip.setFitHeight(100);
-		SpaceShip.setFitWidth(50);
-		SpaceShip.setPreserveRatio(true);
-		SpaceShip.setX(X_axis);
-		SpaceShip.setY(Y_axis);
+	private int type ; 
+	private final ImageLoader loader = new ImageLoader();
+	public SpaceShip(double X_axis, double Y_axis,int type) {
+		if (type > 0 ) {
+			Ship = getLoader().getBlueShip();
+		}else {
+			Ship = getLoader().getRedShip();
+		}
+		Ship.setX(X_axis);
+		Ship.setY(Y_axis);
 		this.isBomb = false;
+		this.type = type ;
 	}
 
-	public ImageView Bomb(FileInputStream bombtype) {
+	public ImageView Bomb() {
 		// TODO Auto-generated method stub
+		
 		this.getSpaceShip().setVisible(false);
-		ImageView Bomb = new ImageView(new Image(bombtype));
-		Bomb.setFitHeight(130);
-		Bomb.setFitWidth(130);
+		ImageView Bomb ;
+		if (this.getShipType() > 0 ) {
+			 Bomb = getLoader().getBlueBomb();
+		}else {
+			 Bomb = getLoader().getRedBomb();
+		}
 		Bomb.setTranslateX(this.getX_axis() - 65 + 25);
 		Bomb.setTranslateY(this.getY_axis() - 65 + 25);
 
@@ -65,10 +70,6 @@ public class SpaceShip implements Bombable {
 	}
 
 	public ImageView getSpaceShip() {
-		return SpaceShip;
-	}
-
-	public Image getShip() {
 		return Ship;
 	}
 
@@ -87,4 +88,18 @@ public class SpaceShip implements Bombable {
 	public void setY_axis(double y_axis) {
 		getSpaceShip().setY(y_axis);
 	}
+
+	public ImageLoader getLoader() {
+		return loader;
+	}
+
+	public ImageView getShip() {
+		return Ship;
+	}
+
+	public int getShipType() {
+		return type;
+	}
+
+
 }

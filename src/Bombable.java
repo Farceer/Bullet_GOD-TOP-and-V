@@ -4,7 +4,7 @@ import javafx.scene.image.ImageView;
 
 public interface Bombable {
 	
-	public ImageView Bomb(FileInputStream bombtype);
+	public ImageView Bomb();
 
 	public void BombReClaim();
 	

@@ -19,31 +19,25 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class EventManager {
-
+	private Class<?> EventManager;
 	private Pane root;
-	private SpaceShip ShipLeft;
-	private SpaceShip ShipRight;
 	private int step;
 	private final static int STEP_UP = -100;
 	private final static int STEP_DOWN = 100;
 	public static ArrayList<Bullet> bulletList;
-	private boolean gg = true;
-	// private SleepThread sleep=new SleepThread();
-	// private SleepThread sleep2=new SleepThread();
+	private boolean isThreadStart ; //gg -> ThreadStart
 	// Ship
-	private FileInputStream ShipLeftinputstream = new FileInputStream("res/BlueShip/Blue Ship.png");
-	private FileInputStream ShipRightinputstream = new FileInputStream("res/RedShip/Red Ship.png");
+	private SpaceShip ShieBlue;
+	private SpaceShip ShipRed;
+	private FileInputStream ShieBlueinputstream = new FileInputStream("res/BlueShip/Blue Ship.png");
+	private FileInputStream ShipRedinputstream = new FileInputStream("res/RedShip/Red Ship.png");
 	// ShipEvent
 	private FileInputStream RedBomb = new FileInputStream("res/RedShip/Red Ship exposive.png");
 	private FileInputStream BlueBomb = new FileInputStream("res/BlueShip/Blue Ship exposive.png");
-	// GameScene BG
-	private FileInputStream BG = new FileInputStream("res/BG/GameBG.png");
-//	private FileInputStream RedWin = new FileInputStream("res/BG/RED TEAM WIN.png");
-//	private FileInputStream BlueWin = new FileInputStream("res/BG/BLUE TEAM WIN.png");
+
 	private ImageView temp_left;
 	private ImageView temp_right;
-//	private ImageView RedBG = new ImageView(new Image(RedWin));
-//	private ImageView BlueBG = new ImageView(new Image(BlueWin));
+
 	private ImageView GameBG;
 
 	private boolean isGameEnd;
@@ -76,32 +70,34 @@ public class EventManager {
 	ProgressBar p2 = new ProgressBar();
 	ProgressBar e1 = new ProgressBar();
 	ProgressBar e2 = new ProgressBar();
+	
 	public static boolean magic = true;
-
+	private final ImageLoader loader = new ImageLoader();
 	//
 
 	//
 
-	// getShipLeftinputstream();
+	// getShieBlueinputstream();
 	// getShipRigtinputstream();
 	public EventManager(Pane root, Scene scene, Stage theStage) throws FileNotFoundException {
 		this.root = root;
 		Gamescene = scene;
-		GameBG = new ImageView(new Image(BG));
-		GameBG.setFitHeight(600);
-		GameBG.setFitWidth(800);
+		GameBG = getLoader().getGameBG();
 		this.theStage = theStage;
-		this.ShipLeft = new SpaceShip(120, 300, ShipLeftinputstream);
-		this.ShipRight = new SpaceShip(680, 300, ShipRightinputstream);
-
+		this.ShieBlue = new SpaceShip(120, 300, 1);//Blue > 0 
+		this.ShipRed = new SpaceShip(680, 300, -1);//Red > 0 
 		bulletList = new ArrayList<Bullet>();
 		isGameEnd = false;
+		isThreadStart = true ; // New gg that i hate
+		
+		
+		
 	}
 
 	void drawBoard() throws FileNotFoundException {
 		this.root.getChildren().add(GameBG);
-		this.root.getChildren().add(ShipLeft.getSpaceShip());
-		this.root.getChildren().add(ShipRight.getSpaceShip());
+		this.root.getChildren().add(ShieBlue.getSpaceShip());
+		this.root.getChildren().add(ShipRed.getSpaceShip());
 
 		p.setProgress(1.0);
 		p.setPrefWidth(400);
@@ -152,17 +148,15 @@ public class EventManager {
 			step = STEP_DOWN;
 
 		}
-		// ************************************* Fix Center
-		// *************************************//
-		if (ShipLeft.getY_axis() + step >= 100 && ShipLeft.getY_axis() + step <= 500 && step != 0 && energy1 > 2) {
-			ShipLeft.setY_axis(ShipLeft.getY_axis() + step);
+
+		if (ShieBlue.getY_axis() + step >= 100 && ShieBlue.getY_axis() + step <= 500 && step != 0 && energy1 > 2) {
+			ShieBlue.setY_axis(ShieBlue.getY_axis() + step);
 			energy1 -= 1;
 			e1.setProgress((double) energy1 / 100.0);
 		}
 
 		step = 0;
 
-		// sleep2.run();
 
 	}
 
@@ -175,11 +169,9 @@ public class EventManager {
 
 			step = 100;
 		}
-		// ************************************* Fix Center
-		// *************************************//
-		if (ShipRight.getSpaceShip().getY() + step >= 100 && ShipRight.getSpaceShip().getY() + step <= 500 && step != 0
+		if (ShipRed.getSpaceShip().getY() + step >= 100 && ShipRed.getSpaceShip().getY() + step <= 500 && step != 0
 				&& energy2 > 2) {
-			ShipRight.setY_axis(ShipRight.getY_axis() + step);
+			ShipRed.setY_axis(ShipRed.getY_axis() + step);
 			energy2 -= 1;
 			e2.setProgress((double) energy2 / 100.0);
 		}
@@ -189,10 +181,9 @@ public class EventManager {
 		if (random + n > 2000)
 
 		{
-			int bb = new Random().nextInt(3);
-			FileInputStream xy = new FileInputStream(s[bb]);
-			Bullet e = new Bullet(220 + (new Random().nextInt(17)) * 20, 100 + new Random().nextInt(5) * 100, 3, xy,
-					bb);
+			int rngOne2Three = new Random().nextInt(3);
+			Bullet e = new Bullet(220 + (new Random().nextInt(17)) * 20, 100 + new Random().nextInt(5) * 100, 3,
+					rngOne2Three);
 			System.out.println("xxx");
 			root.getChildren().add(e.getbulletImageView());
 			bulletList.add(e);
@@ -201,7 +192,7 @@ public class EventManager {
 		} else {
 			n += 10;
 		}
-		// sleep.run();
+
 
 	}
 
@@ -209,7 +200,7 @@ public class EventManager {
 		if (event.getCode() == KeyCode.D && (time1 < Timer.TIME || last1 > 0) && energy1 > 2) {
 
 			FileInputStream inputstream = new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png");
-			Bullet v = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY(), 1, inputstream);
+			Bullet v = new Bullet(ShieBlue.getSpaceShip().getX(), ShieBlue.getSpaceShip().getY(), 1, true); // true is blue // false is red
 			if (last1 > 0)
 				v.setSpeed(2);
 			else
@@ -217,15 +208,13 @@ public class EventManager {
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			if (fff > 0) {
-				double hi = ShipLeft.getSpaceShip().getY() - 100;
+				double hi = ShieBlue.getSpaceShip().getY() - 100;
 				if (hi == 0) {
 					hi -= 100;
 				}
 
-				Bullet vv = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY() + 100, 1,
-						new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png"));
-				Bullet vvv = new Bullet(ShipLeft.getSpaceShip().getX(), hi, 1,
-						new FileInputStream("res\\BlueShip\\Blue Ship bullet_.png"));
+				Bullet vv = new Bullet(ShieBlue.getSpaceShip().getX(), ShieBlue.getSpaceShip().getY() + 100, 1,true);
+				Bullet vvv = new Bullet(ShieBlue.getSpaceShip().getX(), hi, 1,true);
 				vv.setSpeed(v.getSpeed());
 				vvv.setSpeed(v.getSpeed());
 				bulletList.add(vv);
@@ -240,8 +229,7 @@ public class EventManager {
 
 		}
 		if (event.getCode() == KeyCode.LEFT && (time2 < Timer.TIME || last2 > 0) && energy2 > 2) {
-			FileInputStream inputstream = new FileInputStream("res/RedShip/Red Ship bullet.png");
-			Bullet v = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY(), -1, inputstream);
+			Bullet v = new Bullet(ShipRed.getSpaceShip().getX(), ShipRed.getSpaceShip().getY(), -1, false);
 			if (last2 > 0)
 				v.setSpeed(2);
 			else
@@ -249,15 +237,13 @@ public class EventManager {
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			if (ggg > 0) {
-				Bullet vv = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY() + 100, -1,
-						new FileInputStream("res/RedShip/Red Ship bullet.png"));
-				double hi = ShipRight.getSpaceShip().getY() - 100;
+				Bullet vv = new Bullet(ShipRed.getSpaceShip().getX(), ShipRed.getSpaceShip().getY() + 100, -1, false);
+				double hi = ShipRed.getSpaceShip().getY() - 100;
 				if (hi == 0) {
 					hi -= 100;
 				}
 
-				Bullet vvv = new Bullet(ShipRight.getSpaceShip().getX(), hi, -1,
-						new FileInputStream("res/RedShip/Red Ship bullet.png"));
+				Bullet vvv = new Bullet(ShipRed.getSpaceShip().getX(), hi, -1,false);
 				vv.setSpeed(v.getSpeed());
 				vvv.setSpeed(v.getSpeed());
 				bulletList.add(vv);
@@ -271,8 +257,8 @@ public class EventManager {
 
 		}
 
-		if (gg) {
-			gg = false;
+		if (isThreadStart) {
+			isThreadStart = false;
 			
 			Thread a = new Thread(() -> {
 				while (true) {
@@ -398,7 +384,7 @@ public class EventManager {
 
 									}
 
-									if (x.getX_axis() == ShipLeft.getX_axis() && x.getY_axis() == ShipLeft.getY_axis()
+									if (x.getX_axis() == ShieBlue.getX_axis() && x.getY_axis() == ShieBlue.getY_axis()
 											&& x.getbulletImageView().isVisible()) {
 										x.getbulletImageView().setVisible(false);
 										hpOne -= 1;
@@ -406,8 +392,8 @@ public class EventManager {
 											p.setProgress((double) hpOne / 10.0);
 										}
 
-									} else if (x.getX_axis() == ShipRight.getX_axis()
-											&& x.getY_axis() == ShipRight.getY_axis()
+									} else if (x.getX_axis() == ShipRed.getX_axis()
+											&& x.getY_axis() == ShipRed.getY_axis()
 											&& x.getbulletImageView().isVisible()) {
 										x.getbulletImageView().setVisible(false);
 										hpTwo -= 1;
@@ -419,24 +405,24 @@ public class EventManager {
 
 									if (hpOne <= 0 || hpTwo <= 0) {
 										if (hpOne <= 0) {
-											temp_left = ShipLeft.Bomb(BlueBomb) ;
+											temp_left = ShieBlue.Bomb() ;
 											root.getChildren().add(temp_left);
-											if (  ShipLeft.isBomb() ) {
+											if (  ShieBlue.isBomb() ) {
 												root.getChildren().remove(temp_left);
-												ShipLeft.BombReClaim();
+												ShieBlue.BombReClaim();
 												theStage.setScene(Gamescene);
 											}
 										} else if (hpTwo <= 0) {
-											temp_right = ShipRight.Bomb(RedBomb) ;
+											temp_right = ShipRed.Bomb() ;
 											root.getChildren().add(temp_right);
-											if ( ShipRight.isBomb()) {
+											if ( ShipRed.isBomb()) {
 												root.getChildren().remove(temp_right);
-												ShipRight.BombReClaim();
+												ShipRed.BombReClaim();
 												theStage.setScene(Gamescene);
 											}
 											
 										}
-										if ( ShipRight.isBomb() ||  ShipLeft.isBomb()) {
+										if ( ShipRed.isBomb() ||  ShieBlue.isBomb()) {
 											theStage.setScene(Gamescene);
 											hpOne = 10;
 											hpTwo = 10;
@@ -476,14 +462,14 @@ public class EventManager {
 					
 					
 
-//					if (ShipLeft.isBomb() || ShipRight.isBomb()) {
+//					if (ShieBlue.isBomb() || ShipRed.isBomb()) {
 //						theStage.setScene(Gamescene);
 //						hpOne = 10;
 //						hpTwo = 10;
 //						p.setProgress(1.0);
 //						p2.setProgress(1.0);
-//						ShipLeft.BombReClaim();
-//						ShipRight.BombReClaim();
+//						ShieBlue.BombReClaim();
+//						ShipRed.BombReClaim();
 //						for (int i = bulletList.size() - 1; i != -1; i--) { // Remove all old Bullet
 //							bulletList.get(i).getbulletImageView().setVisible(false);
 //							bulletList.remove(i);
@@ -500,14 +486,6 @@ public class EventManager {
 
 	}
 
-	public FileInputStream getShipLeftinputstream() {
-
-		return ShipLeftinputstream;
-	}
-
-	public FileInputStream getShipRightinputstream() {
-		return ShipRightinputstream;
-	}
 
 	public Scene getGamescene() {
 		return Gamescene;
@@ -523,6 +501,10 @@ public class EventManager {
 
 	public void setGameEnd(boolean isGameEnd) {
 		this.isGameEnd = isGameEnd;
+	}
+
+	public ImageLoader getLoader() {
+		return loader;
 	}
 
 }
