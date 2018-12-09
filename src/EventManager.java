@@ -467,6 +467,8 @@ public class EventManager {
 											
 											hpOne = 10;
 											hpTwo = 10;
+											energy1=100;
+											energy2=100;
 											p.setProgress(1.0);
 											p2.setProgress(1.0);
 											ShipBlue.BombReClaim();

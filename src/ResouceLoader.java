@@ -21,11 +21,11 @@ public class ResouceLoader {
 	private ImageView Input_image;
 
 	
-	private MediaPlayer  bgMusic;
+	private Media  bgMusic;
 	public ResouceLoader() {
 		//Music
 		try {
-			this.bgMusic  =new MediaPlayer( new Media(Main.class.getResourceAsStream(classLoaderNewString("music/BGmusic.mp4")).toString()));
+			this.bgMusic  =new Media(Main.class.getResource("music/BGmusic.mp4").toURI().toString());
 			// Main manu
 			this.Menu = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/MenuBG.png"))));
 			this.GameTitle = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/Bullet GOD title.png"))));
@@ -192,7 +192,7 @@ public class ResouceLoader {
 		return Input_image;
 	}
 
-	public MediaPlayer getBgMusic() {
+	public Media getBgMusic() {
 		return bgMusic;
 	}
 
