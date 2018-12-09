@@ -2,42 +2,53 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class ImageLoader {
-	
-	
-	private Object getClass;
-	//ClassMenu
-	private   ImageView GameTitle,Menu,StartGUI,QuitGUI;
-	//ClassEventmanager
-	public    ImageView RedWin,BlueWin,GameBG;
-	//Class Spaceship
-	private   ImageView BlueShip,RedShip,BlueBomb,RedBomb;
 
-	//Class Bullet 
-	private   ImageView BlueBullet,RedBullet,ItemSpeed,ItemEnergy,ItemMove;
+	private Object getClass;
+	// ClassMenu
+	private ImageView GameTitle, Menu, StartGUI, QuitGUI;
+	// ClassEventmanager
+	public ImageView RedWin, BlueWin, GameBG;
+	// Class Spaceship
+	private ImageView BlueShip, RedShip, BlueBomb, RedBomb;
+
+	// Class Bullet
+	private ImageView BlueBullet, RedBullet, ItemSpeed, ItemEnergy, ItemMove;
+
+	private ImageView Input_image;
 
 	public ImageLoader() {
-		
-		//Main manu
+
+		// Main manu
 		this.Menu = new ImageView(new Image(this.getClass().getResourceAsStream("BG/MenuBG.png")));
 		this.GameTitle = new ImageView(new Image(this.getClass().getResourceAsStream("BG/Bullet GOD title.png")));
 		this.StartGUI = new ImageView(new Image(this.getClass().getResourceAsStream("BG/Start.png")));
 		this.QuitGUI = new ImageView(new Image(this.getClass().getResourceAsStream("BG/Quit.png")));
-		//ClassEventmanager
+		// ClassEventmanager
 		this.RedWin = new ImageView(new Image(this.getClass().getResourceAsStream("BG/RED TEAM WIN.png")));
 		this.BlueWin = new ImageView(new Image(this.getClass().getResourceAsStream("BG/BLUE TEAM WIN.png")));
 		this.GameBG = new ImageView(new Image(this.getClass().getResourceAsStream("BG/GameBG.png")));
-		//Class Spaceship
-		this.BlueShip =	 new ImageView(new Image(this.getClass().getResourceAsStream("BlueShip/Blue Ship.png")));
-		this.RedShip =	new ImageView(new Image(this.getClass().getResourceAsStream("RedShip/Red Ship.png")));
-		this.BlueBomb = 	new ImageView(new Image(this.getClass().getResourceAsStream("BlueShip/Blue Ship exposive.png")));
-		this.RedBomb = 	new ImageView(new Image(this.getClass().getResourceAsStream("RedShip/Red Ship exposive.png")));
-		
-		//Class Bullet 
+		// Class Spaceship
+		this.BlueShip = new ImageView(new Image(this.getClass().getResourceAsStream("BlueShip/Blue Ship.png")));
+		this.RedShip = new ImageView(new Image(this.getClass().getResourceAsStream("RedShip/Red Ship.png")));
+		this.BlueBomb = new ImageView(
+				new Image(this.getClass().getResourceAsStream("BlueShip/Blue Ship exposive.png")));
+		this.RedBomb = new ImageView(new Image(this.getClass().getResourceAsStream("RedShip/Red Ship exposive.png")));
+
+		// Class Bullet
 		this.RedBullet = new ImageView(new Image(this.getClass().getResourceAsStream("RedShip/Red Ship bullet.png")));
-		this.BlueBullet = new ImageView(new Image(this.getClass().getResourceAsStream("BlueShip/Blue Ship bullet_.png")));
-		this.ItemSpeed	= new ImageView(new Image(this.getClass().getResourceAsStream("Item/Item Speed.png")));
-		this.ItemEnergy	= new ImageView(new Image(this.getClass().getResourceAsStream("Item/Item Energy.png")));
-		this.ItemMove	= new ImageView(new Image(this.getClass().getResourceAsStream("Item/Item Move.png")));
+		this.BlueBullet = new ImageView(
+				new Image(this.getClass().getResourceAsStream("BlueShip/Blue Ship bullet_.png")));
+		this.ItemSpeed = new ImageView(new Image(this.getClass().getResourceAsStream("Item/Item Speed.png")));
+		this.ItemEnergy = new ImageView(new Image(this.getClass().getResourceAsStream("Item/Item Energy.png")));
+		this.ItemMove = new ImageView(new Image(this.getClass().getResourceAsStream("Item/Item Move.png")));
+	}
+
+	public ImageLoader(String input) {
+		Input_image = new ImageView(new Image(this.getClass().getResourceAsStream(input)));
+	}
+
+	public ImageView getInputImage() {
+		return Input_image;
 	}
 
 	public Object getGetClass() {
@@ -145,6 +156,5 @@ public class ImageLoader {
 		GameBG.setFitWidth(800);
 		return GameBG;
 	}
-
 
 }

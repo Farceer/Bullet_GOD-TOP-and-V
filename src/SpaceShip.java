@@ -10,10 +10,11 @@ import javafx.util.Duration;
 public class SpaceShip implements Bombable {
 	private ImageView Ship;
 	private boolean isBomb;
-	private int type ; 
-	private final ImageLoader loader = new ImageLoader();
-	public SpaceShip(double X_axis, double Y_axis,int type) {
-		if (type > 0 ) {
+	private boolean type ; 
+	private  ImageLoader loader ;
+	public SpaceShip(double X_axis, double Y_axis,boolean b) {
+		loader = new ImageLoader();
+		if (b) {
 			Ship = getLoader().getBlueShip();
 		}else {
 			Ship = getLoader().getRedShip();
@@ -21,7 +22,7 @@ public class SpaceShip implements Bombable {
 		Ship.setX(X_axis);
 		Ship.setY(Y_axis);
 		this.isBomb = false;
-		this.type = type ;
+		this.type = b ;
 	}
 
 	public ImageView Bomb() {
@@ -29,7 +30,7 @@ public class SpaceShip implements Bombable {
 		
 		this.getSpaceShip().setVisible(false);
 		ImageView Bomb ;
-		if (this.getShipType() > 0 ) {
+		if (this.getShipType() ) {
 			 Bomb = getLoader().getBlueBomb();
 		}else {
 			 Bomb = getLoader().getRedBomb();
@@ -97,7 +98,7 @@ public class SpaceShip implements Bombable {
 		return Ship;
 	}
 
-	public int getShipType() {
+	public boolean getShipType() {
 		return type;
 	}
 

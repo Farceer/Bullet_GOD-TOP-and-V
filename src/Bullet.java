@@ -1,4 +1,3 @@
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javafx.scene.image.Image;
@@ -12,38 +11,31 @@ public class Bullet {
 	public int type;
 	private ImageView bulletImageView;
 	private int speed = 1;
-	private final ImageLoader loader = new ImageLoader();
 
-	public Bullet(double X_axis ,double Y_axis,int Direction,Boolean type) throws FileNotFoundException {
-		if ( type) {
-			bulletImageView = loader.getBlueBullet();
-		}else {
-			bulletImageView = loader.getRedBullet();
-		}
+	public Bullet(double X_axis, double Y_axis, int Direction, String inputstream)
+			throws FileNotFoundException {
+		ImageLoader load = new ImageLoader(inputstream);
+		bulletImageView = load.getInputImage();
+		// bullet= new Image(inputstream, 50, 50, false, false);
+		bulletImageView.setFitHeight(50);
+		bulletImageView.setFitWidth(50);
 		bulletImageView.setPreserveRatio(true);
+		bulletImageView.setSmooth(false);
 		bulletImageView.setX(X_axis);
 		bulletImageView.setY(Y_axis);
-		direction=Direction;
-		this.type=0;
+		direction = Direction;
+		this.type = 0;
 	}
 
-	public Bullet(double X_axis, double Y_axis, int Direction, int type) {
-		switch (type) {
-		case 0:
-			bulletImageView = loader.getItemEnergy();
-			break;
-		case 1:
-			bulletImageView = loader.getItemMove();
-			break;
-		case 2:
-			bulletImageView = loader.getItemSpeed();
-			break;
-
-		default:
-			break;
-		}
-		bulletImageView = new ImageView(bullet);
+	public Bullet(double X_axis, double Y_axis, int Direction, String inputstream, int type) {
+		ImageLoader load = new ImageLoader(inputstream);
+		bulletImageView = load.getInputImage();
+		// bullet= new Image(inputstream, 50, 50, false, false);
+		// bulletImageView = new ImageView(bullet);
+		bulletImageView.setFitHeight(50);
+		bulletImageView.setFitWidth(50);
 		bulletImageView.setPreserveRatio(true);
+		bulletImageView.setSmooth(false);
 		bulletImageView.setX(X_axis);
 		bulletImageView.setY(Y_axis);
 		direction = Direction;
@@ -96,10 +88,6 @@ public class Bullet {
 
 	public int getSpeed() {
 		return speed;
-	}
-
-	public ImageLoader getLoader() {
-		return loader;
 	}
 
 }
