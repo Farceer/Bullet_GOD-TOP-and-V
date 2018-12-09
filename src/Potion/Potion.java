@@ -1,8 +1,11 @@
+package Potion;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+///////////////////////////////////////**************************Plz use BombAble *********************************************/////////////////////////////
+
 
 public class Potion {
 	private Image potion ;
@@ -37,7 +40,7 @@ public class Potion {
 	public void setPotionImageView(ImageView potionImageView) {
 		PotionImageView = potionImageView;
 	}
-	
+///////////////////////////////////////**************************Plz use BombAble *********************************************/////////////////////////////
 	
 	
 }

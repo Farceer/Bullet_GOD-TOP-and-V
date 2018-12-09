@@ -1,19 +1,19 @@
+
 import java.io.FileNotFoundException;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
 public class Bullet {
 
-	private Image bullet;
-	// public Rectangle bullet=new Rectangle();
 	private int direction;
-	public int type;
-	private ImageView bulletImageView;
+	private int type;
 	private int speed = 1;
+	private ImageView bulletImageView;
 
-	public Bullet(double X_axis, double Y_axis, int Direction, String inputstream)
-			throws FileNotFoundException {
+	public Bullet(double X_axis, double Y_axis, int Direction, String inputstream) throws FileNotFoundException {
 		ResouceLoader load = new ResouceLoader(inputstream);
 		bulletImageView = load.getInputImage();
 		// bullet= new Image(inputstream, 50, 50, false, false);
@@ -24,9 +24,9 @@ public class Bullet {
 		bulletImageView.setX(X_axis);
 		bulletImageView.setY(Y_axis);
 		direction = Direction;
-		this.type = 0;
+		this.setType(0);
 	}
-
+///////////////////////////////////////**************************Plz Change to  Potion *********************************************/////////////////////////////
 	public Bullet(double X_axis, double Y_axis, int Direction, String inputstream, int type) {
 		ResouceLoader load = new ResouceLoader(inputstream);
 		bulletImageView = load.getInputImage();
@@ -39,10 +39,10 @@ public class Bullet {
 		bulletImageView.setX(X_axis);
 		bulletImageView.setY(Y_axis);
 		direction = Direction;
-		this.type = type;
+		this.setType(type);
 
 	}
-
+///////////////////////////////////////**************************Plz Change to  Potion *********************************************/////////////////////////////
 	public void update() {
 		if (direction != 3) {
 			bulletImageView.setX(bulletImageView.getX() + 10 * direction * speed);
@@ -50,17 +50,7 @@ public class Bullet {
 
 	}
 
-	public int getDirection() {
-		return direction;
-	}
 
-	public double getX_axis() {
-		return getbulletImageView().getX();
-	}
-
-	public double getY_axis() {
-		return getbulletImageView().getY();
-	}
 
 	public void setDirection(int direction) {
 		this.direction = direction;
@@ -73,9 +63,8 @@ public class Bullet {
 	public void setY_axis(double y_axis) {
 		getbulletImageView().setY(y_axis);
 	}
-
-	public Image getBullet() {
-		return bullet;
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	public ImageView getbulletImageView() {
@@ -85,9 +74,30 @@ public class Bullet {
 	public void setSpeed(int x) {
 		this.speed = x;
 	}
+	
+	public int getDirection() {
+		return direction;
+	}
+
+	public double getX_axis() {
+		return getbulletImageView().getX();
+	}
+
+	public double getY_axis() {
+		return getbulletImageView().getY();
+	}
 
 	public int getSpeed() {
 		return speed;
 	}
+
+	public int getType() {
+		return type;
+	}
+
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
 
 }

@@ -1,13 +1,7 @@
-import java.io.FileInputStream;
 
-import javafx.scene.image.ImageView;
-
-public interface Bombable {
-	
-	public ImageView Bomb();
-
-	public void BombReClaim();
-	
-	
-	public boolean isBomb() ;
+public interface BombAble {
+	public boolean isBomb();
+	public boolean setBomb(boolean status);
+	public Object Bomb() ;
+	public void BombReset();
 }

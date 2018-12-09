@@ -1,10 +1,14 @@
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Random;
 
+import java.io.FileNotFoundException;
+import java.security.GuardedObject;
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.Random;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
@@ -13,7 +17,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -30,8 +33,8 @@ public class EventManager {
 
 
 	private boolean isGameEnd;
-	private String s[] = new String[] { "Item/Item Energy.png", "Item/Item Move.png",
-			"Item/Item Speed.png" };
+	private String s[] = new String[] { "Item/ItemEnergy.png", "Item/ItemMove.png",
+			"Item/ItemSpeed.png" };
 	private Pane root1;
 	private Pane root2;
 	
@@ -51,6 +54,7 @@ public class EventManager {
 	public static double energy1 = 100;
 	public static double energy2 = 100;
 	// Progress Bar
+	//************************************************ Plz fix by using  ProgressBarSet ************************************//
 	public static int xand = 0;
 	public static int yand = 0;
 	public static int fff = 0;
@@ -62,7 +66,7 @@ public class EventManager {
 	ProgressBar e1 = new ProgressBar();
 	ProgressBar e2 = new ProgressBar();
 	public static boolean magic = true;
-	
+	//************************************************ Plz fix by using  ProgressBarSet ************************************//
 
 	//
 
@@ -76,10 +80,9 @@ public class EventManager {
 		BlueWin=Blue;
 		this.root = root;
 		Gamescene = scene;
-		ResouceLoader loadGameBG = new ResouceLoader(new  String("BG/GameBG.png"));
-		ImageView GameBG = loadGameBG.getInputImage();
-		GameBG.setFitHeight(600);
-		GameBG.setFitWidth(800);
+		ResouceLoader loadGameBG = new ResouceLoader();
+		ImageView GameBG = loadGameBG.getGameBG();
+
 		this.theStage = theStage;
 		this.ShipBlue = new SpaceShip(120, 300, true);
 		this.ShipRed = new SpaceShip(680, 300, false);
@@ -92,7 +95,7 @@ public class EventManager {
 		this.root.getChildren().add(GameBG);
 		this.root.getChildren().add(ShipBlue.getSpaceShip());
 		this.root.getChildren().add(ShipRed.getSpaceShip());
-
+//************************************************ Plz fix by using  ProgressBarSet ************************************//
 		p.setProgress(1.0);
 		p.setPrefWidth(400);
 		p.setPrefHeight(30);
@@ -129,6 +132,7 @@ public class EventManager {
 		root.getChildren().add(e2);
 
 		root.getChildren().add(e1);
+//************************************************ Plz fix by using  ProgressBarSet ************************************//
 	}
 
 
@@ -142,8 +146,7 @@ public class EventManager {
 			step = STEP_DOWN;
 
 		}
-		// ************************************* Fix Center
-		// *************************************//
+
 		if (ShipBlue.getY_axis() + step >= 100 && ShipBlue.getY_axis() + step <= 500 && step != 0 && energy1 > 2) {
 			ShipBlue.setY_axis(ShipBlue.getY_axis() + step);
 			energy1 -= 1;
@@ -152,7 +155,6 @@ public class EventManager {
 
 		step = 0;
 
-		// sleep2.run();
 
 	}
 
@@ -165,8 +167,7 @@ public class EventManager {
 
 			step = 100;
 		}
-		// ************************************* Fix Center
-		// *************************************//
+
 		if (ShipRed.getSpaceShip().getY() + step >= 100 && ShipRed.getSpaceShip().getY() + step <= 500 && step != 0
 				&& energy2 > 2) {
 			ShipRed.setY_axis(ShipRed.getY_axis() + step);
@@ -190,14 +191,13 @@ public class EventManager {
 		} else {
 			n += 10;
 		}
-		// sleep.run();
 
 	}
 
-	void fireOne(KeyEvent event) throws FileNotFoundException, IllegalStateException {
+	void fireOne(KeyEvent event) throws FileNotFoundException, IllegalStateException  , ConcurrentModificationException ,ClassCastException {
 		if (event.getCode() == KeyCode.D && (time1 < Timer.TIME || last1 > 0) && energy1 > 2) {
 
-			Bullet v = new Bullet(ShipBlue.getSpaceShip().getX()+25, ShipBlue.getSpaceShip().getY()+25, 1, new String("BlueShip/Blue Ship bullet_.png"));
+			Bullet v = new Bullet(ShipBlue.getSpaceShip().getX()+25, ShipBlue.getSpaceShip().getY()+25, 1, new String("Charactor/BlueShipBullet.png"));
 			if (last1 > 0)
 				v.setSpeed(2);
 			else
@@ -210,8 +210,8 @@ public class EventManager {
 					hi -= 100;
 				}
 
-				Bullet vv = new Bullet(ShipBlue.getSpaceShip().getX()+25, ShipBlue.getSpaceShip().getY() + 125, 1,new String("BlueShip/Blue Ship bullet_.png"));
-				Bullet vvv = new Bullet(ShipBlue.getSpaceShip().getX()+25, hi+25, 1,new String("BlueShip/Blue Ship bullet_.png"));
+				Bullet vv = new Bullet(ShipBlue.getSpaceShip().getX()+25, ShipBlue.getSpaceShip().getY() + 125, 1,new String("Charactor/BlueShipBullet.png"));
+				Bullet vvv = new Bullet(ShipBlue.getSpaceShip().getX()+25, hi+25, 1,new String("Charactor/BlueShipBullet.png"));
 				vv.setSpeed(v.getSpeed());
 				vvv.setSpeed(v.getSpeed());
 				bulletList.add(vv);
@@ -226,7 +226,7 @@ public class EventManager {
 
 		}
 		if (event.getCode() == KeyCode.LEFT && (time2 < Timer.TIME || last2 > 0) && energy2 > 2) {
-			Bullet v = new Bullet(ShipRed.getSpaceShip().getX()-25, ShipRed.getSpaceShip().getY()+25, -1, new String("RedShip/Red Ship bullet.png"));
+			Bullet v = new Bullet(ShipRed.getSpaceShip().getX()-25, ShipRed.getSpaceShip().getY()+25, -1, new String("Charactor/RedShip bullet.png"));
 			if (last2 > 0)
 				v.setSpeed(2);
 			else
@@ -234,13 +234,13 @@ public class EventManager {
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			if (ggg > 0) {
-				Bullet vv = new Bullet(ShipRed.getSpaceShip().getX()-25, ShipRed.getSpaceShip().getY()+25 + 100, -1,new String("RedShip/Red Ship bullet.png"));
+				Bullet vv = new Bullet(ShipRed.getSpaceShip().getX()-25, ShipRed.getSpaceShip().getY()+25 + 100, -1,new String("Charactor/RedShip bullet.png"));
 				double hi = ShipRed.getSpaceShip().getY() - 100;
 				if (hi == 0) {
 					hi -= 100;
 				}
 
-				Bullet vvv = new Bullet(ShipRed.getSpaceShip().getX()-25, hi+25, -1,new String("RedShip/Red Ship bullet.png"));
+				Bullet vvv = new Bullet(ShipRed.getSpaceShip().getX()-25, hi+25, -1,new String("Charactor/RedShip bullet.png"));
 				vv.setSpeed(v.getSpeed());
 				vvv.setSpeed(v.getSpeed());
 				bulletList.add(vv);
@@ -259,7 +259,7 @@ public class EventManager {
 			
 			Thread a = new Thread(() -> {
 				while (true) {
-
+					//************************************************ Plz fix by using  ProgressBarSet ************************************//
 					try {
 
 						fff -= 10;
@@ -279,6 +279,7 @@ public class EventManager {
 
 						e2.setProgress((double) energy2 / 100.0);
 						e1.setProgress((double) energy1 / 100.0);
+						//************************************************ Plz fix by using  ProgressBarSet ************************************//
 						Platform.runLater(new Runnable() {
 
 							public void run() {
@@ -350,7 +351,7 @@ public class EventManager {
 
 												}
 
-												if (x.type + y.type == 1) {
+												if (x.getType() + y.getType() == 1) {
 													if (x.getDirection() + y.getDirection() != 2) {
 														fff = 2000;
 													} else {
@@ -358,7 +359,7 @@ public class EventManager {
 													}
 
 												}
-												if (x.type + y.type == 2) {
+												if (x.getType() + y.getType() == 2) {
 													if (x.getDirection() + y.getDirection() != 2) {
 														yand = 1000;
 
@@ -367,7 +368,7 @@ public class EventManager {
 
 													}
 
-												} else if (x.type + y.type == 0) {
+												} else if (x.getType() + y.getType() == 0) {
 													if (x.getDirection() + y.getDirection() != 2) {
 														last1 = 200;
 													} else {
@@ -450,60 +451,42 @@ public class EventManager {
 										}
 										
 										if (ShipBlue.isBomb() || ShipRed.isBomb()) {
-											Rectangle rect = new Rectangle(0, 0, 800,350);
-											Rectangle rect2 = new Rectangle(0,450,800,300);
-											Rectangle rect3 = new Rectangle(0,350,350,100);
-											Rectangle rect4 = new Rectangle(450,350,350,100);
+
 											if(ShipBlue.isBomb())
 											{
 												theStage.setScene(RedWin);
-												root1.getChildren().addAll(rect2,rect,rect3,rect4);
+												root1.getChildren().add( (Group)ShipBlue.Bomb());
+												hpOne = 10;
+												hpTwo = 10;
+												energy1=100;
+												energy2=100;
+												p.setProgress(1.0);
+												p2.setProgress(1.0);
+												ShipBlue.BombReset();
+												ShipRed.BombReset();
 											}
 											else
 											{
 												theStage.setScene(BlueWin);
-												root2.getChildren().addAll(rect2,rect,rect3,rect4);
+												root2.getChildren().add((Group) ShipRed.Bomb());
+												hpOne = 10;
+												hpTwo = 10;
+												energy1=100;
+												energy2=100;
+												p.setProgress(1.0);
+												p2.setProgress(1.0);
+												ShipBlue.BombReset();
+												ShipRed.BombReset();
 											}
 											
-											hpOne = 10;
-											hpTwo = 10;
-											energy1=100;
-											energy2=100;
-											p.setProgress(1.0);
-											p2.setProgress(1.0);
-											ShipBlue.BombReClaim();
-											ShipRed.BombReClaim();
-											ShipBlue.setBomb(false);
-											ShipRed.setBomb(false);
+
 											//gg=true;
 											
 									
 											
-											rect.setFill(Color.WHITE);
-											rect2.setFill(Color.WHITE);
-											rect3.setFill(Color.WHITE);
-											rect4.setFill(Color.WHITE);
 
-											FadeTransition ft = new FadeTransition(Duration.millis(2000), rect);
-											ft.setFromValue(1);
-											ft.setToValue(0);
-											
-											FadeTransition ft2 = new FadeTransition(Duration.millis(2000), rect2);
-											ft2.setFromValue(1);
-											ft2.setToValue(0);
-											
-											FadeTransition ft3 = new FadeTransition(Duration.millis(1500), rect3);
-											ft3.setFromValue(1);
-											ft3.setToValue(0);
-											
-											FadeTransition ft4 = new FadeTransition(Duration.millis(1500), rect4);
-											ft4.setFromValue(1);
-											ft4.setToValue(0);
 
-											ft.play();
-											ft2.play();
-											ft3.play();
-											ft4.play();
+											
 											//ft.setDelay(Duration.millis(5000));
 											//root1.getChildren().remove(rect);
 											

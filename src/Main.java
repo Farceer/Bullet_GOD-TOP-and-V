@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 		private Stage theStage;
+
 	public void start(Stage theStage) throws FileNotFoundException {
 		Timer timer = new Timer();
 		theStage.setTitle("BulletGod");
@@ -20,10 +21,11 @@ public class Main extends Application {
 		Pane PaneGame = new Pane();
 		Pane Red =new Pane();
 		Pane Blue =new Pane();
+		
 		Scene RedWin =new Scene(Red,800,600);
 		Scene BlueWin = new Scene(Blue,800,600);
 		Scene MenuScene = new Scene(PaneMenu, 800, 600);
-		
+
 		
 		theStage.setScene(MenuScene);
 		theStage.setResizable(true);
@@ -33,6 +35,7 @@ public class Main extends Application {
 		GameMenu GameMenu = new GameMenu(PaneMenu, GameScene, theStage,0);
 		GameMenu RedMenu =new GameMenu(Red,GameScene,theStage,1);
 		GameMenu BlueMenu =new GameMenu(Blue,GameScene,theStage,2);
+
 		RedMenu.drawBoard();
 		BlueMenu.drawBoard();
 		GameMenu.drawBoard();

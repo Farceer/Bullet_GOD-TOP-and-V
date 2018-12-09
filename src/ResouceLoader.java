@@ -1,15 +1,18 @@
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
-public class ResouceLoader {
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+public class ResouceLoader  {
 
-	private Object getClass;
 	// ClassMenu
-	private ImageView GameTitle, Menu, StartGUI, QuitGUI,ReStartGUI;
+	private ImageView GameTitle, Menu, StartGUI, QuitGUI, ReStartGUI;
 	// ClassEventmanager
 	public ImageView RedWin, BlueWin, GameBG;
 	// Class Spaceship
@@ -20,35 +23,48 @@ public class ResouceLoader {
 
 	private ImageView Input_image;
 
-	
-	private Media  bgMusic;
-	public ResouceLoader() {
-		//Music
-		try {
-			this.bgMusic  =new Media(Main.class.getResource("music/BGmusic.mp4").toURI().toString());
-			// Main manu
-			this.Menu = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/MenuBG.png"))));
-			this.GameTitle = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/Bullet GOD title.png"))));
-			this.StartGUI = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/Start.png"))));
-			this.ReStartGUI = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/Restart.png"))));
-			this.QuitGUI = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/Quit.png"))));
-			// ClassEventmanager
-			this.RedWin = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/RED TEAM WIN.png"))));
-			this.BlueWin = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/BLUE TEAM WIN.png"))));
-			this.GameBG = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/GameBG.png"))));
-			// Class Spaceship
-			this.BlueShip = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BlueShip/Blue Ship.png"))));
-			this.RedShip = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("RedShip/Red Ship.png"))));
-			this.BlueBomb = new ImageView(
-					new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BlueShip/Blue Ship exposive.png"))));
-			this.RedBomb = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("RedShip/Red Ship exposive.png"))));
+	private Media bgMusic;
+	// Credit
+	private ImageView TOP, V;
 
+	public ResouceLoader() {
+		// Music
+		try {
+			this.bgMusic = new Media(Main.class.getResource("Music/BGmusic.mp4").toURI().toString());
+			// Main manu
+			this.Menu = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("RenderMenu/MenuBG.png"))));
+			this.GameTitle = new ImageView(new Image(
+					this.getClass().getResourceAsStream(classLoaderNewString("RenderMenu/Bullet GOD title.png"))));
+			this.StartGUI = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("RenderMenu/Start.png"))));
+			this.ReStartGUI = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("RenderMenu/Restart.png"))));
+			this.QuitGUI = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("RenderMenu/Quit.png"))));
+			// ClassEventmanager
+			this.RedWin = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("RenderGame/RedTeamWin.png"))));
+			this.BlueWin = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("RenderGame/BlueTeamWin.png"))));
+			this.GameBG = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("RenderGame/GameBG.png"))));
+			// Class Spaceship
+			this.BlueShip = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("Charactor/BlueShip.png"))));
+			this.RedShip = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("Charactor/RedShip.png"))));
 			// Class Bullet
-			this.RedBullet = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("RedShip/Red Ship bullet.png"))));
-			this.BlueBullet = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BlueShip/Blue Ship bullet_.png"))));
-			this.ItemSpeed = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("Item/Item Speed.png"))));
-			this.ItemEnergy = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("Item/Item Energy.png"))));
-			this.ItemMove = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("Item/Item Move.png"))));
+			this.ItemSpeed = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("Item/ItemSpeed.png"))));
+			this.ItemEnergy = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("Item/ItemEnergy.png"))));
+			this.ItemMove = new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("Item/ItemMachineGun.png"))));
+			this.TOP 	=new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("Charactor/TOP_credit.jpg"))));
+			this.V 	=new ImageView(
+					new Image(this.getClass().getResourceAsStream(classLoaderNewString("Charactor/V_credit.jpg"))));
 		} catch (Exception e) {
 			// TODO: handle exception
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -57,7 +73,7 @@ public class ResouceLoader {
 			alert.setTitle("Error Detect");
 			alert.show();
 		}
-		
+
 	}
 
 	public ResouceLoader(String input) {
@@ -68,12 +84,8 @@ public class ResouceLoader {
 		return Input_image;
 	}
 
-	
-	public String classLoaderNewString (String string) {
+	public String classLoaderNewString(String string) {
 		return new String(string);
-	}
-	public Object getGetClass() {
-		return getClass;
 	}
 
 	public ImageView getGameTitle() {
@@ -196,4 +208,20 @@ public class ResouceLoader {
 		return bgMusic;
 	}
 
+	public ImageView getTOP() {
+		TOP.setFitHeight(200);
+		TOP.setFitWidth(200);
+		return TOP;
+	}
+
+	public ImageView getV() {
+		V.setFitHeight(200);
+		V.setFitWidth(200);
+		return V;
+	}
+
+///////////////////////////////////////**************************CLean Code Alredy*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Alredy*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Alredy*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Alredy*********************************************/////////////////////////////
 }

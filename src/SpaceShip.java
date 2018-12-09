@@ -1,85 +1,35 @@
-import java.io.FileInputStream;
 
 import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.image.Image;
+import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class SpaceShip implements Bombable {
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+public class SpaceShip implements BombAble {
 	private ImageView Ship;
-	private boolean isBomb;
-	private boolean type ; 
-	private  ResouceLoader loader ;
-	public SpaceShip(double X_axis, double Y_axis,boolean b) {
+	private boolean type;
+	private ResouceLoader loader;
+	private boolean isShipBomb;
+
+	public SpaceShip(double X_axis, double Y_axis, boolean ShipType) { // ShipType True is blue , False is red
 		loader = new ResouceLoader();
-		if (b) {
+		if (ShipType) {
 			Ship = getLoader().getBlueShip();
-		}else {
+		} else {
 			Ship = getLoader().getRedShip();
 		}
-		Ship.setX(X_axis);
-		Ship.setY(Y_axis);
-		this.isBomb = false;
-		this.type = b ;
-	}
-
-	public ImageView Bomb() {
-		// TODO Auto-generated method stub
-		
-		this.getSpaceShip().setVisible(false);
-		ImageView Bomb ;
-		if (this.getShipType() ) {
-			 Bomb = getLoader().getBlueBomb();
-		}else {
-			 Bomb = getLoader().getRedBomb();
-		}
-		Bomb.setTranslateX(this.getX_axis() - 65 + 25);
-		Bomb.setTranslateY(this.getY_axis() - 65 + 25);
-
-		FadeTransition x = new FadeTransition(Duration.millis(2000), Bomb);
-		x.setFromValue(1);
-		x.setToValue(0);
-		x.setCycleCount(1);
-
-		x.play();
-		x.setOnFinished(new EventHandler<ActionEvent>() {
-
-			public void handle(ActionEvent actionEvent) {
-				setBomb(true);
-			}
-		});
-
-		return Bomb;
-	}
-	public void BombReClaim() {
-		// TODO Auto-generated method stub
-		this.getSpaceShip().setVisible(true);
-		this.setY_axis(300); // Set Ship to Center
-		this.setY_axis(300);// Set Ship to Center
-		setBomb(false);
-	}
-
-	@Override
-	public boolean isBomb() {
-		return isBomb;
-	}
-
-	public void setBomb(boolean isBomb) {
-		this.isBomb = isBomb;
+		this.Ship.setX(X_axis);
+		this.Ship.setY(Y_axis);
+		this.type = ShipType;
+		this.isShipBomb = false;
 	}
 
 	public ImageView getSpaceShip() {
-		return Ship;
-	}
-
-	public double getX_axis() {
-		return getSpaceShip().getX();
-	}
-
-	public double getY_axis() {
-		return getSpaceShip().getY();
+		return this.Ship;
 	}
 
 	public void setX_axis(double x_axis) {
@@ -90,17 +40,74 @@ public class SpaceShip implements Bombable {
 		getSpaceShip().setY(y_axis);
 	}
 
+	public double getX_axis() {
+		return getSpaceShip().getX();
+	}
+
+	public double getY_axis() {
+		return getSpaceShip().getY();
+	}
+
 	public ResouceLoader getLoader() {
-		return loader;
+		return this.loader;
 	}
 
 	public ImageView getShip() {
-		return Ship;
+		return this.Ship;
 	}
 
 	public boolean getShipType() {
-		return type;
+		return this.type;
 	}
 
+	@Override
+	public boolean isBomb() {
+		// TODO Auto-generated method stub
+		return this.isShipBomb;
+	}
+
+	@Override
+	public boolean setBomb(boolean ShipStatus) {
+		// TODO Auto-generated method stub
+		return this.isShipBomb = ShipStatus;
+	}
+
+	@Override
+	public Object Bomb() {
+		// TODO Auto-generated method stub
+		Rectangle rect = new Rectangle(0, 0, 800, 350);
+		Rectangle rect2 = new Rectangle(0, 450, 800, 300);
+		Rectangle rect3 = new Rectangle(0, 350, 350, 100);
+		Rectangle rect4 = new Rectangle(450, 350, 350, 100);
+		ShipBombTransition(rect, 2000);
+		ShipBombTransition(rect2, 2000);
+		ShipBombTransition(rect3, 1500);
+		ShipBombTransition(rect4, 1500);
+		Group g = new Group(rect, rect2, rect3, rect4);
+		setBomb(true);
+		return g;
+
+	}
+
+	private void ShipBombTransition(final Rectangle rect, final double millis) {
+		FadeTransition ft = new FadeTransition(Duration.millis(millis), rect);
+		ft.setFromValue(1);
+		ft.setToValue(0);
+		ft.play();
+		rect.setFill(Color.WHITE);
+	}
+
+	@Override
+	public void BombReset() {
+		// TODO Auto-generated method stub
+		this.getSpaceShip().setVisible(true);
+		this.setY_axis(300); // Set Ship to Center
+		setBomb(false);
+
+	}
+	
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
+///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
 
 }
