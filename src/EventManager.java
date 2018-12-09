@@ -450,14 +450,19 @@ public class EventManager {
 										}
 										
 										if (ShipBlue.isBomb() || ShipRed.isBomb()) {
+											Rectangle rect = new Rectangle(0, 0, 800,350);
+											Rectangle rect2 = new Rectangle(0,450,800,300);
+											Rectangle rect3 = new Rectangle(0,350,350,100);
+											Rectangle rect4 = new Rectangle(450,350,350,100);
 											if(ShipBlue.isBomb())
 											{
 												theStage.setScene(RedWin);
-												
+												root1.getChildren().addAll(rect2,rect,rect3,rect4);
 											}
 											else
 											{
 												theStage.setScene(BlueWin);
+												root2.getChildren().addAll(rect2,rect,rect3,rect4);
 											}
 											
 											hpOne = 10;
@@ -469,16 +474,13 @@ public class EventManager {
 											ShipBlue.setBomb(false);
 											ShipRed.setBomb(false);
 											//gg=true;
-											Rectangle rect = new Rectangle(0, 0, 800,350);
-											Rectangle rect2 = new Rectangle(0,450,800,300);
-											Rectangle rect3 = new Rectangle(0,200,350,300);
-											Rectangle rect4 = new Rectangle(450,200,350,300);
-											root1.getChildren().addAll(rect2,rect,rect3,rect4);
 											
-											rect.setFill(Color.RED);
-											rect2.setFill(Color.RED);
-											rect3.setFill(Color.RED);
-											rect4.setFill(Color.RED);
+									
+											
+											rect.setFill(Color.WHITE);
+											rect2.setFill(Color.WHITE);
+											rect3.setFill(Color.WHITE);
+											rect4.setFill(Color.WHITE);
 
 											FadeTransition ft = new FadeTransition(Duration.millis(2000), rect);
 											ft.setFromValue(1);
