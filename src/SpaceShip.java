@@ -11,9 +11,9 @@ public class SpaceShip implements Bombable {
 	private ImageView Ship;
 	private boolean isBomb;
 	private boolean type ; 
-	private  ImageLoader loader ;
+	private  ResouceLoader loader ;
 	public SpaceShip(double X_axis, double Y_axis,boolean b) {
-		loader = new ImageLoader();
+		loader = new ResouceLoader();
 		if (b) {
 			Ship = getLoader().getBlueShip();
 		}else {
@@ -90,7 +90,7 @@ public class SpaceShip implements Bombable {
 		getSpaceShip().setY(y_axis);
 	}
 
-	public ImageLoader getLoader() {
+	public ResouceLoader getLoader() {
 		return loader;
 	}
 

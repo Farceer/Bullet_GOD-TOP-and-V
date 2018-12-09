@@ -76,7 +76,7 @@ public class EventManager {
 		BlueWin=Blue;
 		this.root = root;
 		Gamescene = scene;
-		ImageLoader loadGameBG = new ImageLoader(new  String("BG/GameBG.png"));
+		ResouceLoader loadGameBG = new ResouceLoader(new  String("BG/GameBG.png"));
 		ImageView GameBG = loadGameBG.getInputImage();
 		GameBG.setFitHeight(600);
 		GameBG.setFitWidth(800);

@@ -62,23 +62,26 @@ public class GameMenu extends Pane {
 //		String Menu_path = ClassLoader.getSystemResource("BG/MenuBG.png").toString();
 //		Menu = new ImageView(new Image(Menu_path));
 		type=x;
-		ImageLoader loader = new ImageLoader();
+		ResouceLoader loader = new ResouceLoader();
 		Menu      = loader.getMenu();
 		if(x==2)
 		{
 			GameTitle =loader.getBlueWin();
+			StartGUI = loader.getReStartGUI();
 		}
 		else if(x==1)
 		{
+			
 			GameTitle =loader.getRedWin();
+			StartGUI = loader.getReStartGUI();
 		}
 		else
 		{
 			GameTitle =loader.getGameTitle();
-			
+			StartGUI = loader.getStartGUI();
 		}
 	
-		StartGUI = loader.getStartGUI();
+		
 		QuitGUI  = loader.getQuitGUI();
 		
 		Start = new Button("", StartGUI);
@@ -92,7 +95,7 @@ public class GameMenu extends Pane {
 		Credit.setPrefSize(150, 30);
 		Quit.setPrefSize(150, 30);
 
-		box = new VBox(35, Start, Quit);
+		box = new VBox(10, Start, Quit);
 		box.setAlignment(Pos.CENTER);
 		box.setTranslateX(325);
 		box.setTranslateY(350);
@@ -143,10 +146,6 @@ public class GameMenu extends Pane {
 	void drawBoard() {
 		//root.getChildren().clear();
 		root.getChildren().addAll(Menu,box,GameTitle);
-		if(type!=0)
-		{
-			Quit.setVisible(false);
-		}
 
 	}
 

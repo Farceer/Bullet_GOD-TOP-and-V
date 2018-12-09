@@ -14,7 +14,7 @@ public class Bullet {
 
 	public Bullet(double X_axis, double Y_axis, int Direction, String inputstream)
 			throws FileNotFoundException {
-		ImageLoader load = new ImageLoader(inputstream);
+		ResouceLoader load = new ResouceLoader(inputstream);
 		bulletImageView = load.getInputImage();
 		// bullet= new Image(inputstream, 50, 50, false, false);
 		bulletImageView.setFitHeight(50);
@@ -28,7 +28,7 @@ public class Bullet {
 	}
 
 	public Bullet(double X_axis, double Y_axis, int Direction, String inputstream, int type) {
-		ImageLoader load = new ImageLoader(inputstream);
+		ResouceLoader load = new ResouceLoader(inputstream);
 		bulletImageView = load.getInputImage();
 		// bullet= new Image(inputstream, 50, 50, false, false);
 		// bulletImageView = new ImageView(bullet);
