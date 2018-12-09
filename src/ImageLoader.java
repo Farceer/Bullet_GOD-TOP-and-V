@@ -19,28 +19,28 @@ public class ImageLoader {
 	public ImageLoader() {
 
 		// Main manu
-		this.Menu = new ImageView(new Image(this.getClass().getResourceAsStream("BG/MenuBG.png")));
-		this.GameTitle = new ImageView(new Image(this.getClass().getResourceAsStream("BG/Bullet GOD title.png")));
-		this.StartGUI = new ImageView(new Image(this.getClass().getResourceAsStream("BG/Start.png")));
-		this.QuitGUI = new ImageView(new Image(this.getClass().getResourceAsStream("BG/Quit.png")));
+		this.Menu = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/MenuBG.png"))));
+		this.GameTitle = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/Bullet GOD title.png"))));
+		this.StartGUI = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/Start.png"))));
+		this.QuitGUI = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/Quit.png"))));
 		// ClassEventmanager
-		this.RedWin = new ImageView(new Image(this.getClass().getResourceAsStream("BG/RED TEAM WIN.png")));
-		this.BlueWin = new ImageView(new Image(this.getClass().getResourceAsStream("BG/BLUE TEAM WIN.png")));
-		this.GameBG = new ImageView(new Image(this.getClass().getResourceAsStream("BG/GameBG.png")));
+		this.RedWin = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/RED TEAM WIN.png"))));
+		this.BlueWin = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/BLUE TEAM WIN.png"))));
+		this.GameBG = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BG/GameBG.png"))));
 		// Class Spaceship
-		this.BlueShip = new ImageView(new Image(this.getClass().getResourceAsStream("BlueShip/Blue Ship.png")));
-		this.RedShip = new ImageView(new Image(this.getClass().getResourceAsStream("RedShip/Red Ship.png")));
+		this.BlueShip = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BlueShip/Blue Ship.png"))));
+		this.RedShip = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("RedShip/Red Ship.png"))));
 		this.BlueBomb = new ImageView(
-				new Image(this.getClass().getResourceAsStream("BlueShip/Blue Ship exposive.png")));
-		this.RedBomb = new ImageView(new Image(this.getClass().getResourceAsStream("RedShip/Red Ship exposive.png")));
+				new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BlueShip/Blue Ship exposive.png"))));
+		this.RedBomb = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("RedShip/Red Ship exposive.png"))));
 
 		// Class Bullet
-		this.RedBullet = new ImageView(new Image(this.getClass().getResourceAsStream("RedShip/Red Ship bullet.png")));
+		this.RedBullet = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("RedShip/Red Ship bullet.png"))));
 		this.BlueBullet = new ImageView(
-				new Image(this.getClass().getResourceAsStream("BlueShip/Blue Ship bullet_.png")));
-		this.ItemSpeed = new ImageView(new Image(this.getClass().getResourceAsStream("Item/Item Speed.png")));
-		this.ItemEnergy = new ImageView(new Image(this.getClass().getResourceAsStream("Item/Item Energy.png")));
-		this.ItemMove = new ImageView(new Image(this.getClass().getResourceAsStream("Item/Item Move.png")));
+				new Image(this.getClass().getResourceAsStream(classLoaderNewString ("BlueShip/Blue Ship bullet_.png"))));
+		this.ItemSpeed = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("Item/Item Speed.png"))));
+		this.ItemEnergy = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("Item/Item Energy.png"))));
+		this.ItemMove = new ImageView(new Image(this.getClass().getResourceAsStream(classLoaderNewString ("Item/Item Move.png"))));
 	}
 
 	public ImageLoader(String input) {
@@ -51,6 +51,10 @@ public class ImageLoader {
 		return Input_image;
 	}
 
+	
+	public String classLoaderNewString (String string) {
+		return new String(string);
+	}
 	public Object getGetClass() {
 		return getClass;
 	}

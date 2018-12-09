@@ -97,13 +97,9 @@ public class GameMenu extends Pane {
 			Quit.setBackground(null);
 			Quit.setEffect(null);
 		});
-
-	}
-
-	void drawBoard() {
 		root.getChildren().addAll(Menu,box,GameTitle);
-
 	}
+
 
 	public Stage getTheStage() {
 		return theStage;

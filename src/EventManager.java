@@ -19,8 +19,8 @@ import javafx.util.Duration;
 public class EventManager {
 
 	private Pane root;
-	private SpaceShip ShipLeft;
-	private SpaceShip ShipRight;
+	private SpaceShip ShipBlue;
+	private SpaceShip ShipRed;
 	private int step;
 	private final static int STEP_UP = -100;
 	private final static int STEP_DOWN = 100;
@@ -61,7 +61,7 @@ public class EventManager {
 
 	//
 
-	// getShipLeftinputstream();
+	// getShipBlueinputstream();
 	// getShipRigtinputstream();
 	public EventManager(Pane root, Scene scene, Stage theStage) throws FileNotFoundException {
 		this.root = root;
@@ -71,8 +71,8 @@ public class EventManager {
 		GameBG.setFitHeight(600);
 		GameBG.setFitWidth(800);
 		this.theStage = theStage;
-		this.ShipLeft = new SpaceShip(120, 300, true);
-		this.ShipRight = new SpaceShip(680, 300, false);
+		this.ShipBlue = new SpaceShip(120, 300, true);
+		this.ShipRed = new SpaceShip(680, 300, false);
 
 		bulletList = new ArrayList<Bullet>();
 		isGameEnd = false;
@@ -80,8 +80,8 @@ public class EventManager {
 		
 		//Draw Borad
 		this.root.getChildren().add(GameBG);
-		this.root.getChildren().add(ShipLeft.getSpaceShip());
-		this.root.getChildren().add(ShipRight.getSpaceShip());
+		this.root.getChildren().add(ShipBlue.getSpaceShip());
+		this.root.getChildren().add(ShipRed.getSpaceShip());
 
 		p.setProgress(1.0);
 		p.setPrefWidth(400);
@@ -134,8 +134,8 @@ public class EventManager {
 		}
 		// ************************************* Fix Center
 		// *************************************//
-		if (ShipLeft.getY_axis() + step >= 100 && ShipLeft.getY_axis() + step <= 500 && step != 0 && energy1 > 2) {
-			ShipLeft.setY_axis(ShipLeft.getY_axis() + step);
+		if (ShipBlue.getY_axis() + step >= 100 && ShipBlue.getY_axis() + step <= 500 && step != 0 && energy1 > 2) {
+			ShipBlue.setY_axis(ShipBlue.getY_axis() + step);
 			energy1 -= 1;
 			e1.setProgress((double) energy1 / 100.0);
 		}
@@ -157,9 +157,9 @@ public class EventManager {
 		}
 		// ************************************* Fix Center
 		// *************************************//
-		if (ShipRight.getSpaceShip().getY() + step >= 100 && ShipRight.getSpaceShip().getY() + step <= 500 && step != 0
+		if (ShipRed.getSpaceShip().getY() + step >= 100 && ShipRed.getSpaceShip().getY() + step <= 500 && step != 0
 				&& energy2 > 2) {
-			ShipRight.setY_axis(ShipRight.getY_axis() + step);
+			ShipRed.setY_axis(ShipRed.getY_axis() + step);
 			energy2 -= 1;
 			e2.setProgress((double) energy2 / 100.0);
 		}
@@ -171,7 +171,7 @@ public class EventManager {
 		{
 			int bb = new Random().nextInt(3);
 			String xy = new String(s[bb]);
-			Bullet e = new Bullet(220 + (new Random().nextInt(17)) * 20, 100 + new Random().nextInt(5) * 100, 3, xy,bb);
+			Bullet e = new Bullet(220 + (new Random().nextInt(17)) * 20, 100+25 + new Random().nextInt(5) * 100, 3, xy,bb);
 			System.out.println("xxx");
 			root.getChildren().add(e.getbulletImageView());
 			bulletList.add(e);
@@ -187,7 +187,7 @@ public class EventManager {
 	void fireOne(KeyEvent event) throws FileNotFoundException, IllegalStateException {
 		if (event.getCode() == KeyCode.D && (time1 < Timer.TIME || last1 > 0) && energy1 > 2) {
 
-			Bullet v = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY(), 1, "BlueShip/Blue Ship bullet_.png");
+			Bullet v = new Bullet(ShipBlue.getSpaceShip().getX()+25, ShipBlue.getSpaceShip().getY()+25, 1, new String("BlueShip/Blue Ship bullet_.png"));
 			if (last1 > 0)
 				v.setSpeed(2);
 			else
@@ -195,13 +195,13 @@ public class EventManager {
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			if (fff > 0) {
-				double hi = ShipLeft.getSpaceShip().getY() - 100;
+				double hi = ShipBlue.getSpaceShip().getY() - 100;
 				if (hi == 0) {
 					hi -= 100;
 				}
 
-				Bullet vv = new Bullet(ShipLeft.getSpaceShip().getX(), ShipLeft.getSpaceShip().getY() + 100, 1,new String("BlueShip/Blue Ship bullet_.png"));
-				Bullet vvv = new Bullet(ShipLeft.getSpaceShip().getX(), hi, 1,new String("BlueShip/Blue Ship bullet_.png"));
+				Bullet vv = new Bullet(ShipBlue.getSpaceShip().getX()+25, ShipBlue.getSpaceShip().getY() + 125, 1,new String("BlueShip/Blue Ship bullet_.png"));
+				Bullet vvv = new Bullet(ShipBlue.getSpaceShip().getX()+25, hi+25, 1,new String("BlueShip/Blue Ship bullet_.png"));
 				vv.setSpeed(v.getSpeed());
 				vvv.setSpeed(v.getSpeed());
 				bulletList.add(vv);
@@ -216,7 +216,7 @@ public class EventManager {
 
 		}
 		if (event.getCode() == KeyCode.LEFT && (time2 < Timer.TIME || last2 > 0) && energy2 > 2) {
-			Bullet v = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY(), -1, "RedShip/Red Ship bullet.png");
+			Bullet v = new Bullet(ShipRed.getSpaceShip().getX()-25, ShipRed.getSpaceShip().getY()+25, -1, new String("RedShip/Red Ship bullet.png"));
 			if (last2 > 0)
 				v.setSpeed(2);
 			else
@@ -224,13 +224,13 @@ public class EventManager {
 			bulletList.add(v);
 			root.getChildren().add(v.getbulletImageView());
 			if (ggg > 0) {
-				Bullet vv = new Bullet(ShipRight.getSpaceShip().getX(), ShipRight.getSpaceShip().getY() + 100, -1,new String("RedShip/Red Ship bullet.png"));
-				double hi = ShipRight.getSpaceShip().getY() - 100;
+				Bullet vv = new Bullet(ShipRed.getSpaceShip().getX()-25, ShipRed.getSpaceShip().getY()+25 + 100, -1,new String("RedShip/Red Ship bullet.png"));
+				double hi = ShipRed.getSpaceShip().getY() - 100;
 				if (hi == 0) {
 					hi -= 100;
 				}
 
-				Bullet vvv = new Bullet(ShipRight.getSpaceShip().getX(), hi, -1,new String("RedShip/Red Ship bullet.png"));
+				Bullet vvv = new Bullet(ShipRed.getSpaceShip().getX()-25, hi+25, -1,new String("RedShip/Red Ship bullet.png"));
 				vv.setSpeed(v.getSpeed());
 				vvv.setSpeed(v.getSpeed());
 				bulletList.add(vv);
@@ -371,7 +371,7 @@ public class EventManager {
 
 									}
 
-									if (x.getX_axis() == ShipLeft.getX_axis() && x.getY_axis() == ShipLeft.getY_axis()
+									if (x.getX_axis() == ShipBlue.getX_axis()+25 && x.getY_axis() == ShipBlue.getY_axis()+25
 											&& x.getbulletImageView().isVisible()) {
 										x.getbulletImageView().setVisible(false);
 										hpOne -= 1;
@@ -379,8 +379,8 @@ public class EventManager {
 											p.setProgress((double) hpOne / 10.0);
 										}
 
-									} else if (x.getX_axis() == ShipRight.getX_axis()
-											&& x.getY_axis() == ShipRight.getY_axis()
+									} else if (x.getX_axis() == ShipRed.getX_axis()-25
+											&& x.getY_axis() == ShipRed.getY_axis()+25
 											&& x.getbulletImageView().isVisible()) {
 										x.getbulletImageView().setVisible(false);
 										hpTwo -= 1;
@@ -392,27 +392,33 @@ public class EventManager {
 
 									if (hpOne <= 0 || hpTwo <= 0) {
 										if (hpOne <= 0) {
-											root.getChildren().add(ShipLeft.Bomb());
-											if (  ShipLeft.isBomb() ) {
-												root.getChildren().remove(ShipLeft.Bomb());
-												ShipLeft.BombReClaim();
+											System.out.println("ShipBlue.Bomb()");
+											root.getChildren().add(ShipBlue.Bomb());
+											
+											if (  ShipBlue.isBomb() ) {
+												System.out.println("ShipBlue isBomb");
+												root.getChildren().remove(ShipBlue.Bomb());
+												ShipBlue.BombReClaim();
 												theStage.setScene(Gamescene);
 											}
 										} else if (hpTwo <= 0) {
-											root.getChildren().add(ShipRight.Bomb());
-											if ( ShipRight.isBomb()) {
-												root.getChildren().remove(ShipRight.Bomb());
-												ShipRight.BombReClaim();
+											System.out.println("ShipRed.Bomb()");
+											root.getChildren().add(ShipRed.Bomb());
+											if ( ShipRed.isBomb()) {
+												System.out.println("ShipRed isBomb");
+												root.getChildren().remove(ShipRed.Bomb());
+												ShipRed.BombReClaim();
 												theStage.setScene(Gamescene);
 											}
 											
 										}
-										if ( ShipRight.isBomb() ||  ShipLeft.isBomb()) {
+										if ( ShipRed.isBomb() ||  ShipBlue.isBomb()) {
 											theStage.setScene(Gamescene);
 											hpOne = 10;
 											hpTwo = 10;
 											p.setProgress(1.0);
 											p2.setProgress(1.0);
+
 											break;
 										}
 											
@@ -447,14 +453,14 @@ public class EventManager {
 					
 					
 
-//					if (ShipLeft.isBomb() || ShipRight.isBomb()) {
+//					if (ShipBlue.isBomb() || ShipRed.isBomb()) {
 //						theStage.setScene(Gamescene);
 //						hpOne = 10;
 //						hpTwo = 10;
 //						p.setProgress(1.0);
 //						p2.setProgress(1.0);
-//						ShipLeft.BombReClaim();
-//						ShipRight.BombReClaim();
+//						ShipBlue.BombReClaim();
+//						ShipRed.BombReClaim();
 //						for (int i = bulletList.size() - 1; i != -1; i--) { // Remove all old Bullet
 //							bulletList.get(i).getbulletImageView().setVisible(false);
 //							bulletList.remove(i);

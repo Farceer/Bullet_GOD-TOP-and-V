@@ -26,7 +26,6 @@ public class Main extends Application {
 		Scene GameScene = new Scene(PaneGame, 800, 600);
 
 		GameMenu GameMenu = new GameMenu(PaneMenu, GameScene, theStage);
-		GameMenu.drawBoard();
 		EventManager GamePane = new EventManager(PaneGame, MenuScene, theStage);
 
 
