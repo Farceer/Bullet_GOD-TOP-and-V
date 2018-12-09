@@ -19,6 +19,31 @@ import javafx.stage.Stage;
 public class GameMenu extends Pane {
 	private Pane root;
 	private Button Start;
+	private int type=0;
+	public Button getStart() {
+		return Start;
+	}
+
+	public void setStart(Button start) {
+		Start = start;
+	}
+
+	public Button getCredit() {
+		return Credit;
+	}
+
+	public void setCredit(Button credit) {
+		Credit = credit;
+	}
+
+	public Button getQuit() {
+		return Quit;
+	}
+
+	public void setQuit(Button quit) {
+		Quit = quit;
+	}
+
 	private Button Credit;
 	private Button Quit;
 	private VBox box;
@@ -36,7 +61,7 @@ public class GameMenu extends Pane {
 //		QuitGUI= new ImageView(new Image(QuitGUI_path));
 //		String Menu_path = ClassLoader.getSystemResource("BG/MenuBG.png").toString();
 //		Menu = new ImageView(new Image(Menu_path));
-		
+		type=x;
 		ImageLoader loader = new ImageLoader();
 		Menu      = loader.getMenu();
 		if(x==2)
@@ -111,12 +136,17 @@ public class GameMenu extends Pane {
 			Quit.setBackground(null);
 			Quit.setEffect(null);
 		});
+		
 
 	}
 
 	void drawBoard() {
 		//root.getChildren().clear();
 		root.getChildren().addAll(Menu,box,GameTitle);
+		if(type!=0)
+		{
+			Quit.setVisible(false);
+		}
 
 	}
 

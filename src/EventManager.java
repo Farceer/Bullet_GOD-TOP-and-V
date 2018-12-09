@@ -13,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -31,7 +32,9 @@ public class EventManager {
 	private boolean isGameEnd;
 	private String s[] = new String[] { "Item/Item Energy.png", "Item/Item Move.png",
 			"Item/Item Speed.png" };
-
+	private Pane root1;
+	private Pane root2;
+	
 	private Scene Gamescene;
 	private Stage theStage;
 	
@@ -66,7 +69,9 @@ public class EventManager {
 	
 	// getShipLeftinputstream();
 	// getShipRigtinputstream();
-	public EventManager(Pane root, Scene scene, Stage theStage,Scene Red,Scene Blue) throws FileNotFoundException {
+	public EventManager(Pane root, Scene scene, Stage theStage,Scene Red,Scene Blue,Pane R,Pane B) throws FileNotFoundException {
+		root1=R;
+		root2=B;
 		RedWin=Red;
 		BlueWin=Blue;
 		this.root = root;
@@ -422,16 +427,7 @@ public class EventManager {
 
 									if (hpOne <= 0 || hpTwo <= 0) {
 										
-										Circle rect = new Circle(0, 0, 10000);
-										root.getChildren().add(rect);
-
-										rect.setFill(Color.color(Math.random(), Math.random(), Math.random()));
-
-										FadeTransition ft = new FadeTransition(Duration.millis(200), rect);
-										ft.setFromValue(1);
-										ft.setToValue(0);
-
-										ft.play();
+										
 										if (hpOne <= 0) {
 											
 											ShipBlue.getSpaceShip().setVisible(false);
@@ -457,6 +453,7 @@ public class EventManager {
 											if(ShipBlue.isBomb())
 											{
 												theStage.setScene(RedWin);
+												
 											}
 											else
 											{
@@ -472,7 +469,40 @@ public class EventManager {
 											ShipBlue.setBomb(false);
 											ShipRed.setBomb(false);
 											//gg=true;
-											return;
+											Rectangle rect = new Rectangle(0, 0, 800,350);
+											Rectangle rect2 = new Rectangle(0,450,800,300);
+											Rectangle rect3 = new Rectangle(0,200,350,300);
+											Rectangle rect4 = new Rectangle(450,200,350,300);
+											root1.getChildren().addAll(rect2,rect,rect3,rect4);
+											
+											rect.setFill(Color.RED);
+											rect2.setFill(Color.RED);
+											rect3.setFill(Color.RED);
+											rect4.setFill(Color.RED);
+
+											FadeTransition ft = new FadeTransition(Duration.millis(2000), rect);
+											ft.setFromValue(1);
+											ft.setToValue(0);
+											
+											FadeTransition ft2 = new FadeTransition(Duration.millis(2000), rect2);
+											ft2.setFromValue(1);
+											ft2.setToValue(0);
+											
+											FadeTransition ft3 = new FadeTransition(Duration.millis(1500), rect3);
+											ft3.setFromValue(1);
+											ft3.setToValue(0);
+											
+											FadeTransition ft4 = new FadeTransition(Duration.millis(1500), rect4);
+											ft4.setFromValue(1);
+											ft4.setToValue(0);
+
+											ft.play();
+											ft2.play();
+											ft3.play();
+											ft4.play();
+											//ft.setDelay(Duration.millis(5000));
+											//root1.getChildren().remove(rect);
+											
 											//https://github.com/Farceer/Bullet_GOD-TOP-and-V.git
 									
 										}

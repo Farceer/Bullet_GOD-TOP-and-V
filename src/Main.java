@@ -35,7 +35,7 @@ public class Main extends Application {
 		RedMenu.drawBoard();
 		BlueMenu.drawBoard();
 		GameMenu.drawBoard();
-		EventManager GamePane = new EventManager(PaneGame, MenuScene, theStage,RedWin,BlueWin);
+		EventManager GamePane = new EventManager(PaneGame, MenuScene, theStage,RedWin,BlueWin,Red,Blue);
 
 
 		GameScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
