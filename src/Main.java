@@ -17,6 +17,10 @@ public class Main extends Application {
 		this.theStage = theStage;
 		Pane PaneMenu = new Pane();
 		Pane PaneGame = new Pane();
+		Pane Red =new Pane();
+		Pane Blue =new Pane();
+		Scene RedWin =new Scene(Red,800,600);
+		Scene BlueWin = new Scene(Blue,800,600);
 		Scene MenuScene = new Scene(PaneMenu, 800, 600);
 		
 		
@@ -25,8 +29,13 @@ public class Main extends Application {
 		theStage.setAlwaysOnTop(false);
 		Scene GameScene = new Scene(PaneGame, 800, 600);
 
-		GameMenu GameMenu = new GameMenu(PaneMenu, GameScene, theStage);
-		EventManager GamePane = new EventManager(PaneGame, MenuScene, theStage);
+		GameMenu GameMenu = new GameMenu(PaneMenu, GameScene, theStage,0);
+		GameMenu RedMenu =new GameMenu(Red,GameScene,theStage,1);
+		GameMenu BlueMenu =new GameMenu(Blue,GameScene,theStage,2);
+		RedMenu.drawBoard();
+		BlueMenu.drawBoard();
+		GameMenu.drawBoard();
+		EventManager GamePane = new EventManager(PaneGame, MenuScene, theStage,RedWin,BlueWin);
 
 
 		GameScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {

@@ -34,6 +34,9 @@ public class EventManager {
 
 	private Scene Gamescene;
 	private Stage theStage;
+	
+	private Scene RedWin;
+	private Scene BlueWin;
 	// Timer
 	private int time1 = 0;
 	private int time2 = 0;
@@ -56,14 +59,16 @@ public class EventManager {
 	ProgressBar e1 = new ProgressBar();
 	ProgressBar e2 = new ProgressBar();
 	public static boolean magic = true;
+	
 
 	//
 
-	//
-
-	// getShipBlueinputstream();
+	
+	// getShipLeftinputstream();
 	// getShipRigtinputstream();
-	public EventManager(Pane root, Scene scene, Stage theStage) throws FileNotFoundException {
+	public EventManager(Pane root, Scene scene, Stage theStage,Scene Red,Scene Blue) throws FileNotFoundException {
+		RedWin=Red;
+		BlueWin=Blue;
 		this.root = root;
 		Gamescene = scene;
 		ImageLoader loadGameBG = new ImageLoader(new  String("BG/GameBG.png"));
@@ -371,19 +376,44 @@ public class EventManager {
 
 									}
 
-									if (x.getX_axis() == ShipBlue.getX_axis()+25 && x.getY_axis() == ShipBlue.getY_axis()+25
+									if (Math.abs(x.getX_axis() - ShipBlue.getX_axis()+25) <50 && x.getY_axis() == ShipBlue.getY_axis()+25
 											&& x.getbulletImageView().isVisible()) {
 										x.getbulletImageView().setVisible(false);
 										hpOne -= 1;
+										Circle rect = new Circle(x.getX_axis(), x.getY_axis()+10 , 10000);
+										root.getChildren().add(rect);
+
+										rect.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+
+										FadeTransition ft = new FadeTransition(Duration.millis(200), rect);
+										ft.setFromValue(1);
+										ft.setToValue(0);
+
+										ft.play();
+										bulletList.remove(x);
+								
 										if (hpOne >= 0) {
 											p.setProgress((double) hpOne / 10.0);
 										}
+										
 
-									} else if (x.getX_axis() == ShipRed.getX_axis()-25
+									} else if (Math.abs(x.getX_axis() - ShipRed.getX_axis()-25)<50
 											&& x.getY_axis() == ShipRed.getY_axis()+25
 											&& x.getbulletImageView().isVisible()) {
 										x.getbulletImageView().setVisible(false);
 										hpTwo -= 1;
+										Circle rect = new Circle(x.getX_axis()-20, x.getY_axis()+10, 10000);
+										root.getChildren().add(rect);
+
+										rect.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+
+										FadeTransition ft = new FadeTransition(Duration.millis(200), rect);
+										ft.setFromValue(1);
+										ft.setToValue(0);
+
+										ft.play();
+										bulletList.remove(x);
+									
 										if (hpTwo >= 0) {
 											p2.setProgress((double) hpTwo / 10.0);
 										}
@@ -391,38 +421,63 @@ public class EventManager {
 									// BOMB //
 
 									if (hpOne <= 0 || hpTwo <= 0) {
+										
+										Circle rect = new Circle(0, 0, 10000);
+										root.getChildren().add(rect);
+
+										rect.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+
+										FadeTransition ft = new FadeTransition(Duration.millis(200), rect);
+										ft.setFromValue(1);
+										ft.setToValue(0);
+
+										ft.play();
 										if (hpOne <= 0) {
-											System.out.println("ShipBlue.Bomb()");
-											root.getChildren().add(ShipBlue.Bomb());
 											
-											if (  ShipBlue.isBomb() ) {
-												System.out.println("ShipBlue isBomb");
-												root.getChildren().remove(ShipBlue.Bomb());
-												ShipBlue.BombReClaim();
-												theStage.setScene(Gamescene);
-											}
+											ShipBlue.getSpaceShip().setVisible(false);
+											ShipBlue.setBomb(true);
+											
+
 										} else if (hpTwo <= 0) {
-											System.out.println("ShipRed.Bomb()");
-											root.getChildren().add(ShipRed.Bomb());
-											if ( ShipRed.isBomb()) {
-												System.out.println("ShipRed isBomb");
-												root.getChildren().remove(ShipRed.Bomb());
-												ShipRed.BombReClaim();
-												theStage.setScene(Gamescene);
+											
+											ShipRed.getSpaceShip().setVisible(false);
+											ShipRed.setBomb(true);
+											
+
+										}
+
+										for (int i = bulletList.size() - 1; i != -1; i--) { // Remove all old Bullet
+											bulletList.get(i).getbulletImageView().setVisible(false);
+											bulletList.remove(i);
+											System.out.println("Remove");
+
+										}
+										
+										if (ShipBlue.isBomb() || ShipRed.isBomb()) {
+											if(ShipBlue.isBomb())
+											{
+												theStage.setScene(RedWin);
+											}
+											else
+											{
+												theStage.setScene(BlueWin);
 											}
 											
-										}
-										if ( ShipRed.isBomb() ||  ShipBlue.isBomb()) {
-											theStage.setScene(Gamescene);
 											hpOne = 10;
 											hpTwo = 10;
 											p.setProgress(1.0);
 											p2.setProgress(1.0);
-
-											break;
+											ShipBlue.BombReClaim();
+											ShipRed.BombReClaim();
+											ShipBlue.setBomb(false);
+											ShipRed.setBomb(false);
+											//gg=true;
+											return;
+											//https://github.com/Farceer/Bullet_GOD-TOP-and-V.git
+									
 										}
-											
 										
+
 									}
 									// BOMB //
 
@@ -438,8 +493,9 @@ public class EventManager {
 											break;
 										}
 									}
-								}
-							}
+
+								}}
+							
 						});
 
 						// ArrayList<Bullet> A=(ArrayList<Bullet>) bulletList.clone();

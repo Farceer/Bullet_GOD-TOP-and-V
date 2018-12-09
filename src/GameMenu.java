@@ -26,7 +26,7 @@ public class GameMenu extends Pane {
 	private Stage theStage;
 	 ImageView Menu, GameTitle, StartGUI, QuitGUI;// Rectangle Text = new Rectangle(400, 200,Color.BLUE); GAME
 															// TITLE
-	public GameMenu(Pane root, Scene scene, Stage theStage) throws FileNotFoundException {
+	public GameMenu(Pane root, Scene scene, Stage theStage ,int x) throws FileNotFoundException {
 		this.root = root;
 //		String GameTitle_path = ClassLoader.getSystemResource("BG/Bullet GOD title.png").toString();
 //		GameTitle  = new ImageView(new Image(GameTitle_path));
@@ -36,9 +36,23 @@ public class GameMenu extends Pane {
 //		QuitGUI= new ImageView(new Image(QuitGUI_path));
 //		String Menu_path = ClassLoader.getSystemResource("BG/MenuBG.png").toString();
 //		Menu = new ImageView(new Image(Menu_path));
+		
 		ImageLoader loader = new ImageLoader();
 		Menu      = loader.getMenu();
-		GameTitle =loader.getGameTitle();
+		if(x==2)
+		{
+			GameTitle =loader.getBlueWin();
+		}
+		else if(x==1)
+		{
+			GameTitle =loader.getRedWin();
+		}
+		else
+		{
+			GameTitle =loader.getGameTitle();
+			
+		}
+	
 		StartGUI = loader.getStartGUI();
 		QuitGUI  = loader.getQuitGUI();
 		
@@ -97,9 +111,14 @@ public class GameMenu extends Pane {
 			Quit.setBackground(null);
 			Quit.setEffect(null);
 		});
-		root.getChildren().addAll(Menu,box,GameTitle);
+
 	}
 
+	void drawBoard() {
+		//root.getChildren().clear();
+		root.getChildren().addAll(Menu,box,GameTitle);
+
+	}
 
 	public Stage getTheStage() {
 		return theStage;
