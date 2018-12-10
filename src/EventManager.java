@@ -182,10 +182,10 @@ public class EventManager {
 		{
 			int bb = new Random().nextInt(3);
 			String xy = new String(s[bb]);
-			Bullet e = new Bullet(220 + (new Random().nextInt(17)) * 20, 100+25 + new Random().nextInt(5) * 100, 3, xy,bb);
+			Bullet Potion = new Bullet(220 + (new Random().nextInt(17)) * 20, 100+25 + new Random().nextInt(5) * 100, 3, xy,bb);
 			System.out.println("xxx");
-			root.getChildren().add(e.getbulletImageView());
-			bulletList.add(e);
+			root.getChildren().add(Potion.getbulletImageView());
+			bulletList.add(Potion);
 
 			n = 0;
 		} else {

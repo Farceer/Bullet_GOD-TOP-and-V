@@ -26,28 +26,10 @@ public class Bullet {
 		direction = Direction;
 		this.setType(0);
 	}
-///////////////////////////////////////**************************Plz Change to  Potion *********************************************/////////////////////////////
-	public Bullet(double X_axis, double Y_axis, int Direction, String inputstream, int type) {
-		ResouceLoader load = new ResouceLoader(inputstream);
-		bulletImageView = load.getInputImage();
-		// bullet= new Image(inputstream, 50, 50, false, false);
-		// bulletImageView = new ImageView(bullet);
-		bulletImageView.setFitHeight(50);
-		bulletImageView.setFitWidth(50);
-		bulletImageView.setPreserveRatio(true);
-		bulletImageView.setSmooth(false);
-		bulletImageView.setX(X_axis);
-		bulletImageView.setY(Y_axis);
-		direction = Direction;
-		this.setType(type);
 
-	}
-///////////////////////////////////////**************************Plz Change to  Potion *********************************************/////////////////////////////
 	public void update() {
-		if (direction != 3) {
+		
 			bulletImageView.setX(bulletImageView.getX() + 10 * direction * speed);
-		}
-
 	}
 
 
