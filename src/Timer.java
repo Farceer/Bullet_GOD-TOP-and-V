@@ -13,7 +13,7 @@ class Timer extends Thread{
 		{
 		try{
 		
-			Thread.sleep(100);
+			Thread.sleep(200);
 			TIME+=1;
 			//System.out.println(time);
 			}	

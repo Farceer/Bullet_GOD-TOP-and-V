@@ -21,7 +21,7 @@ public class GameMenu extends Pane {
 	private VBox box;
 	private Scene Menuscene;
 	private Stage theStage;
-	ImageView Menu, GameTitle, StartGUI, QuitGUI;// Rectangle Text = new Rectangle(400, 200,Color.BLUE); GAME
+	private ImageView Menu, GameTitle, StartGUI, QuitGUI;// Rectangle Text = new Rectangle(400, 200,Color.BLUE); GAME
 													// TITLE
 
 	public GameMenu(Pane root, Scene scene, Stage theStage, int x) throws FileNotFoundException {
@@ -61,7 +61,7 @@ public class GameMenu extends Pane {
 
 	}
 
-	void drawBoard() {
+	public void drawBoard() {
 		// root.getChildren().clear();
 		if (getType() > 10) { // For Credit menu
 			root.getChildren().addAll(Menu, GameTitle);
@@ -81,6 +81,14 @@ public class GameMenu extends Pane {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public ImageView getQuitGUI() {
+		return QuitGUI;
+	}
+
+	public void setQuitGUI(ImageView quitGUI) {
+		QuitGUI = quitGUI;
 	}
 
 }

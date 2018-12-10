@@ -5,7 +5,6 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -72,16 +71,6 @@ public class Main extends Application {
 			System.exit(0);
 		});
 		timer.start();
-		ResouceLoader loader = new ResouceLoader();
-		try {new Thread(()-> {
-			MediaPlayer startMP=new MediaPlayer(loader.getBgMusic());
-			startMP.setCycleCount(10);
-			startMP.play();
-		}).start();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-
 		theStage.show();
 
 	}

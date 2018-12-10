@@ -127,7 +127,6 @@ public class SpaceShip implements BombAble {
 		rect.setFill(Color.WHITE);
 	}
 
-	@Override
 	public void BombReset() {
 		// TODO Auto-generated method stub
 		this.getSpaceShip().setVisible(true);

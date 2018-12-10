@@ -31,11 +31,11 @@ public class EventManager {
 	private Pane rootPane,rootRedPane,rootBluePane;
 	private Scene Gamescene,RedWin,BlueWin;
 	private Stage theStage;
-	public static ArrayList<Bullet> bulletList;
+	private static ArrayList<Bullet> bulletList;
 	// Timer
 	private int time1 = 0;
 	private int time2 = 0;
-	private static int n = 0 ;
+	private static int rngRatio = 0 ;
 
 	// Progress Bar
 	private static int Red_Immune_State = 0;
@@ -386,6 +386,7 @@ public class EventManager {
 											Red_Mutiple_State = 0;
 											BlueBullet_Speed_State = 0;
 											RedBullet_Speed_State = 0;
+											bulletList = new ArrayList<Bullet>() ;
 	
 										}
 										
@@ -432,10 +433,9 @@ public class EventManager {
 		return theStage;
 	}
 
-	@SuppressWarnings("unused")
 	private void potionRng() throws FileNotFoundException {
 		double random = Math.random() * 1900 + 1;
-		if (random + n > 2000)
+		if (random + rngRatio > 2000)
 
 		{
 			int Rng = new Random().nextInt(3);
@@ -443,9 +443,9 @@ public class EventManager {
 			rootPane.getChildren().add(e.getImageView());
 			bulletList.add(e);
 
-			n = 0;
+			rngRatio = 0;
 		} else {
-			n += 10;
+			rngRatio += 10;
 		}
 	}
 

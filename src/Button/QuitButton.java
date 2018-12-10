@@ -36,10 +36,10 @@ public class QuitButton extends ButtonPress {
 		});
 
 	}
-	public Stage getTheStage() {
+	private Stage getTheStage() {
 		return theStage;
 	}
-	public void setTheStage(Stage theStage) {
+	private void setTheStage(Stage theStage) {
 		this.theStage = theStage;
 	}
 

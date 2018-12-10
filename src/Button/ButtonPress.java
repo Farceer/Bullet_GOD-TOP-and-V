@@ -12,7 +12,7 @@ public class ButtonPress extends Button {
 		this.setGraphic(image);
 		this.setBackground(null);
 
-
+ 
 	}
 
 	public Button getButton() {

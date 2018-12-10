@@ -1,7 +1,9 @@
 import java.io.FileNotFoundException;
 
 public class Potion extends Bullet  {
-	private String s[] = new String[] { "Item/ItemEnergy.png", "Item/ItemMachineGun.png","Item/ItemSpeed.png" };	
+	private String s[] = new String[] { "Item/ItemSpeed.png",
+			"Item/ItemMachineGun.png",
+			"Item/ItemEnergy.png"};	
 	public Potion(double X_axis, double Y_axis, int Direction, int type) throws FileNotFoundException {
 		super(X_axis, Y_axis, Direction);
 		// TODO Auto-generated constructor stub

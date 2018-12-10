@@ -26,7 +26,6 @@ public class ResouceLoader  {
 
 	private Media bgMusic;
 	// Credit
-	private ImageView TOP, V;
 
 	public ResouceLoader() {
 		// Music
@@ -62,10 +61,7 @@ public class ResouceLoader  {
 					new Image(this.getClass().getResourceAsStream(classLoaderNewString("Item/ItemEnergy.png"))));
 			this.ItemMove = new ImageView(
 					new Image(this.getClass().getResourceAsStream(classLoaderNewString("Item/ItemMachineGun.png"))));
-			this.TOP 	=new ImageView(
-					new Image(this.getClass().getResourceAsStream(classLoaderNewString("Charactor/TOP_credit.jpg"))));
-			this.V 	=new ImageView(
-					new Image(this.getClass().getResourceAsStream(classLoaderNewString("Charactor/V_credit.jpg"))));
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -209,17 +205,6 @@ public class ResouceLoader  {
 		return bgMusic;
 	}
 
-	public ImageView getTOP() {
-		TOP.setFitHeight(200);
-		TOP.setFitWidth(200);
-		return TOP;
-	}
-
-	public ImageView getV() {
-		V.setFitHeight(200);
-		V.setFitWidth(200);
-		return V;
-	}
 
 ///////////////////////////////////////**************************CLean Code Alredy*********************************************/////////////////////////////
 ///////////////////////////////////////**************************CLean Code Alredy*********************************************/////////////////////////////
