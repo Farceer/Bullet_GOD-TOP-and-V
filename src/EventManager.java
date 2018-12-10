@@ -88,7 +88,7 @@ public class EventManager {
 			ShipBlue.setY_axis(ShipBlue.getY_axis() + step);
 			ShipBlue.setEnergy(ShipBlue.getEnergy()-1);
 			blueShipEnergyBar.setProgress((double) ShipBlue.getEnergy() / 100.0);
-			Blue_Immune_State -= 1;
+			
 			potionRng();
 		}
 
@@ -113,7 +113,7 @@ public class EventManager {
 			ShipRed.setEnergy(ShipRed.getEnergy()-1);
 			redShipEnergyBar.setProgress((double) ShipRed.getEnergy() / 100.0);
 			potionRng();
-			Red_Immune_State -= 1;
+		
 		}
 
 		step = 0;
@@ -227,12 +227,6 @@ public class EventManager {
 									
 
 									
-									if (Red_Immune_State > 0 ) {
-										ShipRed.getSpaceShip().setVisible(false);
-									}
-									else {
-										ShipRed.getSpaceShip().setVisible(true);
-									}
 									
 									if (x.getImageView().getX() <= 800 && x.getImageView().getX() >= 0) {
 										x.update();
