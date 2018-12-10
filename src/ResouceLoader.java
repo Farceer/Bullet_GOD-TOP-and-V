@@ -30,7 +30,7 @@ public class ResouceLoader  {
 	public ResouceLoader() {
 		// Music
 		try {
-			this.bgMusic = new Media(Main.class.getResource("Music/BGmusic.mp4").toURI().toString());
+			this.bgMusic = new Media(Main.class.getResource("music/BGmusic.mp4").toURI().toString());
 			// Main manu
 			this.Menu = new ImageView(
 					new Image(this.getClass().getResourceAsStream(classLoaderNewString("RenderMenu/MenuBG.png"))));
