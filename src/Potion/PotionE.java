@@ -4,8 +4,8 @@ import java.io.FileNotFoundException;
 
 public class PotionE extends Potion {
 
-	public PotionE(double X_axis, double Y_axis, FileInputStream inputstream) throws FileNotFoundException {
-		super(X_axis, Y_axis);
+	public PotionE(double X_axis, double Y_axis, int type, FileInputStream inputstream) throws FileNotFoundException {
+		super(X_axis, Y_axis, type, inputstream);
 		// TODO Auto-generated constructor stub
 	}
 
