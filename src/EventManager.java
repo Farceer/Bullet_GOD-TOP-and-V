@@ -28,7 +28,6 @@ public class EventManager {
 	private final static int STEP_UP = -100;
 	private final static int STEP_DOWN = 100;
 	private boolean isTheardStart ;
-	private String s[] = new String[] { "Item/ItemEnergy.png", "Item/ItemMachineGun.png","Item/ItemSpeed.png" };
 	private Pane rootPane,rootRedPane,rootBluePane;
 	private Scene Gamescene,RedWin,BlueWin;
 	private Stage theStage;
@@ -36,15 +35,15 @@ public class EventManager {
 	// Timer
 	private int time1 = 0;
 	private int time2 = 0;
-	public static int n = 0 ;
+	private static int n = 0 ;
 
 	// Progress Bar
-	public static int Red_Immune_State = 0;
-	public static int Blue_Immune_state = 0;
-	public static int Blue_Mutiple_State = 0;
-	public static int Red_Mutiple_State = 0;
-	public static int BlueBullet_Speed_State = 0;
-	public static int RedBullet_Speed_State = 0;
+	private static int Red_Immune_State = 0;
+	private static int Blue_Immune_state = 0;
+	private static int Blue_Mutiple_State = 0;
+	private static int Red_Mutiple_State = 0;
+	private static int BlueBullet_Speed_State = 0;
+	private static int RedBullet_Speed_State = 0;
 	private ProgressBar blueShipHealthBar ,redShipHealthBar,blueShipEnergyBar,redShipEnergyBar ;
 
 
@@ -120,7 +119,7 @@ public class EventManager {
 
 	void fireOne(KeyEvent event) throws FileNotFoundException, IllegalStateException  , ConcurrentModificationException ,ClassCastException {
 		if (event.getCode() == KeyCode.D && (time1 < Timer.TIME || BlueBullet_Speed_State > 0) && ShipBlue.getEnergy() > 5) {
-
+			
 			Bullet v,vv,vvv;
 			double hi = ShipBlue.getSpaceShip().getY() - 100;
 			if (hi == 0) {
@@ -188,7 +187,6 @@ public class EventManager {
 			
 			Thread a = new Thread(() -> {
 				while (true) {
-					//************************************************ Plz fix by using  ProgressBarSet ************************************//
 					try {
 
 						Blue_Mutiple_State -= 10;
@@ -208,8 +206,6 @@ public class EventManager {
 						}
 						blueShipEnergyBar.setProgress((double) ShipBlue.getEnergy()  / 100.0);
 						redShipEnergyBar.setProgress((double) ShipRed.getEnergy() / 100.0);
-						
-						//************************************************ Plz fix by using  ProgressBarSet ************************************//
 						Platform.runLater(new Runnable() {
 
 							public void run() {
@@ -244,19 +240,10 @@ public class EventManager {
 												&& x.getImageView().getY() == y.getImageView().getY()
 												&& x.getImageView().isVisible()
 												&& y.getImageView().isVisible()) {
-											x.getImageView().setVisible(false);
-											y.getImageView().setVisible(false);
-
-											Circle rect = new Circle(x.getX_axis() + 25, x.getY_axis() + 25, 45);
-											rootPane.getChildren().add(rect);
-
-											rect.setFill(Color.color(Math.random(), Math.random(), Math.random()));
 											
-											FadeTransition ft = new FadeTransition(Duration.millis(200), rect);
-											ft.setFromValue(1);
-											ft.setToValue(0);
-
-											ft.play();
+											x.Bomb();
+											y.Bomb();
+											rootPane.getChildren().add(y.Bomb());
 											bulletList.remove(x);
 											bulletList.remove(y);
 
@@ -306,20 +293,19 @@ public class EventManager {
 									if (Math.abs(x.getX_axis() - ShipBlue.getX_axis()+25) <50 && x.getY_axis() == ShipBlue.getY_axis()+25
 											&& x.getImageView().isVisible() &&
 											ShipBlue.getSpaceShip().isVisible()) {
-										x.getImageView().setVisible(false);
 										ShipBlue.setHp(ShipBlue.getHp()-1);
+								
 										Circle rect = new Circle(x.getX_axis(), x.getY_axis()+10 , 10000);
 										rootPane.getChildren().add(rect);
-
 										rect.setFill(Color.color(Math.random(), Math.random(), Math.random()));
-
 										FadeTransition ft = new FadeTransition(Duration.millis(200), rect);
 										ft.setFromValue(1);
 										ft.setToValue(0);
 
 										ft.play();
+										x.Bomb();
 										bulletList.remove(x);
-								
+										
 										if (ShipBlue.getHp() >= 0) {
 											blueShipHealthBar.setProgress((double) ShipBlue.getHp() / 10.0);
 										}
@@ -329,8 +315,9 @@ public class EventManager {
 											&& x.getY_axis() == ShipRed.getY_axis()+25
 											&& x.getImageView().isVisible()
 											&& ShipRed.getSpaceShip().isVisible()) {
-										x.getImageView().setVisible(false);
+										
 										ShipRed.setHp(ShipRed.getHp()-1);
+										x.Bomb();
 										Circle rect = new Circle(x.getX_axis()-20, x.getY_axis()+10, 10000);
 										rootPane.getChildren().add(rect);
 
@@ -341,12 +328,12 @@ public class EventManager {
 										ft.setToValue(0);
 
 										ft.play();
+										bulletList.remove(x);
 			
 										if (ShipRed.getHp() >= 0) {
 											redShipHealthBar.setProgress((double) ShipRed.getHp()  / 10.0);
 										}
 									}
-									// BOMB //
 
 									if (ShipRed.getHp()  <= 0 || ShipBlue.getHp() <= 0) {
 										
@@ -403,7 +390,6 @@ public class EventManager {
 										
 
 									}
-									// BOMB //
 
 									for (int i = bulletList.size() - 1; i != -1; i--) {
 										if (bulletList.get(i).getX_axis() >= 799
@@ -445,14 +431,14 @@ public class EventManager {
 		return theStage;
 	}
 
-	public void potionRng() {
+	@SuppressWarnings("unused")
+	private void potionRng() throws FileNotFoundException {
 		double random = Math.random() * 1900 + 1;
 		if (random + n > 2000)
 
 		{
 			int Rng = new Random().nextInt(3);
-			String Path = new String(s[Rng]);
-			Potion e = new Potion(220 + (new Random().nextInt(17)) * 20, 100+25 + new Random().nextInt(5) * 100, 3, Path,Rng);
+			Bullet e = new Potion(220 + (new Random().nextInt(17)) * 20, 100+25 + new Random().nextInt(5) * 100, 3,Rng);
 			rootPane.getChildren().add(e.getImageView());
 			bulletList.add(e);
 

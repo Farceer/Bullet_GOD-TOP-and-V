@@ -89,15 +89,15 @@ public class SpaceShip implements BombAble {
 	}
 
 
-	@Override
+
 	public boolean isBomb() {
-		// TODO Auto-generated method stub
+		
 		return this.isShipBomb;
 	}
 
-	@Override
+
 	public boolean setBomb(boolean ShipStatus) {
-		// TODO Auto-generated method stub
+		
 		return this.isShipBomb = ShipStatus;
 	}
 	

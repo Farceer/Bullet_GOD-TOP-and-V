@@ -3,18 +3,23 @@
 
 import java.io.FileNotFoundException;
 
+import javafx.animation.FadeTransition;
+import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 ///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
 ///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
 ///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
 ///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
 public class Bullet implements BombAble {
 
-	private int direction;
-	private int type;
-	private int speed = 1;
-	private ImageView bulletImageView;
-
+	protected int direction;
+	protected int type;
+	protected int speed = 1;
+	protected ImageView ImageView;
+	
 	private ResouceLoader load = new ResouceLoader("Charactor/BlueShipBullet.png");
 	private ResouceLoader load2 = new ResouceLoader("Charactor/RedShip bullet.png");
 	
@@ -24,28 +29,28 @@ public class Bullet implements BombAble {
 	
 		if(Direction==1)
 		{
-			bulletImageView = load.getInputImage();
+			ImageView = load.getInputImage();
 		}
 		else {
-			bulletImageView = load2.getInputImage();
+			ImageView = load2.getInputImage();
 		}
 		
-		bulletImageView.setFitHeight(50);
+		ImageView.setFitHeight(50);
 		
-		bulletImageView.setFitWidth(50);
+		ImageView.setFitWidth(50);
 		
-		bulletImageView.setPreserveRatio(true);
-		bulletImageView.setSmooth(false);
-		bulletImageView.setX(X_axis);
-		bulletImageView.setY(Y_axis);
-		bulletImageView.setScaleY(2);
+		ImageView.setPreserveRatio(true);
+		ImageView.setSmooth(false);
+		ImageView.setX(X_axis);
+		ImageView.setY(Y_axis);
+		ImageView.setScaleY(2);
 		direction = Direction;
 		this.setType(0);
 	}
 	
 	public void update() {
 		
-			bulletImageView.setX(bulletImageView.getX() + 10 * direction * speed);
+		ImageView.setX(ImageView.getX() + 10 * direction * speed);
 	}
 
 
@@ -66,7 +71,7 @@ public class Bullet implements BombAble {
 	}
 
 	public ImageView getImageView() {
-		return bulletImageView;
+		return ImageView;
 	}
 	
 
@@ -94,22 +99,19 @@ public class Bullet implements BombAble {
 		return type;
 	}
 
-	@Override
-	public boolean isBomb() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
-	public boolean setBomb(boolean status) {
+	public Group Bomb() {
 		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Object Bomb() {
-		// TODO Auto-generated method stub
-		return null;
+		this.getImageView().setVisible(false);
+		Circle rect = new Circle(this.getX_axis() + 25, this.getY_axis() + 25, 45);
+		rect.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+		FadeTransition ft = new FadeTransition(Duration.millis(200), rect);
+		ft.setFromValue(1);
+		ft.setToValue(0);
+		ft.play();
+		Group g = new Group(rect);
+		return g;
 	}
 
 	@Override
