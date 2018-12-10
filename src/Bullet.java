@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 ///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
 ///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
 ///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
-public class Bullet {
+public class Bullet implements BombAble {
 
 	private int direction;
 	private int type;
@@ -43,23 +43,6 @@ public class Bullet {
 		this.setType(0);
 	}
 	
-	public Bullet(double X_axis, double Y_axis, int Direction, String inputstream, int type) {
-		ResouceLoader load = new ResouceLoader(inputstream);
-		bulletImageView = load.getInputImage();
-		// bullet= new Image(inputstream, 50, 50, false, false);
-		// bulletImageView = new ImageView(bullet);
-		bulletImageView.setFitHeight(50);
-		bulletImageView.setFitWidth(50);
-		bulletImageView.setPreserveRatio(true);
-		bulletImageView.setSmooth(false);
-		bulletImageView.setX(X_axis);
-		bulletImageView.setY(Y_axis);
-		direction = Direction;
-		this.type = type;
-		speed=0;
-
-	}
-
 	public void update() {
 		
 			bulletImageView.setX(bulletImageView.getX() + 10 * direction * speed);
@@ -109,6 +92,30 @@ public class Bullet {
 
 	public int getType() {
 		return type;
+	}
+
+	@Override
+	public boolean isBomb() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean setBomb(boolean status) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Object Bomb() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void BombReset() {
+		// TODO Auto-generated method stub
+		
 	}
 
 ///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////

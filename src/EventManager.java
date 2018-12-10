@@ -251,7 +251,7 @@ public class EventManager {
 											rootPane.getChildren().add(rect);
 
 											rect.setFill(Color.color(Math.random(), Math.random(), Math.random()));
-
+											
 											FadeTransition ft = new FadeTransition(Duration.millis(200), rect);
 											ft.setFromValue(1);
 											ft.setToValue(0);
