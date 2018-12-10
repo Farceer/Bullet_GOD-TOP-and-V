@@ -13,20 +13,34 @@ public class Bullet {
 	private int speed = 1;
 	private ImageView bulletImageView;
 
-	public Bullet(double X_axis, double Y_axis, int Direction, String inputstream) throws FileNotFoundException {
-		ResouceLoader load = new ResouceLoader(inputstream);
-		bulletImageView = load.getInputImage();
-		// bullet= new Image(inputstream, 50, 50, false, false);
+	private ResouceLoader load = new ResouceLoader("Charactor/BlueShipBullet.png");
+	private ResouceLoader load2 = new ResouceLoader("Charactor/RedShip bullet.png");
+	
+
+	public Bullet(double X_axis, double Y_axis, int Direction) throws FileNotFoundException {
+	
+	
+		if(Direction==1)
+		{
+			bulletImageView = load.getInputImage();
+		}
+		else {
+			bulletImageView = load2.getInputImage();
+		}
+		
 		bulletImageView.setFitHeight(50);
+		
 		bulletImageView.setFitWidth(50);
+		
 		bulletImageView.setPreserveRatio(true);
 		bulletImageView.setSmooth(false);
 		bulletImageView.setX(X_axis);
 		bulletImageView.setY(Y_axis);
+		bulletImageView.setScaleY(2);
 		direction = Direction;
 		this.setType(0);
 	}
-///////////////////////////////////////**************************Plz Change to  Potion *********************************************/////////////////////////////
+	
 	public Bullet(double X_axis, double Y_axis, int Direction, String inputstream, int type) {
 		ResouceLoader load = new ResouceLoader(inputstream);
 		bulletImageView = load.getInputImage();
@@ -39,15 +53,14 @@ public class Bullet {
 		bulletImageView.setX(X_axis);
 		bulletImageView.setY(Y_axis);
 		direction = Direction;
-		this.setType(type);
+		this.type = type;
+		speed=0;
 
 	}
-///////////////////////////////////////**************************Plz Change to  Potion *********************************************/////////////////////////////
-	public void update() {
-		if (direction != 3) {
-			bulletImageView.setX(bulletImageView.getX() + 10 * direction * speed);
-		}
 
+	public void update() {
+		
+			bulletImageView.setX(bulletImageView.getX() + 10 * direction * speed);
 	}
 
 
@@ -70,6 +83,7 @@ public class Bullet {
 	public ImageView getbulletImageView() {
 		return bulletImageView;
 	}
+	
 
 	public void setSpeed(int x) {
 		this.speed = x;

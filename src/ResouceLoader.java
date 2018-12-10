@@ -19,7 +19,7 @@ public class ResouceLoader  {
 	private ImageView BlueShip, RedShip, BlueBomb, RedBomb;
 
 	// Class Bullet
-	private ImageView BlueBullet, RedBullet, ItemSpeed, ItemEnergy, ItemMove;
+	private ImageView BlueBullet, RedBullet, ItemSpeed, ItemEnergy, ItemMove,BlueSpeedBullet,RedSpeedBullet;
 
 	private ImageView Input_image;
 

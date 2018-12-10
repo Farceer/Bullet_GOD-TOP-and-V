@@ -28,7 +28,7 @@ public class Main extends Application {
 
 		
 		theStage.setScene(MenuScene);
-		theStage.setResizable(true);
+		theStage.setResizable(false);
 		theStage.setAlwaysOnTop(false);
 		Scene GameScene = new Scene(PaneGame, 800, 600);
 
@@ -76,7 +76,7 @@ public class Main extends Application {
 		ResouceLoader loader = new ResouceLoader();
 		try {new Thread(()-> {
 			MediaPlayer startMP=new MediaPlayer(loader.getBgMusic());
-			startMP.setCycleCount(MediaPlayer.INDEFINITE);
+			startMP.setCycleCount(10);
 			startMP.play();
 		}).start();
 		}catch(Exception e) {
