@@ -39,7 +39,7 @@ public class EventManager {
 
 	// Progress Bar
 	private static int Red_Immune_State = 0;
-	private static int Blue_Immune_state = 0;
+	private static int Blue_Immune_State = 0;
 	private static int Blue_Mutiple_State = 0;
 	private static int Red_Mutiple_State = 0;
 	private static int BlueBullet_Speed_State = 0;
@@ -74,7 +74,7 @@ public class EventManager {
 
 
 	void MoveUnitOne(KeyEvent event) throws FileNotFoundException {
-
+	
 		if (event.getCode() == KeyCode.W) {
 			step = STEP_UP;
 
@@ -88,6 +88,8 @@ public class EventManager {
 			ShipBlue.setY_axis(ShipBlue.getY_axis() + step);
 			ShipBlue.setEnergy(ShipBlue.getEnergy()-1);
 			blueShipEnergyBar.setProgress((double) ShipBlue.getEnergy() / 100.0);
+			Blue_Immune_State -= 1;
+			potionRng();
 		}
 
 		step = 0;
@@ -96,7 +98,7 @@ public class EventManager {
 	}
 
 	void MoveUnitTwo(KeyEvent event) throws FileNotFoundException {
-
+		
 		if (event.getCode() == KeyCode.UP) {
 			step = -100;
 		}
@@ -110,6 +112,8 @@ public class EventManager {
 			ShipRed.setY_axis(ShipRed.getY_axis() + step);
 			ShipRed.setEnergy(ShipRed.getEnergy()-1);
 			redShipEnergyBar.setProgress((double) ShipRed.getEnergy() / 100.0);
+			potionRng();
+			Red_Immune_State -= 1;
 		}
 
 		step = 0;
@@ -121,6 +125,7 @@ public class EventManager {
 		if (event.getCode() == KeyCode.D && (time1 < Timer.TIME || BlueBullet_Speed_State > 0) && ShipBlue.getEnergy() > 5) {
 			
 			Bullet v,vv,vvv;
+			potionRng();
 			double hi = ShipBlue.getSpaceShip().getY() - 100;
 			if (hi == 0) {
 				hi -= 100;
@@ -130,7 +135,7 @@ public class EventManager {
 				vv=  new SpeedBullet(ShipBlue.getSpaceShip().getX()+25, ShipBlue.getSpaceShip().getY()+25+100, 1);
 				vvv = new SpeedBullet(ShipBlue.getSpaceShip().getX()+25, hi+25, 1);
 			}
-			else {
+			else {	potionRng();
 				v = new Bullet(ShipBlue.getSpaceShip().getX()+25, ShipBlue.getSpaceShip().getY()+25, 1);
 				vv=  new Bullet(ShipBlue.getSpaceShip().getX()+25, ShipBlue.getSpaceShip().getY()+25+100, 1);
 				vvv = new Bullet(ShipBlue.getSpaceShip().getX()+25, hi+25, 1);
@@ -144,14 +149,18 @@ public class EventManager {
 				bulletList.add(vvv);
 				rootPane.getChildren().addAll(vv.getImageView(), vvv.getImageView());
 			}
-
-			time1 = Timer.TIME;
-			ShipBlue.setEnergy(ShipBlue.getEnergy()-5);
+			if(Blue_Immune_State<0)
+			{
+				time1 = Timer.TIME;
+				ShipBlue.setEnergy(ShipBlue.getEnergy()-3);
+			}
+		
 			blueShipEnergyBar.setProgress((double) ShipBlue.getEnergy() / 100.0);
 
 		}
 		if (event.getCode() == KeyCode.LEFT && (time2 < Timer.TIME || RedBullet_Speed_State > 0) && ShipRed.getEnergy() > 5) {
 			Bullet v,vv,vvv;
+			potionRng();
 			double hi = ShipRed.getSpaceShip().getY() - 100;
 			if (hi == 0) {
 				hi -= 100;
@@ -170,14 +179,17 @@ public class EventManager {
 			bulletList.add(v);
 			rootPane.getChildren().add(v.getImageView());
 			if (Red_Mutiple_State > 0) {
-				
+			
 				bulletList.add(vv);
 				bulletList.add(vvv);
 				rootPane.getChildren().addAll(vv.getImageView(), vvv.getImageView());
 			}
+			if(Red_Immune_State<=0)
+			{
 			time2 = Timer.TIME;
 
-			ShipRed.setEnergy(ShipRed.getEnergy()-5); 
+			ShipRed.setEnergy(ShipRed.getEnergy()-3); 
+			}
 			redShipEnergyBar.setProgress((double) ShipRed.getEnergy() / 100.0);
 
 		}
@@ -191,8 +203,8 @@ public class EventManager {
 
 						Blue_Mutiple_State -= 10;
 						Red_Mutiple_State -= 10;
-						Blue_Immune_state -= 1;
-						Red_Immune_State -= 1;
+						Red_Immune_State -=1;
+						Blue_Immune_State -=1;
 						BlueBullet_Speed_State -= 1;
 						RedBullet_Speed_State -= 1;
 						Thread.sleep(15);
@@ -212,12 +224,7 @@ public class EventManager {
 								for (Bullet x : bulletList)
 
 								{
-									if (Blue_Immune_state > 0 ) {
-										ShipBlue.getSpaceShip().setVisible(false);
-									}
-									else {
-										ShipBlue.getSpaceShip().setVisible(true);
-									}
+									
 
 									
 									if (Red_Immune_State > 0 ) {
@@ -269,10 +276,10 @@ public class EventManager {
 												}
 												if (x.getType() + y.getType() == 2) {
 													if (x.getDirection() + y.getDirection() != 2) {
-														Blue_Immune_state = 200;
+														Blue_Immune_State = 150;
 
 													} else if (Red_Immune_State <= 0) {
-														/* asd */ Red_Immune_State = 200;
+														/* asd */ Red_Immune_State = 150;
 
 													}
 
@@ -291,8 +298,8 @@ public class EventManager {
 									}
 
 									if (Math.abs(x.getX_axis() - ShipBlue.getX_axis()+25) <50 && x.getY_axis() == ShipBlue.getY_axis()+25
-											&& x.getImageView().isVisible() &&
-											ShipBlue.getSpaceShip().isVisible()) {
+											&& x.getImageView().isVisible() 
+											) {
 										ShipBlue.setHp(ShipBlue.getHp()-1);
 								
 										Circle rect = new Circle(x.getX_axis(), x.getY_axis()+10 , 10000);
@@ -314,7 +321,7 @@ public class EventManager {
 									} else if (Math.abs(x.getX_axis() - ShipRed.getX_axis()-25)<50
 											&& x.getY_axis() == ShipRed.getY_axis()+25
 											&& x.getImageView().isVisible()
-											&& ShipRed.getSpaceShip().isVisible()) {
+										) {
 										
 										ShipRed.setHp(ShipRed.getHp()-1);
 										x.Bomb();
@@ -380,7 +387,7 @@ public class EventManager {
 												ShipRed.BombReset();
 											}
 											Red_Immune_State = 0;
-											Blue_Immune_state = 0;
+											Blue_Immune_State = 0;
 											Blue_Mutiple_State = 0;
 											Red_Mutiple_State = 0;
 											BlueBullet_Speed_State = 0;
