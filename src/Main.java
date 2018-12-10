@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
@@ -25,12 +24,12 @@ public class Main extends Application {
 		Scene RedWin =new Scene(Red,800,600);
 		Scene BlueWin = new Scene(Blue,800,600);
 		Scene MenuScene = new Scene(PaneMenu, 800, 600);
-
+		Scene GameScene = new Scene(PaneGame, 800, 600);
 		
 		theStage.setScene(MenuScene);
 		theStage.setResizable(false);
 		theStage.setAlwaysOnTop(false);
-		Scene GameScene = new Scene(PaneGame, 800, 600);
+
 
 		GameMenu GameMenu = new GameMenu(PaneMenu, GameScene, theStage,0);
 		GameMenu RedMenu =new GameMenu(Red,GameScene,theStage,1);

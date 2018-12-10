@@ -14,6 +14,11 @@ public class SpaceShip implements BombAble {
 	private boolean type;
 	private ResouceLoader loader;
 	private boolean isShipBomb;
+	// Game Chacractor HP
+
+	private int hp;
+	// Game Chacractor Energy
+	private double energy;
 
 	public SpaceShip(double X_axis, double Y_axis, boolean ShipType) { // ShipType True is blue , False is red
 		loader = new ResouceLoader();
@@ -25,6 +30,8 @@ public class SpaceShip implements BombAble {
 		this.Ship.setX(X_axis);
 		this.Ship.setY(Y_axis);
 		this.type = ShipType;
+		this.setHp(10);
+		this.setEnergy(100);
 		this.isShipBomb = false;
 	}
 
@@ -59,6 +66,28 @@ public class SpaceShip implements BombAble {
 	public boolean getShipType() {
 		return this.type;
 	}
+	public int getHp() {
+		return hp;
+	}
+
+	public double getEnergy() {
+		return energy;
+	}
+
+	public void setHp(int hp) {
+		if (hp >= 10 ) {
+			hp = 10 ;
+		}
+		this.hp = hp;
+	}
+
+	public void setEnergy(double energy) {
+		if (energy >= 100 ) {
+			energy = 100 ;
+		}
+		this.energy = energy;
+	}
+
 
 	@Override
 	public boolean isBomb() {
@@ -71,6 +100,7 @@ public class SpaceShip implements BombAble {
 		// TODO Auto-generated method stub
 		return this.isShipBomb = ShipStatus;
 	}
+	
 
 	@Override
 	public Object Bomb() {
@@ -103,9 +133,12 @@ public class SpaceShip implements BombAble {
 		this.getSpaceShip().setVisible(true);
 		this.setY_axis(300); // Set Ship to Center
 		setBomb(false);
+		this.setHp(10);
+		this.setEnergy(100);
 
 	}
-	
+
+
 ///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
 ///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////
 ///////////////////////////////////////**************************CLean Code Already*********************************************/////////////////////////////

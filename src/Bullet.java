@@ -1,4 +1,6 @@
 
+
+
 import java.io.FileNotFoundException;
 
 import javafx.scene.image.ImageView;
@@ -70,17 +72,17 @@ public class Bullet {
 	}
 
 	public void setX_axis(double x_axis) {
-		getbulletImageView().setX(x_axis);
+		getImageView().setX(x_axis);
 	}
 
 	public void setY_axis(double y_axis) {
-		getbulletImageView().setY(y_axis);
+		getImageView().setY(y_axis);
 	}
 	public void setType(int type) {
 		this.type = type;
 	}
 
-	public ImageView getbulletImageView() {
+	public ImageView getImageView() {
 		return bulletImageView;
 	}
 	
@@ -94,11 +96,11 @@ public class Bullet {
 	}
 
 	public double getX_axis() {
-		return getbulletImageView().getX();
+		return getImageView().getX();
 	}
 
 	public double getY_axis() {
-		return getbulletImageView().getY();
+		return getImageView().getY();
 	}
 
 	public int getSpeed() {

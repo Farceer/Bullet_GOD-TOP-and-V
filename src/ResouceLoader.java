@@ -1,4 +1,5 @@
 
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -19,7 +20,7 @@ public class ResouceLoader  {
 	private ImageView BlueShip, RedShip, BlueBomb, RedBomb;
 
 	// Class Bullet
-	private ImageView BlueBullet, RedBullet, ItemSpeed, ItemEnergy, ItemMove,BlueSpeedBullet,RedSpeedBullet;
+	private ImageView BlueBullet, RedBullet, ItemSpeed, ItemEnergy, ItemMove;
 
 	private ImageView Input_image;
 
